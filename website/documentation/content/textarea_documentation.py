@@ -10,8 +10,8 @@ def main_demo() -> None:
     result = ui.label()
 
 
-@doc.demo('Clearable', '''
-    The `clearable` prop from [Quasar](https://quasar.dev/) adds a button to the input that clears the text.
+@doc.demo('可清除', '''
+    来自 [Quasar](https://quasar.dev/) 的 `clearable` 属性为输入框添加一个清除文本的按钮。
 ''')
 def clearable():
     i = ui.textarea(value='some text').props('clearable')

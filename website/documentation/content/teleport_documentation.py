@@ -5,17 +5,17 @@ from . import doc
 
 @doc.demo(ui.teleport)
 def main_demo() -> None:
-    markdown = ui.markdown('Enter your **name**!')
+    markdown = ui.markdown('输入您的**姓名**!')
 
     def inject_input():
         with ui.teleport(f'#{markdown.html_id} strong'):
-            ui.input('name').classes('inline-flex').props('dense outlined')
+            ui.input('姓名').classes('inline-flex').props('dense outlined')
 
-    ui.button('inject input', on_click=inject_input)
+    ui.button('注入输入框', on_click=inject_input)
 
 
-@doc.demo('Radio element with arbitrary content', '''
-    With the right CSS selector, you can place any content inside a standard radio element.
+@doc.demo('带有任意内容的单选按钮元素', '''
+    使用正确的CSS选择器，您可以将任何内容放置在标准单选按钮元素内部。
 ''')
 def arbitrary_content():
     options = ['Star', 'Thump Up', 'Heart']
@@ -29,8 +29,8 @@ def arbitrary_content():
     ui.label().bind_text_from(radio, 'value')
 
 
-@doc.demo('Injecting a graph into a table cell', '''
-    This demo shows how to inject ECharts graphs into table cells.
+@doc.demo('向表格单元格注入图表', '''
+    此演示展示了如何将ECharts图表注入到表格单元格中。
 ''')
 def graph_in_table():
     columns = [

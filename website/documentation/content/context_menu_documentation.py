@@ -7,16 +7,16 @@ from . import doc
 def main_demo() -> None:
     with ui.image('https://picsum.photos/id/377/640/360'):
         with ui.context_menu():
-            ui.menu_item('Flip horizontally')
-            ui.menu_item('Flip vertically')
+            ui.menu_item('水平翻转')
+            ui.menu_item('垂直翻转')
             ui.separator()
-            ui.menu_item('Reset', auto_close=False)
+            ui.menu_item('重置', auto_close=False)
 
 
-@doc.demo('Context menus with dynamic content', '''
-    To show a context menu with content that changes dynamically, e.g. based on the position of the mouse,
-    it is recommended to re-use the same context menu instance.
-    This demo shows how to clear the context menu and add new items to it.
+@doc.demo('具有动态内容的上下文菜单', '''
+    要显示内容动态变化的上下文菜单，例如基于鼠标位置，
+    建议重用相同的上下文菜单实例。
+    此演示展示了如何清除上下文菜单并向其添加新项目。
 ''')
 def update_context_menu() -> None:
     from nicegui import events
@@ -24,7 +24,7 @@ def update_context_menu() -> None:
     def update_menu(e: events.MouseEventArguments) -> None:
         context_menu.clear()
         with context_menu:
-            ui.menu_item(f'Add circle at ({e.image_x:.0f}, {e.image_y:.0f})')
+            ui.menu_item(f'在 ({e.image_x:.0f}, {e.image_y:.0f}) 添加圆形')
 
     source = 'https://picsum.photos/id/377/640/360'
     with ui.interactive_image(source, on_mouse=update_menu, events=['contextmenu']):

@@ -11,9 +11,9 @@ def main_demo() -> None:
     ], label_key='id', on_select=lambda e: ui.notify(e.value))
 
 
-@doc.demo('Tree with custom header and body', '''
-    Scoped slots can be used to insert custom content into the header and body of a tree node.
-    See the [Quasar documentation](https://quasar.dev/vue-components/tree#customize-content) for more information.
+@doc.demo('带自定义标题和正文的树', '''
+    作用域插槽可用于向树节点的标题和正文插入自定义内容。
+    更多信息请参见 [Quasar 文档](https://quasar.dev/vue-components/tree#customize-content)。
 ''')
 def tree_with_custom_header_and_body():
     tree = ui.tree([
@@ -35,8 +35,8 @@ def tree_with_custom_header_and_body():
     ''')
 
 
-@doc.demo('Tree with checkboxes', '''
-    The tree can be used with checkboxes by setting the "tick-strategy" prop.
+@doc.demo('带复选框的树', '''
+    通过设置 "tick-strategy" 属性，可以将树与复选框一起使用。
 ''')
 def tree_with_checkboxes():
     ui.tree([
@@ -45,9 +45,9 @@ def tree_with_checkboxes():
     ], label_key='id', tick_strategy='leaf', on_tick=lambda e: ui.notify(e.value))
 
 
-@doc.demo('Expand/collapse programmatically', '''
-    The whole tree or individual nodes can be toggled programmatically using the `expand()` and `collapse()` methods.
-    This even works if a node is disabled (e.g. not clickable by the user).
+@doc.demo('编程方式展开/折叠', '''
+    可以使用 `expand()` 和 `collapse()` 方法编程方式切换整个树或单个节点。
+    即使节点被禁用（例如用户无法点击），这也有效。
 ''')
 def expand_programmatically():
     t = ui.tree([

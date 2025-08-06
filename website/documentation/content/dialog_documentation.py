@@ -12,10 +12,10 @@ def main_demo() -> None:
     ui.button('Open a dialog', on_click=dialog.open)
 
 
-@doc.demo('Awaitable dialog', '''
-    Dialogs can be awaited.
-    Use the `submit` method to close the dialog and return a result.
-    Canceling the dialog by clicking in the background or pressing the escape key yields `None`.
+@doc.demo('可等待的对话框', '''
+    对话框可以被等待。
+    使用 `submit` 方法关闭对话框并返回结果。
+    通过点击背景或按 ESC 键取消对话框会返回 `None`。
 ''')
 def async_dialog_demo():
     with ui.dialog() as dialog, ui.card():
@@ -31,8 +31,8 @@ def async_dialog_demo():
     ui.button('Await a dialog', on_click=show)
 
 
-@doc.demo('Replacing content', '''
-    The content of a dialog can be changed.
+@doc.demo('替换内容', '''
+    对话框的内容可以被更改。
 ''')
 def replace_content():
     def replace():

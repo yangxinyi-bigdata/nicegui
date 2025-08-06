@@ -12,12 +12,12 @@ def main_demo() -> None:
     ui.plotly(fig).classes('w-full h-40')
 
 
-@doc.demo('Dictionary interface', '''
-    This demo shows how to use the declarative dictionary interface to create a plot.
-    For plots with many traces and data points, this is more efficient than the object-oriented interface.
-    The definition corresponds to the [JavaScript Plotly API](https://plotly.com/javascript/).
-    Due to different defaults, the resulting plot may look slightly different from the same plot created with the object-oriented interface,
-    but the functionality is the same.
+@doc.demo('字典接口', '''
+    这个演示展示了如何使用声明式字典接口创建图表。
+    对于有很多轨迹和数据点的图表，这比面向对象接口更高效。
+    定义对应于 [JavaScript Plotly API](https://plotly.com/javascript/)。
+    由于默认值不同，生成的图表可能与使用面向对象接口创建的相同图表看起来略有不同，
+    但功能是相同的。
 ''')
 def plot_dict_interface():
     fig = {
@@ -46,10 +46,10 @@ def plot_dict_interface():
     ui.plotly(fig).classes('w-full h-40')
 
 
-@doc.demo('Plot updates', '''
-    This demo shows how to update the plot in real time.
-    Click the button to add a new trace to the plot.
-    To send the new plot to the browser, make sure to explicitly call `plot.update()` or `ui.update(plot)`.
+@doc.demo('图表更新', '''
+    这个演示展示了如何实时更新图表。
+    点击按钮向图表添加新轨迹。
+    要将新图表发送到浏览器，请确保显式调用 `plot.update()` 或 `ui.update(plot)`。
 ''')
 def plot_updates():
     from random import random

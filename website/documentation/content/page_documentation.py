@@ -19,11 +19,11 @@ def main_demo() -> None:
 
 
 @doc.auto_execute
-@doc.demo('Pages with Path Parameters', '''
-    Page routes can contain parameters like [FastAPI](https://fastapi.tiangolo.com/tutorial/path-params/).
-    If type-annotated, they are automatically converted to bool, int, float and complex values.
-    If the page function expects a `request` argument, the request object is automatically provided.
-    The `client` argument provides access to the websocket connection, layout, etc.
+@doc.demo('带路径参数的页面', '''
+    页面路由可以包含参数，就像 [FastAPI](https://fastapi.tiangolo.com/tutorial/path-params/)。
+    如果有类型注解，它们会自动转换为 bool、int、float 和 complex 值。
+    如果页面函数期望一个 `request` 参数，请求对象会自动提供。
+    `client` 参数提供对 websocket 连接、布局等的访问。
 ''')
 def page_with_path_parameters_demo():
     @ui.page('/repeat/{word}/{count}')
@@ -34,13 +34,13 @@ def page_with_path_parameters_demo():
 
 
 @doc.auto_execute
-@doc.demo('Wait for Client Connection', '''
-    To wait for a client connection, you can add a `client` argument to the decorated page function
-    and await `client.connected()`.
-    All code below that statement is executed after the websocket connection between server and client has been established.
+@doc.demo('等待客户端连接', '''
+    要等待客户端连接，您可以在装饰的页面函数中添加 `client` 参数
+    并等待 `client.connected()`。
+    该语句下面的所有代码都在服务器和客户端之间建立 websocket 连接后执行。
 
-    For example, this allows you to run JavaScript commands; which is only possible with a client connection (see [#112](https://github.com/zauberzeug/nicegui/issues/112)).
-    Also it is possible to do async stuff while the user already sees some content.
+    例如，这允许您运行 JavaScript 命令；这只有在客户端连接时才可能（参见 [#112](https://github.com/zauberzeug/nicegui/issues/112)）。
+    还可以在用户已经看到一些内容时执行异步操作。
 ''')
 def wait_for_connected_demo():
     import asyncio

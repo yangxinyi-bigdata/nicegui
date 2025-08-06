@@ -19,7 +19,7 @@ def main_demo() -> None:
         line_plot.push([now], [[y1], [y2]], y_limits=(-1.5, 1.5))
 
     line_updates = ui.timer(0.1, update_line_plot, active=False)
-    line_checkbox = ui.checkbox('active').bind_value(line_updates, 'active')
+    line_checkbox = ui.checkbox('激活').bind_value(line_updates, 'active')
 
     # END OF DEMO
     def handle_change(e: events.GenericEventArguments) -> None:

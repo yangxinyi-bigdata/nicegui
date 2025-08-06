@@ -9,10 +9,10 @@ def main_demo() -> None:
         ui.color_picker(on_pick=lambda e: button.classes(f'!bg-[{e.color}]'))
 
 
-@doc.demo('Customize the Color Picker', '''
-    You can customize the color picker via props, classes and style attributes.
-    Because the QColor component is nested inside a menu, you can't use the `props` method directly,
-    but via the `q_color` attribute.
+@doc.demo('自定义颜色选择器', '''
+    您可以通过属性、类和样式属性自定义颜色选择器。
+    因为 QColor 组件嵌套在菜单内，您不能直接使用 `props` 方法，
+    而是通过 `q_color` 属性。
 ''')
 def color_picker_props() -> None:
     with ui.button(icon='palette'):

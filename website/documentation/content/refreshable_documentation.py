@@ -18,11 +18,11 @@ def main_demo() -> None:
         number_ui.refresh()
 
     number_ui()
-    ui.button('Add random number', on_click=add_number)
+    ui.button('添加随机数', on_click=add_number)
 
 
-@doc.demo('Refreshable UI with parameters', '''
-    Here is a demo of how to use the refreshable decorator to create a UI that can be refreshed with different parameters.
+@doc.demo('带参数的可刷新UI', '''
+    这是一个演示，展示了如何使用可刷新装饰器创建一个可以用不同参数刷新的UI。
 ''')
 def refreshable_with_parameters():
     from datetime import datetime
@@ -31,29 +31,29 @@ def refreshable_with_parameters():
 
     @ui.refreshable
     def clock_ui(timezone: str):
-        ui.label(f'Current time in {timezone}:')
+        ui.label(f'{timezone} 的当前时间：')
         ui.label(datetime.now(tz=pytz.timezone(timezone)).strftime('%H:%M:%S'))
 
     clock_ui('Europe/Berlin')
-    ui.button('Refresh', on_click=clock_ui.refresh)
-    ui.button('Refresh for New York', on_click=lambda: clock_ui.refresh('America/New_York'))
-    ui.button('Refresh for Tokyo', on_click=lambda: clock_ui.refresh('Asia/Tokyo'))
+    ui.button('刷新', on_click=clock_ui.refresh)
+    ui.button('刷新纽约时间', on_click=lambda: clock_ui.refresh('America/New_York'))
+    ui.button('刷新东京时间', on_click=lambda: clock_ui.refresh('Asia/Tokyo'))
 
 
-@doc.demo('Refreshable UI for input validation', '''
-    Here is a demo of how to use the refreshable decorator to give feedback about the validity of user input.
+@doc.demo('用于输入验证的可刷新UI', '''
+    这是一个演示，展示了如何使用可刷新装饰器来提供关于用户输入有效性的反馈。
 ''')
 def input_validation():
     import re
 
-    pwd = ui.input('Password', password=True, on_change=lambda: show_info.refresh())
+    pwd = ui.input('密码', password=True, on_change=lambda: show_info.refresh())
 
     rules = {
-        'Lowercase letter': lambda s: re.search(r'[a-z]', s),
-        'Uppercase letter': lambda s: re.search(r'[A-Z]', s),
-        'Digit': lambda s: re.search(r'\d', s),
-        'Special character': lambda s: re.search(r"[!@#$%^&*(),.?':{}|<>]", s),
-        'min. 8 characters': lambda s: len(s) >= 8,
+        '小写字母': lambda s: re.search(r'[a-z]', s),
+        '大写字母': lambda s: re.search(r'[A-Z]', s),
+        '数字': lambda s: re.search(r'\d', s),
+        '特殊字符': lambda s: re.search(r"[!@#$%^&*(),.?':{}|<>]", s),
+        '最少8个字符': lambda s: len(s) >= 8,
     }
 
     @ui.refreshable

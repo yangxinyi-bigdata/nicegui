@@ -7,36 +7,35 @@ from . import doc
 def main_demo() -> None:
     fullscreen = ui.fullscreen()
 
-    ui.button('Enter Fullscreen', on_click=fullscreen.enter)
-    ui.button('Exit Fullscreen', on_click=fullscreen.exit)
-    ui.button('Toggle Fullscreen', on_click=fullscreen.toggle)
+    ui.button('进入全屏', on_click=fullscreen.enter)
+    ui.button('退出全屏', on_click=fullscreen.exit)
+    ui.button('切换全屏', on_click=fullscreen.toggle)
 
 
-@doc.demo('Requiring long-press to exit', '''
-    You can require users to long-press the escape key to exit fullscreen mode.
-    This is useful to prevent accidental exits, for example when working on forms or editing data.
+@doc.demo('需要长按退出', '''
+    您可以要求用户长按退出键来退出全屏模式。
+    这对于防止意外退出很有用，例如在处理表单或编辑数据时。
 
-    Note that this feature only works in some browsers like Google Chrome or Microsoft Edge.
+    请注意，此功能仅在某些浏览器（如Google Chrome或Microsoft Edge）中有效。
 ''')
 def long_press_demo():
     fullscreen = ui.fullscreen()
-    ui.switch('Require escape hold').bind_value_to(fullscreen, 'require_escape_hold')
-    ui.button('Toggle Fullscreen', on_click=fullscreen.toggle)
+    ui.switch('需要长按退出').bind_value_to(fullscreen, 'require_escape_hold')
+    ui.button('切换全屏', on_click=fullscreen.toggle)
 
 
-@doc.demo('Tracking fullscreen state', '''
-    You can track when the fullscreen state changes.
+@doc.demo('跟踪全屏状态', '''
+    您可以跟踪全屏状态何时更改。
 
-    Note that due to security reasons, fullscreen mode can only be entered from a previous user interaction
-    such as a button click.
+    请注意，出于安全原因，全屏模式只能从先前的用户交互（如按钮点击）进入。
 ''')
 def state_demo():
     fullscreen = ui.fullscreen(
-        on_value_change=lambda e: ui.notify('Enter' if e.value else 'Exit')
+        on_value_change=lambda e: ui.notify('进入' if e.value else '退出')
     )
-    ui.button('Toggle Fullscreen', on_click=fullscreen.toggle)
+    ui.button('切换全屏', on_click=fullscreen.toggle)
     ui.label().bind_text_from(fullscreen, 'state',
-                              lambda state: 'Fullscreen' if state else '')
+                              lambda state: '全屏' if state else '')
 
 
 doc.reference(ui.fullscreen)

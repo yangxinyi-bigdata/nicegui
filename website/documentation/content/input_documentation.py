@@ -11,27 +11,27 @@ def main_demo() -> None:
     result = ui.label()
 
 
-@doc.demo('Autocompletion', '''
-    The `autocomplete` feature provides suggestions as you type, making input easier and faster.
-    The parameter `options` is a list of strings that contains the available options that will appear.
+@doc.demo('自动完成', '''
+    `autocomplete` 功能在您输入时提供建议，使输入更容易、更快速。
+    参数 `options` 是一个字符串列表，包含将出现的可用选项。
 ''')
 def autocomplete_demo():
     options = ['AutoComplete', 'NiceGUI', 'Awesome']
     ui.input(label='Text', placeholder='start typing', autocomplete=options)
 
 
-@doc.demo('Clearable', '''
-    The `clearable` prop from [Quasar](https://quasar.dev/) adds a button to the input that clears the text.
+@doc.demo('可清除', '''
+    来自 [Quasar](https://quasar.dev/) 的 `clearable` 属性为输入框添加一个清除文本的按钮。
 ''')
 def clearable():
     i = ui.input(value='some text').props('clearable')
     ui.label().bind_text_from(i, 'value')
 
 
-@doc.demo('Styling', '''
-    Quasar has a lot of [props to change the appearance](https://quasar.dev/vue-components/input).
-    It is even possible to style the underlying input with `input-style` and `input-class` props
-    and use the provided slots to add custom elements.
+@doc.demo('样式设置', '''
+    Quasar 有很多 [改变外观的属性](https://quasar.dev/vue-components/input)。
+    甚至可以使用 `input-style` 和 `input-class` 属性来设置底层输入框的样式，
+    并使用提供的插槽来添加自定义元素。
 ''')
 def styling():
     ui.input(placeholder='start typing').props('rounded outlined dense')
@@ -42,19 +42,19 @@ def styling():
             .props('flat dense').bind_visibility_from(i, 'value')
 
 
-@doc.demo('Input validation', '''
-    You can validate the input in two ways:
+@doc.demo('输入验证', '''
+    您可以通过两种方式验证输入：
 
-    - by passing a callable that returns an error message or `None`, or
-    - by passing a dictionary that maps error messages to callables that return `True` if the input is valid.
+    - 传递一个返回错误消息或 `None` 的可调用对象，或
+    - 传递一个字典，将错误消息映射到返回 `True`（如果输入有效）的可调用对象。
 
-    *Since version 2.7.0:*
-    The callable validation function can also be an async coroutine.
-    In this case, the validation is performed asynchronously in the background.
+    *自版本 2.7.0 起：*
+    可调用验证函数也可以是异步协程。
+    在这种情况下，验证在后台异步执行。
 
-    You can use the `validate` method of the input element to trigger the validation manually.
-    It returns `True` if the input is valid, and an error message otherwise.
-    For async validation functions, the return value must be explicitly disabled by setting `return_result=False`.
+    您可以使用输入元素的 `validate` 方法手动触发验证。
+    如果输入有效，它返回 `True`，否则返回错误消息。
+    对于异步验证函数，必须通过设置 `return_result=False` 显式禁用返回值。
 ''')
 def validation():
     ui.input('Name', validation=lambda value: 'Too short' if len(value) < 5 else None)

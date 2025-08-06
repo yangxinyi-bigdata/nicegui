@@ -3,14 +3,14 @@ from nicegui import ui
 from . import doc
 
 
-@doc.demo('Tabs', '''
-    The elements `ui.tabs`, `ui.tab`, `ui.tab_panels`, and `ui.tab_panel` resemble
-    [Quasar's tabs](https://quasar.dev/vue-components/tabs) and
-    [tab panels](https://quasar.dev/vue-components/tab-panels) API.
+@doc.demo('选项卡', '''
+    元素 `ui.tabs`、`ui.tab`、`ui.tab_panels` 和 `ui.tab_panel` 类似于
+    [Quasar 的选项卡](https://quasar.dev/vue-components/tabs) 和
+    [选项卡面板](https://quasar.dev/vue-components/tab-panels) API。
 
-    `ui.tabs` creates a container for the tabs. This could be placed in a `ui.header` for example.
-    `ui.tab_panels` creates a container for the tab panels with the actual content.
-    Each `ui.tab_panel` is associated with a `ui.tab` element.
+    `ui.tabs` 创建选项卡的容器。例如，这可以放在 `ui.header` 中。
+    `ui.tab_panels` 创建带有实际内容的选项卡面板容器。
+    每个 `ui.tab_panel` 都与一个 `ui.tab` 元素关联。
 ''')
 def main_demo() -> None:
     with ui.tabs().classes('w-full') as tabs:
@@ -23,10 +23,10 @@ def main_demo() -> None:
             ui.label('Second tab')
 
 
-@doc.demo('Name, label, icon', '''
-    The `ui.tab` element has a `label` property that can be used to display a different text than the `name`.
-    The `name` can also be used instead of the `ui.tab` objects to associate a `ui.tab` with a `ui.tab_panel`.
-    Additionally each tab can have an `icon`.
+@doc.demo('名称、标签、图标', '''
+    `ui.tab` 元素有一个 `label` 属性，可用于显示与 `name` 不同的文本。
+    `name` 也可以代替 `ui.tab` 对象来关联 `ui.tab` 和 `ui.tab_panel`。
+    另外，每个选项卡都可以有一个 `icon`。
 ''')
 def name_and_label():
     with ui.tabs() as tabs:
@@ -39,9 +39,9 @@ def name_and_label():
             ui.label('Infos')
 
 
-@doc.demo('Switch tabs programmatically', '''
-    The `ui.tabs` and `ui.tab_panels` elements are derived from ValueElement which has a `set_value` method.
-    That can be used to switch tabs programmatically.
+@doc.demo('编程方式切换选项卡', '''
+    `ui.tabs` 和 `ui.tab_panels` 元素继承自 ValueElement，它有一个 `set_value` 方法。
+    这可以用于编程方式切换选项卡。
 ''')
 def switch_tabs():
     content = {'Tab 1': 'Content 1', 'Tab 2': 'Content 2', 'Tab 3': 'Content 3'}

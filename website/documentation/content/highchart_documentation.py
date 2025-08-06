@@ -21,12 +21,12 @@ def main_demo() -> None:
         chart.options['series'][0]['data'][0] = random()
         chart.update()
 
-    ui.button('Update', on_click=update)
+    ui.button('更新', on_click=update)
 
 
-@doc.demo('Chart with extra dependencies', '''
-    To use a chart type that is not included in the default dependencies, you can specify extra dependencies.
-    This demo shows a solid gauge chart.
+@doc.demo('带有额外依赖的图表', '''
+    要使用默认依赖中未包含的图表类型，您可以指定额外的依赖。
+    此演示展示了一个实体仪表图表。
 ''')
 def extra_dependencies() -> None:
     ui.highchart({
@@ -42,14 +42,14 @@ def extra_dependencies() -> None:
     }, extras=['solid-gauge']).classes('w-full h-64')
 
 
-@doc.demo('Chart with draggable points', '''
-    This chart allows dragging the series points.
-    You can register callbacks for the following events:
+@doc.demo('带有可拖动点的图表', '''
+    此图表允许拖动系列点。
+    您可以为以下事件注册回调函数：
 
-    - `on_point_click`: called when a point is clicked
-    - `on_point_drag_start`: called when a point drag starts
-    - `on_point_drag`: called when a point is dragged
-    - `on_point_drop`: called when a point is dropped
+    - `on_point_click`: 当点被点击时调用
+    - `on_point_drag_start`: 当点开始拖动时调用
+    - `on_point_drag`: 当点被拖动时调用
+    - `on_point_drop`: 当点被放下时调用
 ''')
 def drag() -> None:
     ui.highchart(

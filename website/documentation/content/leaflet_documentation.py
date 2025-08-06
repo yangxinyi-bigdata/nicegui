@@ -6,26 +6,26 @@ from . import doc
 @doc.demo(ui.leaflet)
 def main_demo() -> None:
     m = ui.leaflet(center=(51.505, -0.09))
-    ui.label().bind_text_from(m, 'center', lambda center: f'Center: {center[0]:.3f}, {center[1]:.3f}')
-    ui.label().bind_text_from(m, 'zoom', lambda zoom: f'Zoom: {zoom}')
+    ui.label().bind_text_from(m, 'center', lambda center: f'中心: {center[0]:.3f}, {center[1]:.3f}')
+    ui.label().bind_text_from(m, 'zoom', lambda zoom: f'缩放: {zoom}')
 
     with ui.grid(columns=2):
-        ui.button('London', on_click=lambda: m.set_center((51.505, -0.090)))
-        ui.button('Berlin', on_click=lambda: m.set_center((52.520, 13.405)))
+        ui.button('伦敦', on_click=lambda: m.set_center((51.505, -0.090)))
+        ui.button('柏林', on_click=lambda: m.set_center((52.520, 13.405)))
         ui.button(icon='zoom_in', on_click=lambda: m.set_zoom(m.zoom + 1))
         ui.button(icon='zoom_out', on_click=lambda: m.set_zoom(m.zoom - 1))
 
 
-@doc.demo('Changing the Map Style', '''
-    The default map style is OpenStreetMap.
-    You can find more map styles at <https://leaflet-extras.github.io/leaflet-providers/preview/>.
-    Each call to `tile_layer` stacks upon the previous ones.
-    So if you want to change the map style, you have to remove the default one first.
+@doc.demo('更改地图样式', '''
+    默认地图样式是OpenStreetMap。
+    您可以在 <https://leaflet-extras.github.io/leaflet-providers/preview/> 找到更多地图样式。
+    每次调用 `tile_layer` 都会堆叠在之前的基础上。
+    因此，如果您想更改地图样式，必须先删除默认的。
 
-    *Updated in version 2.12.0: Both WMTS and WMS map services are supported.*
+    *2.12.0版本更新：支持WMTS和WMS地图服务。*
 ''')
 def map_style() -> None:
-    ui.label('Web Map Tile Service')
+    ui.label('网络地图切片服务')
     map1 = ui.leaflet(center=(51.505, -0.090), zoom=3)
     map1.clear_layers()
     map1.tile_layer(
@@ -38,7 +38,7 @@ def map_style() -> None:
         },
     )
 
-    ui.label('Web Map Service')
+    ui.label('网络地图服务')
     map2 = ui.leaflet(center=(51.505, -0.090), zoom=3)
     map2.clear_layers()
     map2.wms_layer(
@@ -49,12 +49,12 @@ def map_style() -> None:
     )
 
 
-@doc.demo('Add Markers on Click', '''
-    You can add markers to the map with `marker`.
-    The `center` argument is a tuple of latitude and longitude.
-    This demo adds markers by clicking on the map.
-    Note that the "map-click" event refers to the click event of the map object,
-    while the "click" event refers to the click event of the container div.
+@doc.demo('点击添加标记', '''
+    您可以使用 `marker` 向地图添加标记。
+    `center` 参数是纬度和经度的元组。
+    此演示通过点击地图来添加标记。
+    请注意，"map-click" 事件指的是地图对象的点击事件，
+    而 "click" 事件指的是容器div的点击事件。
 ''')
 def markers() -> None:
     from nicegui import events
@@ -74,7 +74,7 @@ def markers() -> None:
 def move_markers() -> None:
     m = ui.leaflet(center=(51.505, -0.09))
     marker = m.marker(latlng=m.center)
-    ui.button('Move marker', on_click=lambda: marker.move(51.51, -0.09))
+    ui.button('移动标记', on_click=lambda: marker.move(51.51, -0.09))
 
 
 @doc.demo('Image Overlays', '''
@@ -145,7 +145,7 @@ def draw_on_map() -> None:
     def handle_draw(e: events.GenericEventArguments):
         layer_type = e.args['layerType']
         coords = e.args['layer'].get('_latlng') or e.args['layer'].get('_latlngs')
-        ui.notify(f'Drawn a {layer_type} at {coords}')
+        ui.notify(f'在 {coords} 绘制了 {layer_type}')
 
     draw_control = {
         'draw': {
@@ -164,8 +164,8 @@ def draw_on_map() -> None:
     m = ui.leaflet(center=(51.505, -0.09), draw_control=draw_control)
     m.classes('h-96')
     m.on('draw:created', handle_draw)
-    m.on('draw:edited', lambda: ui.notify('Edit completed'))
-    m.on('draw:deleted', lambda: ui.notify('Delete completed'))
+    m.on('draw:edited', lambda: ui.notify('编辑完成'))
+    m.on('draw:deleted', lambda: ui.notify('删除完成'))
 
 
 @doc.demo('Draw with Custom Options', '''
@@ -203,7 +203,7 @@ def draw_custom_options():
 ''')
 def run_map_methods() -> None:
     m = ui.leaflet(center=(51.505, -0.09)).classes('h-32')
-    ui.button('Fit world', on_click=lambda: m.run_map_method('fitWorld'))
+    ui.button('适合世界', on_click=lambda: m.run_map_method('fitWorld'))
 
 
 @doc.demo('Run Layer Methods', '''
@@ -213,16 +213,16 @@ def run_map_methods() -> None:
 def run_layer_methods() -> None:
     m = ui.leaflet(center=(51.505, -0.09)).classes('h-32')
     marker = m.marker(latlng=m.center)
-    ui.button('Hide', on_click=lambda: marker.run_method('setOpacity', 0.3))
-    ui.button('Show', on_click=lambda: marker.run_method('setOpacity', 1.0))
+    ui.button('隐藏', on_click=lambda: marker.run_method('setOpacity', 0.3))
+    ui.button('显示', on_click=lambda: marker.run_method('setOpacity', 1.0))
 
     icon = 'L.icon({iconUrl: "https://leafletjs.com/examples/custom-icons/leaf-green.png"})'
-    ui.button('Change icon', on_click=lambda: marker.run_method(':setIcon', icon))
+    ui.button('更改图标', on_click=lambda: marker.run_method(':setIcon', icon))
 
 
-@doc.demo('Wait for Initialization', '''
-    You can wait for the map to be initialized with the `initialized` method.
-    This is necessary when you want to run methods like fitting the bounds of the map right after the map is created.
+@doc.demo('等待初始化', '''
+    您可以使用 `initialized` 方法等待地图初始化。
+    当您想在地图创建后立即运行适合地图边界的方法时，这是必要的。
 ''')
 async def wait_for_init() -> None:
     # @ui.page('/')

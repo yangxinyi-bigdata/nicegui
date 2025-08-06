@@ -9,10 +9,9 @@ def main_demo() -> None:
     ui.label('Check!').bind_visibility_from(checkbox, 'value')
 
 
-@doc.demo('Handle User Interaction', '''
-    The `on_change` function passed via parameter will be called when the checkbox is clicked
-    *and* when the value changes via `set_value` call.
-    To execute a function only when the user interacts with the checkbox, you can use the generic `on` method.
+@doc.demo('处理用户交互', '''
+    通过参数传递的 `on_change` 函数将在复选框被点击*以及*通过 `set_value` 调用值发生变化时被调用。
+    要仅在用户与复选框交互时执行函数，您可以使用通用的 `on` 方法。
 ''')
 def user_interaction():
     with ui.row():

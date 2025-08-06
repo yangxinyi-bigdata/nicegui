@@ -9,9 +9,9 @@ def main_demo() -> None:
     ui.circular_progress().bind_value_from(slider, 'value')
 
 
-@doc.demo('Nested Elements', '''
-    You can put any element like icon, button etc inside a circular progress using the `with` statement.
-    Just make sure it fits the bounds and disable the default behavior of showing the value.
+@doc.demo('嵌套元素', '''
+    您可以使用 `with` 语句在圆形进度条中放置任何元素，如图标、按钮等。
+    只需确保它适合边界并禁用显示值的默认行为。
 ''')
 def icon() -> None:
     with ui.row().classes('items-center m-auto'):
@@ -20,7 +20,7 @@ def icon() -> None:
                 icon='star',
                 on_click=lambda: progress.set_value(progress.value + 0.1)
             ).props('flat round')
-        ui.label('click to increase progress')
+        ui.label('点击增加进度')
 
 
 doc.reference(ui.circular_progress)

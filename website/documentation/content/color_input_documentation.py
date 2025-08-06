@@ -5,8 +5,8 @@ from . import doc
 
 @doc.demo(ui.color_input)
 def main_demo() -> None:
-    label = ui.label('Change my color!')
-    ui.color_input(label='Color', value='#000000',
+    label = ui.label('改变我的颜色！')
+    ui.color_input(label='颜色', value='#000000',
                    on_change=lambda e: label.style(f'color:{e.value}'))
 
 

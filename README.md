@@ -3,6 +3,9 @@
     width="200" align="right" alt="Try online!" />
 </a>
 
+# 启动方式
+poetry run python main.py
+
 # NiceGUI
 
 NiceGUI is an easy-to-use, Python-based UI framework, which shows up in your web browser.

@@ -9,16 +9,16 @@ def main_demo() -> None:
     ui.label().bind_text_from(slider, 'value')
 
 
-@doc.demo('Throttle events with leading and trailing options', '''
-    By default the value change event of a slider is throttled to 0.05 seconds.
-    This means that if you move the slider quickly, the value will only be updated every 0.05 seconds.
+@doc.demo('使用前导和后续选项限制事件', '''
+    默认情况下，滑块的值变化事件被限制为 0.05 秒。
+    这意味着如果您快速移动滑块，值只会每 0.05 秒更新一次。
 
-    By default both "leading" and "trailing" events are activated.
-    This means that the very first event is triggered immediately, and the last event is triggered after the throttle time.
+    默认情况下，"前导"和"后续"事件都被激活。
+    这意味着第一个事件会立即触发，最后一个事件会在限制时间后触发。
 
-    This demo shows how disabling either of these options changes the behavior.
-    To see the effect more clearly, the throttle time is set to 1 second.
-    The first slider shows the default behavior, the second one only sends leading events, and the third only sends trailing events.
+    这个演示展示了禁用这些选项中的任何一个如何改变行为。
+    为了更清楚地看到效果，限制时间设置为 1 秒。
+    第一个滑块显示默认行为，第二个只发送前导事件，第三个只发送后续事件。
 ''')
 def throttle_events_with_leading_and_trailing_options():
     ui.label('default')
@@ -37,10 +37,10 @@ def throttle_events_with_leading_and_trailing_options():
             throttle=1.0, leading_events=False)
 
 
-@doc.demo('Disable slider', '''
-    You can disable a slider with the `disable()` method.
-    This will prevent the user from moving the slider.
-    The slider will also be grayed out.
+@doc.demo('禁用滑块', '''
+    您可以使用 `disable()` 方法禁用滑块。
+    这将阻止用户移动滑块。
+    滑块也会变为灰色。
 ''')
 def disable_slider():
     slider = ui.slider(min=0, max=100, value=50)

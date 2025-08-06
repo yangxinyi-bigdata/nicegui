@@ -5,41 +5,41 @@ from . import doc
 
 @doc.demo(ui.chat_message)
 def main_demo() -> None:
-    ui.chat_message('Hello NiceGUI!',
-                    name='Robot',
-                    stamp='now',
+    ui.chat_message('你好 NiceGUI！',
+                    name='机器人',
+                    stamp='现在',
                     avatar='https://robohash.org/ui')
 
 
-@doc.demo('HTML text', '''
-    Using the `text_html` parameter, you can send HTML text to the chat.
+@doc.demo('HTML文本', '''
+    使用 `text_html` 参数，您可以将HTML文本发送到聊天。
 ''')
 def html_text():
     ui.chat_message('Without <strong>HTML</strong>')
     ui.chat_message('With <strong>HTML</strong>', text_html=True)
 
 
-@doc.demo('Newline', '''
-    You can use newlines in the chat message.
+@doc.demo('换行', '''
+    您可以在聊天消息中使用换行符。
 ''')
 def newline():
-    ui.chat_message('This is a\nlong line!')
+    ui.chat_message('这是一条\n长消息！')
 
 
-@doc.demo('Multi-part messages', '''
-    You can send multiple message parts by passing a list of strings.
+@doc.demo('多部分消息', '''
+    您可以通过传递字符串列表来发送多个消息部分。
 ''')
 def multiple_messages():
-    ui.chat_message(['Hi! 😀', 'How are you?']
+    ui.chat_message(['你好！😀', '你好吗？']
                     )
 
 
-@doc.demo('Chat message with child elements', '''
-    You can add child elements to a chat message.
+@doc.demo('带有子元素的聊天消息', '''
+    您可以向聊天消息添加子元素。
 ''')
 def child_elements():
     with ui.chat_message():
-        ui.label('Guess where I am!')
+        ui.label('猜猜我在哪里！')
         ui.image('https://picsum.photos/id/249/640/360').classes('w-64')
 
 

@@ -9,41 +9,41 @@ def main_demo() -> None:
         result = ui.label().classes('mr-auto')
         with ui.button(icon='menu'):
             with ui.menu() as menu:
-                ui.menu_item('Menu item 1', lambda: result.set_text('Selected item 1'))
-                ui.menu_item('Menu item 2', lambda: result.set_text('Selected item 2'))
-                ui.menu_item('Menu item 3 (keep open)',
-                             lambda: result.set_text('Selected item 3'), auto_close=False)
+                ui.menu_item('菜单项 1', lambda: result.set_text('选择了项目 1'))
+                ui.menu_item('菜单项 2', lambda: result.set_text('选择了项目 2'))
+                ui.menu_item('菜单项 3 (保持打开)',
+                             lambda: result.set_text('选择了项目 3'), auto_close=False)
                 ui.separator()
-                ui.menu_item('Close', menu.close)
+                ui.menu_item('关闭', menu.close)
 
 
-@doc.demo('Client-side auto-close', '''
-    Use the `auto-close` prop to automatically close the menu on any click event directly without a server round-trip.
+@doc.demo('客户端自动关闭', '''
+    使用 `auto-close` 属性在任何点击事件时直接自动关闭菜单，无需服务器往返。
 ''')
 def auto_close():
     with ui.button(icon='menu'):
         with ui.menu().props('auto-close'):
-            toggle = ui.toggle(['fastfood', 'cake', 'icecream'], value='fastfood')
+            toggle = ui.toggle(['快餐', '蛋糕', '冰淇淋'], value='fastfood')
     ui.icon('', size='md').bind_name_from(toggle, 'value')
 
 
-@doc.demo('Menu with sub-menus', '''
-    You can use a `ui.menu` nested inside a `ui.menu_item` to created nested sub-menus.
-    The "anchor" and "self" props can be used to position the sub-menu.
-    Make sure to disable `auto-close` on the corresponding menu item to keep the menu open while navigating the sub-menu.
+@doc.demo('带子菜单的菜单', '''
+    您可以在 `ui.menu_item` 内嵌套 `ui.menu` 来创建嵌套子菜单。
+    "anchor" 和 "self" 属性可用于定位子菜单。
+    确保在相应的菜单项上禁用 `auto-close`，以在导航子菜单时保持菜单打开。
 ''')
 def submenus():
     with ui.button(icon='menu'):
         with ui.menu():
-            ui.menu_item('Option 1')
-            ui.menu_item('Option 2')
-            with ui.menu_item('Option 3', auto_close=False):
+            ui.menu_item('选项 1')
+            ui.menu_item('选项 2')
+            with ui.menu_item('选项 3', auto_close=False):
                 with ui.item_section().props('side'):
                     ui.icon('keyboard_arrow_right')
                 with ui.menu().props('anchor="top end" self="top start" auto-close'):
-                    ui.menu_item('Sub-option 1')
-                    ui.menu_item('Sub-option 2')
-                    ui.menu_item('Sub-option 3')
+                    ui.menu_item('子选项 1')
+                    ui.menu_item('子选项 2')
+                    ui.menu_item('子选项 3')
 
 
 doc.reference(ui.menu, title='Reference for ui.menu')

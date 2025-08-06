@@ -8,21 +8,21 @@ def main_demo() -> None:
     ui.html('This is <strong>HTML</strong>.')
 
 
-@doc.demo('Producing in-line elements', '''
-    Use the `tag` parameter to produce something other than a div.
+@doc.demo('生成内联元素', '''
+    使用 `tag` 参数来生成除 div 以外的其他元素。
 ''')
 def demo_inline() -> None:
     ui.html('This is <u>emphasized</u>.', tag='em')
 
 
-@doc.demo(other_html_elements_title := 'Other HTML Elements', other_html_elements_description := '''
-    There is also an `html` module that allows you to insert other HTML elements like `<span>`, `<div>`, `<p>`, etc.
-    It is equivalent to using the `ui.element` method with the `tag` argument.
+@doc.demo(other_html_elements_title := '其他 HTML 元素', other_html_elements_description := '''
+    还有一个 `html` 模块，允许您插入其他 HTML 元素，如 `<span>`、`<div>`、`<p>` 等。
+    这等同于使用带有 `tag` 参数的 `ui.element` 方法。
 
-    Like with any other element, you can add classes, style, props, tooltips and events.
-    One convenience is that the keyword arguments are automatically added to the element's `props` dictionary.
+    就像任何其他元素一样，您可以添加类、样式、属性、工具提示和事件。
+    一个便利之处是关键字参数会自动添加到元素的 `props` 字典中。
 
-    *Added in version 2.5.0*
+    *在版本 2.5.0 中新增*
 ''')
 def other_html_elements():
     from nicegui import html, ui

@@ -6,16 +6,16 @@ from . import doc
 @doc.demo(ui.dropdown_button)
 def main_demo() -> None:
     with ui.dropdown_button('Open me!', auto_close=True):
-        ui.item('Item 1', on_click=lambda: ui.notify('You clicked item 1'))
-        ui.item('Item 2', on_click=lambda: ui.notify('You clicked item 2'))
+        ui.item('项目 1', on_click=lambda: ui.notify('您点击了项目 1'))
+        ui.item('项目 2', on_click=lambda: ui.notify('您点击了项目 2'))
 
 
-@doc.demo('Custom elements inside dropdown button', '''
-    You can put any elements inside a dropdown button.
-    Here is a demo with a few switches.
+@doc.demo('下拉按钮中的自定义元素', '''
+    您可以在下拉按钮中放置任何元素。
+    这是一个包含几个开关的演示。
 ''')
 def custom_dropdown_button() -> None:
-    with ui.dropdown_button('Settings', icon='settings', split=True):
+    with ui.dropdown_button('设置', icon='settings', split=True):
         with ui.row().classes('p-4 items-center'):
             ui.icon('volume_up', size='sm')
             ui.switch().props('color=negative')

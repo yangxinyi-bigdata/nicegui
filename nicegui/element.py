@@ -48,13 +48,13 @@ class Element(Visibility):
     _default_style: ClassVar[Dict[str, str]] = {}
 
     def __init__(self, tag: Optional[str] = None, *, _client: Optional[Client] = None) -> None:
-        """Generic Element
+        """通用元素
 
-        This class is the base class for all other UI elements.
-        But you can use it to create elements with arbitrary HTML tags.
+        这个类是所有其他 UI 元素的基类。
+        但您可以使用它来创建任意 HTML 标签的元素。
 
-        :param tag: HTML tag of the element
-        :param _client: client for this element (for internal use only)
+        :param tag: 元素的 HTML 标签
+        :param _client: 此元素的客户端（仅供内部使用）
         """
         super().__init__()
         client = _client or context.client
@@ -150,47 +150,47 @@ class Element(Visibility):
 
     @property
     def client(self) -> Client:
-        """The client this element belongs to."""
+        """此元素所属的客户端。"""
         client = self._client()
         if client is None:
             raise RuntimeError('The client this element belongs to has been deleted.')
         return client
 
     def add_resource(self, path: Union[str, Path]) -> None:
-        """Add a resource to the element.
+        """向元素添加资源。
 
-        :param path: path to the resource (e.g. folder with CSS and JavaScript files)
+        :param path: 资源路径（例如包含 CSS 和 JavaScript 文件的文件夹）
         """
         path_ = Path(path)
         resource = register_resource(path_, max_time=path_.stat().st_mtime)
         self._props['resource_path'] = f'/_nicegui/{__version__}/resources/{resource.key}'
 
     def add_dynamic_resource(self, name: str, function: Callable) -> None:
-        """Add a dynamic resource to the element which returns the result of a function.
+        """向元素添加一个动态资源，该资源返回函数的结果。
 
-        :param name: name of the resource
-        :param function: function that returns the resource response
+        :param name: 资源名称
+        :param function: 返回资源响应的函数
         """
         register_dynamic_resource(name, function)
         self._props['dynamic_resource_path'] = f'/_nicegui/{__version__}/dynamic_resources'
 
     def add_slot(self, name: str, template: Optional[str] = None) -> Slot:
-        """Add a slot to the element.
+        """向元素添加插槽。
 
-        NiceGUI is using the slot concept from Vue:
-        Elements can have multiple slots, each possibly with a number of children.
-        Most elements only have one slot, e.g. a `ui.card` (QCard) only has a default slot.
-        But more complex elements like `ui.table` (QTable) can have more slots like "header", "body" and so on.
-        If you nest NiceGUI elements via with `ui.row(): ...` you place new elements inside of the row's default slot.
-        But if you use with `table.add_slot(...): ...`, you enter a different slot.
+        NiceGUI 使用来自 Vue 的插槽概念：
+        元素可以有多个插槽，每个插槽可能有许多子元素。
+        大多数元素只有一个插槽，例如 `ui.card` (QCard) 只有一个默认插槽。
+        但更复杂的元素如 `ui.table` (QTable) 可以有更多插槽，如 "header"、"body" 等。
+        如果您通过 `with ui.row(): ...` 嵌套 NiceGUI 元素，您将新元素放在行的默认插槽内。
+        但如果您使用 `with table.add_slot(...): ...`，您将进入不同的插槽。
 
-        The slot stack helps NiceGUI to keep track of which slot is currently used for new elements.
-        The `parent` field holds a reference to its element.
-        Whenever an element is entered via a `with` expression, its default slot is automatically entered as well.
+        插槽堆栈帮助 NiceGUI 跟踪当前用于新元素的插槽。
+        `parent` 字段持有对其元素的引用。
+        每当通过 `with` 表达式进入元素时，其默认插槽也会自动进入。
 
-        :param name: name of the slot
-        :param template: Vue template of the slot
-        :return: the slot
+        :param name: 插槽名称
+        :param template: 插槽的 Vue 模板
+        :return: 插槽
         """
         self.slots[name] = Slot(self, name, template)
         return self.slots[name]
@@ -248,7 +248,7 @@ class Element(Visibility):
 
     @property
     def classes(self) -> Classes[Self]:
-        """The classes of the element."""
+        """元素的类。"""
         return self._classes
 
     @classmethod
@@ -257,25 +257,25 @@ class Element(Visibility):
                         remove: Optional[str] = None,
                         toggle: Optional[str] = None,
                         replace: Optional[str] = None) -> type[Self]:
-        """Apply, remove, toggle, or replace default HTML classes.
+        """应用、移除、切换或替换默认 HTML 类。
 
-        This allows modifying the look of the element or its layout using `Tailwind <https://v3.tailwindcss.com/>`_ or `Quasar <https://quasar.dev/>`_ classes.
+        这允许使用 `Tailwind <https://v3.tailwindcss.com/>`_ 或 `Quasar <https://quasar.dev/>`_ 类修改元素的外观或布局。
 
-        Removing or replacing classes can be helpful if predefined classes are not desired.
-        All elements of this class will share these HTML classes.
-        These must be defined before element instantiation.
+        如果不需要预定义的类，移除或替换类会很有帮助。
+        此类的所有元素将共享这些 HTML 类。
+        这些必须在元素实例化之前定义。
 
-        :param add: whitespace-delimited string of classes
-        :param remove: whitespace-delimited string of classes to remove from the element
-        :param toggle: whitespace-delimited string of classes to toggle (*added in version 2.7.0*)
-        :param replace: whitespace-delimited string of classes to use instead of existing ones
+        :param add: 以空白分隔的类字符串
+        :param remove: 要从元素中移除的以空白分隔的类字符串
+        :param toggle: 要切换的以空白分隔的类字符串（*在版本 2.7.0 中新增*）
+        :param replace: 用于替代现有类的以空白分隔的类字符串
         """
         cls._default_classes = Classes.update_list(cls._default_classes, add, remove, toggle, replace)
         return cls
 
     @property
     def style(self) -> Style[Self]:
-        """The style of the element."""
+        """元素的样式。"""
         return self._style
 
     @classmethod
@@ -283,15 +283,15 @@ class Element(Visibility):
                       add: Optional[str] = None, *,
                       remove: Optional[str] = None,
                       replace: Optional[str] = None) -> type[Self]:
-        """Apply, remove, or replace default CSS definitions.
+        """应用、移除或替换默认 CSS 定义。
 
-        Removing or replacing styles can be helpful if the predefined style is not desired.
-        All elements of this class will share these CSS definitions.
-        These must be defined before element instantiation.
+        如果不需要预定义样式，移除或替换样式会很有帮助。
+        此类的所有元素将共享这些 CSS 定义。
+        这些必须在元素实例化之前定义。
 
-        :param add: semicolon-separated list of styles to add to the element
-        :param remove: semicolon-separated list of styles to remove from the element
-        :param replace: semicolon-separated list of styles to use instead of existing ones
+        :param add: 要添加到元素的以分号分隔的样式列表
+        :param remove: 要从元素中移除的以分号分隔的样式列表
+        :param replace: 用于替代现有样式的以分号分隔的样式列表
         """
         if replace is not None:
             cls._default_style.clear()
@@ -303,24 +303,24 @@ class Element(Visibility):
 
     @property
     def props(self) -> Props[Self]:
-        """The props of the element."""
+        """元素的属性。"""
         return self._props
 
     @classmethod
     def default_props(cls,
                       add: Optional[str] = None, *,
                       remove: Optional[str] = None) -> type[Self]:
-        """Add or remove default props.
+        """添加或移除默认属性。
 
-        This allows modifying the look of the element or its layout using `Quasar <https://quasar.dev/>`_ props.
-        Since props are simply applied as HTML attributes, they can be used with any HTML element.
-        All elements of this class will share these props.
-        These must be defined before element instantiation.
+        这允许使用 `Quasar <https://quasar.dev/>`_ 属性修改元素的外观或布局。
+        由于属性只是作为 HTML 属性应用，它们可以与任何 HTML 元素一起使用。
+        此类的所有元素将共享这些属性。
+        这些必须在元素实例化之前定义。
 
-        Boolean properties are assumed ``True`` if no value is specified.
+        如果未指定值，布尔属性假定为 ``True``。
 
-        :param add: whitespace-delimited list of either boolean values or key=value pair to add
-        :param remove: whitespace-delimited list of property keys to remove
+        :param add: 要添加的布尔值或 key=value 对的以空白分隔的列表
+        :param remove: 要移除的属性键的以空白分隔的列表
         """
         for key in Props.parse(remove):
             if key in cls._default_props:
@@ -330,21 +330,21 @@ class Element(Visibility):
         return cls
 
     def mark(self, *markers: str) -> Self:
-        """Replace markers of the element.
+        """替换元素的标记。
 
-        Markers are used to identify elements for querying with `ElementFilter </documentation/element_filter>`_
-        which is heavily used in testing
-        but can also be used to reduce the number of global variables or passing around dependencies.
+        标记用于通过 `ElementFilter </documentation/element_filter>`_ 查询来识别元素，
+        这在测试中大量使用，
+        但也可以用于减少全局变量的数量或传递依赖项。
 
-        :param markers: list of strings or single string with whitespace-delimited markers; replaces existing markers
+        :param markers: 字符串列表或包含以空白分隔的标记的单个字符串；替换现有标记
         """
         self._markers = [word for marker in markers for word in marker.split()]
         return self
 
     def tooltip(self, text: str) -> Self:
-        """Add a tooltip to the element.
+        """向元素添加工具提示。
 
-        :param text: text of the tooltip
+        :param text: 工具提示的文本
         """
         from .elements.tooltip import Tooltip  # pylint: disable=import-outside-toplevel, cyclic-import
         with self:
@@ -361,32 +361,32 @@ class Element(Visibility):
            trailing_events: bool = True,
            js_handler: Optional[str] = '(...args) => emit(...args)',  # DEPRECATED: None will be removed in version 3.0
            ) -> Self:
-        """Subscribe to an event.
+        """订阅事件。
 
-        The event handler can be a Python function, a JavaScript function or a combination of both:
+        事件处理器可以是 Python 函数、JavaScript 函数或两者的组合：
 
-        - If you want to handle the event on the server with all (serializable) event arguments,
-          use a Python ``handler``.
-        - If you want to handle the event on the client side without emitting anything to the server,
-          use ``js_handler`` with a JavaScript function handling the event.
-        - If you want to handle the event on the server with a subset or transformed version of the event arguments,
-          use ``js_handler`` with a JavaScript function emitting the transformed arguments using ``emit()``, and
-          use a Python ``handler`` to handle these arguments on the server side.
-          The ``js_handler`` can also decide to selectively emit arguments to the server,
-          in which case the Python ``handler`` will not always be called.
+        - 如果您想在服务器上处理带有所有（可序列化）事件参数的事件，
+          使用 Python ``handler``。
+        - 如果您想在客户端处理事件而不向服务器发送任何内容，
+          使用 ``js_handler`` 和处理事件的 JavaScript 函数。
+        - 如果您想在服务器上处理事件参数的子集或转换版本，
+          使用 ``js_handler`` 和使用 ``emit()`` 发送转换参数的 JavaScript 函数，并
+          使用 Python ``handler`` 在服务器端处理这些参数。
+          ``js_handler`` 也可以决定选择性地向服务器发送参数，
+          在这种情况下，Python ``handler`` 不会总是被调用。
 
-        Note that the arguments ``throttle``, ``leading_events``, and ``trailing_events`` are only relevant
-        when emitting events to the server.
+        请注意，参数 ``throttle``、``leading_events`` 和 ``trailing_events`` 只在
+        向服务器发送事件时相关。
 
-        *Updated in version 2.18.0: Both handlers can be specified at the same time.*
+        *在版本 2.18.0 中更新：两个处理器可以同时指定。*
 
-        :param type: name of the event (e.g. "click", "mousedown", or "update:model-value")
-        :param handler: callback that is called upon occurrence of the event
-        :param args: arguments included in the event message sent to the event handler (default: ``None`` meaning all)
-        :param throttle: minimum time (in seconds) between event occurrences (default: 0.0)
-        :param leading_events: whether to trigger the event handler immediately upon the first event occurrence (default: ``True``)
-        :param trailing_events: whether to trigger the event handler after the last event occurrence (default: ``True``)
-        :param js_handler: JavaScript function that is handling the event on the client (default: "(...args) => emit(...args)")
+        :param type: 事件名称（例如 "click"、"mousedown" 或 "update:model-value"）
+        :param handler: 事件发生时调用的回调函数
+        :param args: 发送给事件处理器的事件消息中包含的参数（默认：``None`` 表示全部）
+        :param throttle: 事件发生之间的最小时间（以秒为单位）（默认：0.0）
+        :param leading_events: 是否在第一次事件发生时立即触发事件处理器（默认：``True``）
+        :param trailing_events: 是否在最后一次事件发生后触发事件处理器（默认：``True``）
+        :param js_handler: 在客户端处理事件的 JavaScript 函数（默认："(...args) => emit(...args)"）
         """
         if js_handler is None:
             helpers.warn_once('Passing `js_handler=None` to `on()` is deprecated. '
@@ -417,41 +417,41 @@ class Element(Visibility):
         events.handle_event(listener.handler, args)
 
     def update(self) -> None:
-        """Update the element on the client side."""
+        """在客户端更新元素。"""
         if self.is_deleted:
             return
         self.client.outbox.enqueue_update(self)
 
     def run_method(self, name: str, *args: Any, timeout: float = 1) -> AwaitableResponse:
-        """Run a method on the client side.
+        """在客户端运行方法。
 
-        If the function is awaited, the result of the method call is returned.
-        Otherwise, the method is executed without waiting for a response.
+        如果函数被等待，将返回方法调用的结果。
+        否则，方法将在不等待响应的情况下执行。
 
-        :param name: name of the method
-        :param args: arguments to pass to the method
-        :param timeout: maximum time to wait for a response (default: 1 second)
+        :param name: 方法名称
+        :param args: 传递给方法的参数
+        :param timeout: 等待响应的最大时间（默认：1 秒）
         """
         if not core.loop:
             return NullResponse()
         return self.client.run_javascript(f'return runMethod({self.id}, "{name}", {json.dumps(args)})', timeout=timeout)
 
     def get_computed_prop(self, prop_name: str, *, timeout: float = 1) -> AwaitableResponse:
-        """Return a computed property.
+        """返回计算属性。
 
-        This function should be awaited so that the computed property is properly returned.
+        应该等待此函数以正确返回计算属性。
 
-        :param prop_name: name of the computed prop
-        :param timeout: maximum time to wait for a response (default: 1 second)
+        :param prop_name: 计算属性的名称
+        :param timeout: 等待响应的最大时间（默认：1 秒）
         """
         if not core.loop:
             return NullResponse()
         return self.client.run_javascript(f'return getComputedProp({self.id}, "{prop_name}")', timeout=timeout)
 
     def ancestors(self, *, include_self: bool = False) -> Iterator[Element]:
-        """Iterate over the ancestors of the element.
+        """遍历元素的祖先。
 
-        :param include_self: whether to include the element itself in the iteration
+        :param include_self: 是否在遍历中包含元素本身
         """
         if include_self:
             yield self
@@ -459,9 +459,9 @@ class Element(Visibility):
             yield from self.parent_slot.parent.ancestors(include_self=True)
 
     def descendants(self, *, include_self: bool = False) -> Iterator[Element]:
-        """Iterate over the descendants of the element.
+        """遍历元素的后代。
 
-        :param include_self: whether to include the element itself in the iteration
+        :param include_self: 是否在遍历中包含元素本身
         """
         if include_self:
             yield self
@@ -469,7 +469,7 @@ class Element(Visibility):
             yield from child.descendants(include_self=True)
 
     def clear(self) -> None:
-        """Remove all child elements."""
+        """移除所有子元素。"""
         self.client.remove_elements(self.descendants())
         for slot in self.slots.values():
             slot.children.clear()
@@ -479,11 +479,11 @@ class Element(Visibility):
              target_container: Optional[Element] = None,
              target_index: int = -1, *,
              target_slot: Optional[str] = None) -> None:
-        """Move the element to another container.
+        """将元素移动到另一个容器。
 
-        :param target_container: container to move the element to (default: the parent container)
-        :param target_index: index within the target slot (default: append to the end)
-        :param target_slot: slot within the target container (default: default slot)
+        :param target_container: 要移动元素到的容器（默认：父容器）
+        :param target_index: 目标插槽内的索引（默认：追加到末尾）
+        :param target_slot: 目标容器内的插槽（默认：默认插槽）
         """
         assert self.parent_slot is not None
         self.parent_slot.children.remove(self)
@@ -504,9 +504,9 @@ class Element(Visibility):
         target_container.update()
 
     def remove(self, element: Union[Element, int]) -> None:
-        """Remove a child element.
+        """移除子元素。
 
-        :param element: either the element instance or its ID
+        :param element: 元素实例或其 ID
         """
         if isinstance(element, int):
             children = list(self)
@@ -517,19 +517,19 @@ class Element(Visibility):
         self.update()
 
     def delete(self) -> None:
-        """Delete the element and all its children."""
+        """删除元素及其所有子元素。"""
         assert self.parent_slot is not None
         self.parent_slot.parent.remove(self)
 
     def _handle_delete(self) -> None:
-        """Called when the element is deleted.
+        """元素被删除时调用。
 
-        This method can be overridden in subclasses to perform cleanup tasks.
+        此方法可以在子类中重写以执行清理任务。
         """
 
     @property
     def is_deleted(self) -> bool:
-        """Whether the element has been deleted."""
+        """元素是否已被删除。"""
         return self._deleted
 
     def __str__(self) -> str:
@@ -565,8 +565,8 @@ class Element(Visibility):
 
     @property
     def html_id(self) -> str:
-        """The ID of the element in the HTML DOM.
+        """HTML DOM 中元素的 ID。
 
-        *Added in version 2.16.0*
+        *在版本 2.16.0 中新增*
         """
         return f'c{self.id}'

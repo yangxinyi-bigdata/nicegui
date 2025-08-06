@@ -8,9 +8,9 @@ def main_demo() -> None:
     ui.upload(on_upload=lambda e: ui.notify(f'Uploaded {e.name}')).classes('max-w-full')
 
 
-@doc.demo('Upload restrictions', '''
-    In this demo, the upload is restricted to a maximum file size of 1 MB.
-    When a file is rejected, a notification is shown.
+@doc.demo('上传限制', '''
+    在这个演示中，上传被限制为最大文件大小 1 MB。
+    当文件被拒绝时，会显示通知。
 ''')
 def upload_restrictions() -> None:
     ui.upload(on_upload=lambda e: ui.notify(f'Uploaded {e.name}'),
@@ -18,8 +18,8 @@ def upload_restrictions() -> None:
               max_file_size=1_000_000).classes('max-w-full')
 
 
-@doc.demo('Show file content', '''
-    In this demo, the uploaded markdown file is shown in a dialog.
+@doc.demo('显示文件内容', '''
+    在这个演示中，上传的 markdown 文件在对话框中显示。
 ''')
 def show_file_content() -> None:
     from nicegui import events
@@ -36,14 +36,14 @@ def show_file_content() -> None:
     ui.upload(on_upload=handle_upload).props('accept=.md').classes('max-w-full')
 
 
-@doc.demo('Uploading large files', '''
-    Large file uploads may encounter issues due to the default file size parameter set within the underlying Starlette library.
-    To ensure smooth uploads of larger files, it is recommended to increase the `spool_max_size` parameter in Starlette's `MultiPartParser` class from the default of `1024 * 1024` (1 MB) to a higher limit that aligns with the expected file sizes.
+@doc.demo('上传大文件', '''
+    大文件上传可能会遇到问题，这是由于底层 Starlette 库中设置的默认文件大小参数造成的。
+    为了确保大文件的顺利上传，建议将 Starlette 的 `MultiPartParser` 类中的 `spool_max_size` 参数从默认的 `1024 * 1024` (1 MB) 增加到与预期文件大小相符的更高限制。
 
-    This demo increases Starlette Multiparser's `max_file_size` to be kept in RAM to 5 MB.
-    This change allows the system to handle larger files more efficiently by keeping them in RAM, thus avoiding the need to write data to temporary files on disk and preventing upload "stuttering".
+    这个演示将 Starlette Multiparser 保留在 RAM 中的 `max_file_size` 增加到 5 MB。
+    这种更改允许系统通过将文件保留在 RAM 中更有效地处理大文件，从而避免需要将数据写入磁盘上的临时文件并防止上传"卡顿"。
 
-    However, be mindful of the potential impact on your server when allowing users to upload large files and retaining them in RAM.
+    但是，在允许用户上传大文件并将其保留在 RAM 中时，请注意对服务器的潜在影响。
 ''')
 def uploading_large_files() -> None:
     from starlette.formparsers import MultiPartParser

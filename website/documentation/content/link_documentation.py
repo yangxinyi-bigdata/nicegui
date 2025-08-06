@@ -9,9 +9,9 @@ def main_demo() -> None:
     ui.link('NiceGUI on GitHub', 'https://github.com/zauberzeug/nicegui')
 
 
-@doc.demo('Navigate on large pages', '''
-    To jump to a specific location within a page you can place linkable anchors with `ui.link_target('target_name')`
-    or simply pass a NiceGUI element as link target.
+@doc.demo('在大页面中导航', '''
+    要跳转到页面内的特定位置，您可以使用 `ui.link_target('target_name')` 放置可链接的锚点，
+    或者简单地传递一个 NiceGUI 元素作为链接目标。
 ''')
 def same_page_links():
     navigation = ui.row()
@@ -34,8 +34,8 @@ def same_page_links():
 
 
 @doc.auto_execute
-@doc.demo('Links to other pages', '''
-    You can link to other pages by providing the link target as path or function reference.
+@doc.demo('链接到其他页面', '''
+    您可以通过提供路径或函数引用作为链接目标来链接到其他页面。
 ''')
 def link_to_other_page():
     @ui.page('/some_other_page')
@@ -47,10 +47,10 @@ def link_to_other_page():
     ui.link('... with function reference', my_page)
 
 
-@doc.demo('Link from images and other elements', '''
-    By nesting elements inside a link you can make the whole element clickable.
-    This works with all elements but is most useful for non-interactive elements like
-    [ui.image](/documentation/image), [ui.avatar](/documentation/image) etc.
+@doc.demo('从图像和其他元素链接', '''
+    通过在链接内嵌套元素，您可以使整个元素可点击。
+    这适用于所有元素，但对于非交互元素最有用，比如
+    [ui.image](/documentation/image)、[ui.avatar](/documentation/image) 等。
 ''')
 def link_from_elements():
     with ui.link(target='https://github.com/zauberzeug/nicegui'):

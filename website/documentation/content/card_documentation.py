@@ -11,11 +11,11 @@ def main_demo() -> None:
             ui.label('Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...')
 
 
-@doc.demo('Card without shadow', '''
-    You can remove the shadow from a card by adding the `no-shadow` class.
-    The following demo shows a 1 pixel wide border instead.
+@doc.demo('无阴影卡片', '''
+    您可以通过添加 `no-shadow` 类来移除卡片的阴影。
+    下面的演示显示了 1 像素宽的边框。
 
-    Alternatively, you can use Quasar's "flat" and "bordered" props to achieve the same effect.
+    或者，您可以使用 Quasar 的 "flat" 和 "bordered" 属性来实现相同的效果。
 ''')
 def card_without_shadow() -> None:
     with ui.card().classes('no-shadow border-[1px]'):
@@ -25,10 +25,10 @@ def card_without_shadow() -> None:
         ui.label('Also no shadow!')
 
 
-@doc.demo('Tight card layout', '''
-    By default, cards have a padding.
-    You can remove the padding and gaps between nested elements by using the `tight` method.
-    This also hides outer borders and shadows of nested elements, like in an original QCard.
+@doc.demo('紧凑卡片布局', '''
+    默认情况下，卡片有内边距。
+    您可以使用 `tight` 方法移除内边距和嵌套元素之间的间隙。
+    这也会隐藏嵌套元素的外边框和阴影，就像原始的 QCard 一样。
 ''')
 def custom_context_menu() -> None:
     rows = [{'age': '16'}, {'age': '18'}, {'age': '21'}]

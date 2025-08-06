@@ -8,9 +8,9 @@ def main_demo() -> None:
     ui.markdown('This is **Markdown**.')
 
 
-@doc.demo('Markdown with indentation', '''
-    Common indentation is automatically stripped from the beginning of each line.
-    So you can indent markdown elements, and they will still be rendered correctly.
+@doc.demo('带缩进的 Markdown', '''
+    通用缩进会自动从每行的开头剥离。
+    因此您可以缩进 markdown 元素，它们仍然会正确渲染。
 ''')
 def markdown_with_indentation():
     ui.markdown('''
@@ -25,10 +25,10 @@ def markdown_with_indentation():
     ''')
 
 
-@doc.demo('Markdown with code blocks', '''
-    You can use code blocks to show code examples.
-    If you specify the language after the opening triple backticks, the code will be syntax highlighted.
-    See [the Pygments website](https://pygments.org/languages/) for a list of supported languages.
+@doc.demo('带代码块的 Markdown', '''
+    您可以使用代码块来显示代码示例。
+    如果您在开头的三个反引号后指定语言，代码将会被语法高亮。
+    支持的语言列表请参见 [Pygments 网站](https://pygments.org/languages/)。
 ''')
 def markdown_with_code_blocks():
     ui.markdown('''
@@ -42,9 +42,9 @@ def markdown_with_code_blocks():
     ''')
 
 
-@doc.demo('Markdown tables', '''
-    By activating the "tables" extra, you can use Markdown tables.
-    See the [markdown2 documentation](https://github.com/trentm/python-markdown2/wiki/Extras#implemented-extras) for a list of available extras.
+@doc.demo('Markdown 表格', '''
+    通过激活 "tables" 扩展，您可以使用 Markdown 表格。
+    可用扩展列表请参见 [markdown2 文档](https://github.com/trentm/python-markdown2/wiki/Extras#implemented-extras)。
 ''')
 def markdown_tables():
     ui.markdown('''

@@ -9,8 +9,8 @@ def main_demo() -> None:
     radio2 = ui.radio({1: 'A', 2: 'B', 3: 'C'}).props('inline').bind_value(radio1, 'value')
 
 
-@doc.demo('Inject arbitrary content', '''
-    Thanks to the [`ui.teleport` element](teleport), you can use arbitrary content for the radio options.
+@doc.demo('注入任意内容', '''
+    借助 [`ui.teleport` 元素](teleport)，您可以为单选按钮选项使用任意内容。
 ''')
 def arbitrary_content():
     options = ['Star', 'Thump Up', 'Heart']

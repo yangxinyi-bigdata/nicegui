@@ -8,8 +8,8 @@ def main_demo() -> None:
     ui.button('Say hi!', on_click=lambda: ui.notify('Hi!', close_button='OK'))
 
 
-@doc.demo('Notification Types', '''
-    There are different types that can be used to indicate the nature of the notification.
+@doc.demo('通知类型', '''
+    有不同的类型可用于指示通知的性质。
 ''')
 def notify_colors():
     ui.button('negative', on_click=lambda: ui.notify('error', type='negative'))
@@ -17,9 +17,9 @@ def notify_colors():
     ui.button('warning', on_click=lambda: ui.notify('warning', type='warning'))
 
 
-@doc.demo('Multiline Notifications', '''
-    To allow a notification text to span multiple lines, it is sufficient to set `multi_line=True`.
-    If manual newline breaks are required (e.g. `\\n`), you need to define a CSS style and pass it to the notification as shown in the example.
+@doc.demo('多行通知', '''
+    要允许通知文本跨越多行，只需设置 `multi_line=True` 即可。
+    如果需要手动换行符（例如 `\\n`），您需要定义一个 CSS 样式并将其传递给通知，如示例所示。
 ''')
 def multiline():
     ui.html('<style>.multi-line-notification { white-space: pre-line; }</style>')

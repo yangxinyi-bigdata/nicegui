@@ -95,8 +95,8 @@ def default_props() -> None:
 ''')
 def default_classes() -> None:
     ui.label.default_classes('bg-blue-100 p-2')
-    ui.label('Label A')
-    ui.label('Label B')
+    ui.label('标签 A')
+    ui.label('标签 B')
     # END OF DEMO
     ui.label.default_classes(remove='bg-blue-100 p-2')
 
@@ -110,8 +110,8 @@ def default_classes() -> None:
 ''')
 def default_style() -> None:
     ui.label.default_style('color: tomato')
-    ui.label('Label A')
-    ui.label('Label B')
+    ui.label('标签 A')
+    ui.label('标签 B')
     # END OF DEMO
     ui.label.default_style(remove='color: tomato')
 

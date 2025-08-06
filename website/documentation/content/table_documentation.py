@@ -17,11 +17,11 @@ def main_demo() -> None:
     ui.table(columns=columns, rows=rows, row_key='name')
 
 
-@doc.demo('Omitting columns', '''
-    If you omit the `columns` parameter, the table will automatically generate columns from the first row.
-    Labels are uppercased and sorting is enabled.
+@doc.demo('省略列定义', '''
+    如果您省略 `columns` 参数，表格将自动从第一行生成列。
+    标签会被大写，并启用排序。
 
-    *Updated in version 2.0.0: The `columns` parameter became optional.*
+    *在版本 2.0.0 中更新：`columns` 参数变为可选。*
 ''')
 def omitting_columns():
     ui.table(rows=[
@@ -31,11 +31,11 @@ def omitting_columns():
     ])
 
 
-@doc.demo('Default column parameters', '''
-    You can define default column parameters that apply to all columns.
-    In this example, all columns are left-aligned by default and have a blue uppercase header.
+@doc.demo('默认列参数', '''
+    您可以定义适用于所有列的默认列参数。
+    在这个示例中，所有列默认左对齐并具有蓝色大写标题。
 
-    *Added in version 2.0.0*
+    *在版本 2.0.0 中新增*
 ''')
 def default_column_parameters():
     ui.table(rows=[
@@ -50,13 +50,13 @@ def default_column_parameters():
     })
 
 
-@doc.demo('Selection', '''
-    You can set the selection type of a table using the `selection` parameter.
-    The `on_select` event handler is called when the selection changes
-    and the `selected` property contains the selected rows.
+@doc.demo('选择', '''
+    您可以使用 `selection` 参数设置表格的选择类型。
+    当选择发生变化时会调用 `on_select` 事件处理器，
+    `selected` 属性包含选中的行。
 
-    *Added in version 2.11.0:*
-    The `selection` property and the `set_selection` method can be used to change the selection type.
+    *在版本 2.11.0 中新增：*
+    可以使用 `selection` 属性和 `set_selection` 方法来更改选择类型。
 ''')
 def selection():
     table = ui.table(
@@ -69,9 +69,9 @@ def selection():
              on_change=lambda e: table.set_selection(e.value))
 
 
-@doc.demo('Table with expandable rows', '''
-    Scoped slots can be used to insert buttons that toggle the expand state of a table row.
-    See the [Quasar documentation](https://quasar.dev/vue-components/table#expanding-rows) for more information.
+@doc.demo('可展开行的表格', '''
+    作用域插槽可用于插入切换表格行展开状态的按钮。
+    更多信息请参见 [Quasar 文档](https://quasar.dev/vue-components/table#expanding-rows)。
 ''')
 def table_with_expandable_rows():
     columns = [

@@ -21,11 +21,11 @@ def main_demo() -> None:
         echart.options['series'][0]['data'][0] = random()
         echart.update()
 
-    ui.button('Update', on_click=update)
+    ui.button('更新', on_click=update)
 
 
-@doc.demo('EChart with clickable points', '''
-    You can register a callback for an event when a series point is clicked.
+@doc.demo('带有点击功能的EChart', '''
+    您可以为系列点被点击时的事件注册回调函数。
 ''')
 def clickable_points() -> None:
     ui.echart({
@@ -35,9 +35,9 @@ def clickable_points() -> None:
     }, on_point_click=ui.notify)
 
 
-@doc.demo('EChart with dynamic properties', '''
-    Dynamic properties can be passed to chart elements to customize them such as apply an axis label format.
-    To make a property dynamic, prefix a colon ":" to the property name.
+@doc.demo('带有动态属性的EChart', '''
+    动态属性可以传递给图表元素以进行自定义，例如应用轴标签格式。
+    要使属性成为动态属性，请在属性名称前加冒号":"。
 ''')
 def dynamic_properties() -> None:
     ui.echart({
@@ -47,13 +47,13 @@ def dynamic_properties() -> None:
     })
 
 
-@doc.demo('EChart with custom theme', '''
-    You can apply custom themes created with the [Theme Builder](https://echarts.apache.org/en/theme-builder.html).
+@doc.demo('带有自定义主题的EChart', '''
+    您可以应用使用[主题构建器](https://echarts.apache.org/en/theme-builder.html)创建的自定义主题。
 
-    Instead of passing the theme as a dictionary, you can pass a URL to a JSON file.
-    This allows the browser to cache the theme and load it faster when the same theme is used multiple times.
+    除了将主题作为字典传递，您还可以传递JSON文件的URL。
+    这允许浏览器缓存主题，并在多次使用同一主题时更快地加载。
 
-    *Added in version 2.15.0*
+    *在版本2.15.0中新增*
 ''')
 def custom_theme() -> None:
     ui.echart({
@@ -66,10 +66,10 @@ def custom_theme() -> None:
     })
 
 
-@doc.demo('EChart from pyecharts', '''
-    You can create an EChart element from a pyecharts object using the `from_pyecharts` method.
-    For defining dynamic options like a formatter function, you can use the `JsCode` class from `pyecharts.commons.utils`.
-    Alternatively, you can use a colon ":" to prefix the property name to indicate that the value is a JavaScript expression.
+@doc.demo('来自pyecharts的EChart', '''
+    您可以使用`from_pyecharts`方法从pyecharts对象创建EChart元素。
+    对于定义格式化函数等动态选项，您可以使用`pyecharts.commons.utils`中的`JsCode`类。
+    或者，您可以使用冒号":"作为属性名称的前缀，以指示该值是JavaScript表达式。
 ''')
 def echart_from_pyecharts_demo():
     from pyecharts.charts import Bar
@@ -91,15 +91,15 @@ def echart_from_pyecharts_demo():
     )
 
 
-@doc.demo('Run methods', '''
-    You can run methods of the EChart instance using the `run_chart_method` method.
-    This demo shows how to show and hide the loading animation, how to get the current width of the chart,
-    and how to add tooltips with a custom formatter.
+@doc.demo('运行方法', '''
+    您可以使用`run_chart_method`方法运行EChart实例的方法。
+    此演示展示了如何显示和隐藏加载动画，如何获取图表的当前宽度，
+    以及如何添加带有自定义格式化器的工具提示。
 
-    The colon ":" in front of the method name "setOption" indicates that the argument is a JavaScript expression
-    that is evaluated on the client before it is passed to the method.
+    方法名称"setOption"前面的冒号":"表示参数是一个JavaScript表达式，
+    该表达式在客户端上计算后再传递给方法。
 
-    Note that requesting data from the client is only supported for page functions, not for the shared auto-index page.
+    请注意，从客户端请求数据仅支持页面函数，不支持共享的自动索引页面。
 ''')
 def methods_demo() -> None:
     # @ui.page('/')
@@ -110,23 +110,23 @@ def methods_demo() -> None:
             'series': [{'type': 'line', 'data': [150, 230, 224, 218, 135]}],
         })
 
-        ui.button('Show Loading', on_click=lambda: echart.run_chart_method('showLoading'))
-        ui.button('Hide Loading', on_click=lambda: echart.run_chart_method('hideLoading'))
+        ui.button('显示加载', on_click=lambda: echart.run_chart_method('showLoading'))
+        ui.button('隐藏加载', on_click=lambda: echart.run_chart_method('hideLoading'))
 
         async def get_width():
             width = await echart.run_chart_method('getWidth')
             ui.notify(f'Width: {width}')
-        ui.button('Get Width', on_click=get_width)
+        ui.button('获取宽度', on_click=get_width)
 
-        ui.button('Set Tooltip', on_click=lambda: echart.run_chart_method(
+        ui.button('设置工具提示', on_click=lambda: echart.run_chart_method(
             ':setOption', r'{tooltip: {formatter: params => "$" + params.value}}',
         ))
     page()  # HIDE
 
 
-@doc.demo('Arbitrary chart events', '''
-    You can register arbitrary event listeners for the chart using the `on` method and a "chart:" prefix.
-    This demo shows how to register a callback for the "selectchanged" event which is triggered when the user selects a point.
+@doc.demo('任意图表事件', '''
+    您可以使用`on`方法和"chart:"前缀为图表注册任意事件监听器。
+    此演示展示了如何为"selectchanged"事件注册回调，该事件在用户选择点时触发。
 ''')
 def events_demo() -> None:
     ui.echart({
@@ -141,9 +141,9 @@ def events_demo() -> None:
     label = ui.label()
 
 
-@doc.demo('3D Graphing', '''
-    Charts will automatically be 3D enabled if the initial options contain the string "3D".
-    If not, set the `enable_3d` argument to `True`.
+@doc.demo('3D绘图', '''
+    如果初始选项包含字符串"3D"，图表将自动启用3D功能。
+    如果没有，请将`enable_3d`参数设置为`True`。
 ''')
 def echarts_gl_demo() -> None:
     ui.echart({

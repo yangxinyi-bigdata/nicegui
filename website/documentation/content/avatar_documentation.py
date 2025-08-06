@@ -9,8 +9,8 @@ def main_demo() -> None:
     ui.avatar('img:https://nicegui.io/logo_square.png', color='blue-2')
 
 
-@doc.demo('Photos', '''
-    To use a photo as an avatar, you can use `ui.image` within `ui.avatar`.
+@doc.demo('照片', '''
+    要使用照片作为头像，您可以在`ui.avatar`内使用`ui.image`。
 ''')
 def photos() -> None:
     with ui.avatar():

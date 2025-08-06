@@ -16,13 +16,13 @@ def main_demo() -> None:
         ui.label('1.80m')
 
 
-@doc.demo('Custom grid layout', '''
-    This demo shows how to create a custom grid layout passing a string with the grid-template-columns CSS property.
-    You can use any valid CSS dimensions, such as 'auto', '1fr', '80px', etc.
+@doc.demo('自定义网格布局', '''
+    这个演示展示了如何通过传递带有 grid-template-columns CSS 属性的字符串来创建自定义网格布局。
+    您可以使用任何有效的 CSS 尺寸，如 'auto'、'1fr'、'80px' 等。
 
-    - 'auto' will make the column as wide as its content.
-    - '1fr' or '2fr' will make the corresponding columns fill the remaining space, with fractions in a 1:2 ratio.
-    - '80px' will make the column 80 pixels wide.
+    - 'auto' 将使列与其内容一样宽。
+    - '1fr' 或 '2fr' 将使相应的列填充剩余空间，分数比为 1:2。
+    - '80px' 将使列宽为 80 像素。
 ''')
 def custom_demo() -> None:
     with ui.grid(columns='auto 80px 1fr 2fr').classes('w-full gap-0'):
@@ -33,12 +33,12 @@ def custom_demo() -> None:
             ui.label('2fr').classes('border p-1')
 
 
-@doc.demo('Cells spanning multiple columns', '''
-    This demo shows how to span cells over multiple columns.
+@doc.demo('跨多列的单元格', '''
+    这个演示展示了如何让单元格跨越多列。
 
-    Note that there is [no Tailwind class for spanning 15 columns](https://v3.tailwindcss.com/docs/grid-column#arbitrary-values),
-    but we can set [arbitrary values](https://v3.tailwindcss.com/docs/grid-column#arbitrary-values) using square brackets.
-    Alternatively you could use the corresponding CSS definition: `.style('grid-column: span 15 / span 15')`.
+    请注意，[Tailwind 中没有跨越 15 列的类](https://v3.tailwindcss.com/docs/grid-column#arbitrary-values)，
+    但我们可以使用方括号设置[任意值](https://v3.tailwindcss.com/docs/grid-column#arbitrary-values)。
+    或者您可以使用相应的 CSS 定义：`.style('grid-column: span 15 / span 15')`。
 ''')
 def span_demo() -> None:
     with ui.grid(columns=16).classes('w-full gap-0'):

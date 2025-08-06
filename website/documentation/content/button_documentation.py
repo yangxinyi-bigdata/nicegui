@@ -5,24 +5,24 @@ from . import doc
 
 @doc.demo(ui.button)
 def main_demo() -> None:
-    ui.button('Click me!', on_click=lambda: ui.notify('You clicked me!'))
+    ui.button('Click me!', on_click=lambda: ui.notify('你点击了我！'))
 
 
-@doc.demo('Icons', '''
-    You can also add an icon to a button.
+@doc.demo('图标', '''
+    您也可以为按钮添加图标。
 ''')
 def icons() -> None:
     with ui.row():
         ui.button('demo', icon='history')
         ui.button(icon='thumb_up')
         with ui.button():
-            ui.label('sub-elements')
+            ui.label('子元素')
             ui.image('https://picsum.photos/id/377/640/360') \
                 .classes('rounded-full w-16 h-16 ml-4')
 
 
-@doc.demo('Await button click', '''
-    Sometimes it is convenient to wait for a button click before continuing the execution.
+@doc.demo('等待按钮点击', '''
+    有时等待按钮点击后再继续执行是很方便的。
 ''')
 async def await_button_click() -> None:
     # @ui.page('/')
@@ -37,8 +37,8 @@ async def await_button_click() -> None:
         ui.label('Three')
 
 
-@doc.demo('Disable button with a context manager', '''
-    This showcases a context manager that can be used to disable a button for the duration of an async process.
+@doc.demo('使用上下文管理器禁用按钮', '''
+    这展示了一个上下文管理器，可用于在异步过程期间禁用按钮。
 ''')
 def disable_context_manager() -> None:
     from contextlib import contextmanager
@@ -59,12 +59,12 @@ def disable_context_manager() -> None:
                 response = await client.get('https://httpbin.org/delay/1', timeout=5)
                 ui.notify(f'Response code: {response.status_code}')
 
-    ui.button('Get slow response', on_click=lambda e: get_slow_response(e.sender))
+    ui.button('获得缓慢响应', on_click=lambda e: get_slow_response(e.sender))
 
 
-@doc.demo('Custom toggle button', '''
-    As with all other elements, you can implement your own subclass with specialized logic.
-    Like this red/green toggle button with an internal boolean state.
+@doc.demo('自定义切换按钮', '''
+    就像所有其他元素一样，您可以实现自己的子类，包含专门的逻辑。
+    比如这个带有内部布尔状态的红/绿切换按钮。
 ''')
 def toggle_button() -> None:
     class ToggleButton(ui.button):
@@ -75,7 +75,7 @@ def toggle_button() -> None:
             self.on('click', self.toggle)
 
         def toggle(self) -> None:
-            """Toggle the button state."""
+            """切换按钮状态。"""
             self._state = not self._state
             self.update()
 
@@ -86,11 +86,11 @@ def toggle_button() -> None:
     ToggleButton('Toggle me')
 
 
-@doc.demo('Floating Action Button', '''
-    As described in the [Quasar documentation](https://quasar.dev/vue-components/floating-action-button),
-    a Floating Action Button (FAB) is simply a "page-sticky" with a button inside.
-    With the "fab" prop, the button will be rounded and gets a shadow.
-    Color can be freely chosen, but most often it is an accent color.
+@doc.demo('悬浮操作按钮', '''
+    如 [Quasar 文档](https://quasar.dev/vue-components/floating-action-button) 中所述，
+    悬浮操作按钮 (FAB) 只是一个内部包含按钮的"页面固定"元素。
+    使用 "fab" 属性，按钮将变为圆形并获得阴影。
+    颜色可以自由选择，但通常是强调色。
 ''')
 def fab() -> None:
     ui.colors(accent='#6AD4DD')
@@ -100,10 +100,10 @@ def fab() -> None:
             .props('fab color=accent')
 
 
-doc.text('Expandable Floating Action Button', '''
-    To create a Floating Action Button (FAB) with multiple actions that are revealed when the FAB is clicked,
-    you can use [`ui.fab` and `ui.fab_action`](fab) elements,
-    which are based on [Quasar's QFab component](https://quasar.dev/vue-components/floating-action-button).
+doc.text('可展开的浮动操作按钮', '''
+    要创建一个具有多个操作的浮动操作按钮 (FAB)，当点击 FAB 时会显示这些操作，
+    您可以使用 [`ui.fab` 和 `ui.fab_action`](fab) 元素，
+    它们基于 [Quasar 的 QFab 组件](https://quasar.dev/vue-components/floating-action-button)。
 ''')
 
 doc.reference(ui.button)

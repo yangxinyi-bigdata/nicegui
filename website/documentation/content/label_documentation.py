@@ -8,9 +8,9 @@ def main_demo() -> None:
     ui.label('some label')
 
 
-@doc.demo('Change Appearance Depending on the Content', '''
-    You can overwrite the `_handle_text_change` method to update other attributes of a label depending on its content.
-    This technique also works for bindings as shown in the example below.
+@doc.demo('根据内容改变外观', '''
+    您可以重写 `_handle_text_change` 方法来根据标签的内容更新其他属性。
+    这种技术也适用于绑定，如下面的示例所示。
 ''')
 def status():
     class status_label(ui.label):
