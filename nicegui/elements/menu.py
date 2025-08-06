@@ -9,15 +9,15 @@ from .mixins.value_element import ValueElement
 class Menu(ValueElement):
 
     def __init__(self, *, value: bool = False) -> None:
-        """Menu
+        """菜单
 
-        Creates a menu based on Quasar's `QMenu <https://quasar.dev/vue-components/menu>`_ component.
-        The menu should be placed inside the element where it should be shown.
+        基于Quasar的`QMenu <https://quasar.dev/vue-components/menu>`_组件创建菜单。
+        菜单应该放置在要显示它的元素内部。
 
-        Advanced tip:
-        Use the `auto-close` prop to automatically close the menu on any click event directly without a server round-trip.
+        高级提示：
+        使用`auto-close`属性可以在任何点击事件上直接自动关闭菜单，无需服务器往返。
 
-        :param value: whether the menu is already opened (default: `False`)
+        :param value: 菜单是否已经打开（默认：`False`）
         """
         super().__init__(tag='q-menu', value=value, on_value_change=None)
 
@@ -27,15 +27,15 @@ class Menu(ValueElement):
                                 'Use "ui.context_menu()" instead.')
 
     def open(self) -> None:
-        """Open the menu."""
+        """打开菜单。"""
         self.value = True
 
     def close(self) -> None:
-        """Close the menu."""
+        """关闭菜单。"""
         self.value = False
 
     def toggle(self) -> None:
-        """Toggle the menu."""
+        """切换菜单状态。"""
         self.value = not self.value
 
 
@@ -46,14 +46,14 @@ class MenuItem(Item):
                  on_click: Optional[Handler[ClickEventArguments]] = None, *,
                  auto_close: bool = True,
                  ) -> None:
-        """Menu Item
+        """菜单项
 
-        A menu item to be added to a menu.
-        This element is based on Quasar's `QItem <https://quasar.dev/vue-components/list-and-list-items#qitem-api>`_ component.
+        要添加到菜单中的菜单项。
+        此元素基于Quasar的`QItem <https://quasar.dev/vue-components/list-and-list-items#qitem-api>`_组件。
 
-        :param text: label of the menu item
-        :param on_click: callback to be executed when selecting the menu item
-        :param auto_close: whether the menu should be closed after a click event (default: `True`)
+        :param text: 菜单项的标签
+        :param on_click: 选择菜单项时执行的回调函数
+        :param auto_close: 点击事件后是否应关闭菜单（默认：`True`）
         """
         super().__init__(text=text, on_click=on_click)
 

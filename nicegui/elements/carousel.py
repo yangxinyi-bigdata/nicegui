@@ -17,16 +17,16 @@ class Carousel(ValueElement):
                  arrows: bool = False,
                  navigation: bool = False,
                  ) -> None:
-        """Carousel
+        """轮播
 
-        This element represents `Quasar's QCarousel <https://quasar.dev/vue-components/carousel#qcarousel-api>`_ component.
-        It contains individual carousel slides.
+        此元素表示`Quasar的QCarousel <https://quasar.dev/vue-components/carousel#qcarousel-api>`_组件。
+        它包含个别的轮播幻灯片。
 
-        :param value: `ui.carousel_slide` or name of the slide to be initially selected (default: `None` meaning the first slide)
-        :param on_value_change: callback to be executed when the selected slide changes
-        :param animated: whether to animate slide transitions (default: `False`)
-        :param arrows: whether to show arrows for manual slide navigation (default: `False`)
-        :param navigation: whether to show navigation dots for manual slide navigation (default: `False`)
+        :param value: `ui.carousel_slide`或初始选择的幻灯片名称（默认：`None`，表示第一张幻灯片）
+        :param on_value_change: 当选择的幻灯片更改时要执行的回调函数
+        :param animated: 是否为幻灯片切换添加动画（默认：`False`）
+        :param arrows: 是否显示手动幻灯片导航的箭头（默认：`False`）
+        :param navigation: 是否显示手动幻灯片导航的导航点（默认：`False`）
         """
         super().__init__(tag='q-carousel', value=value, on_value_change=on_value_change)
         self._props['animated'] = animated
@@ -44,23 +44,23 @@ class Carousel(ValueElement):
             slide.props(f':done={done}')
 
     def next(self) -> None:
-        """Show the next slide."""
+        """显示下一张幻灯片。"""
         self.run_method('next')
 
     def previous(self) -> None:
-        """Show the previous slide."""
+        """显示上一张幻灯片。"""
         self.run_method('previous')
 
 
 class CarouselSlide(DisableableElement, default_classes='nicegui-carousel-slide'):
 
     def __init__(self, name: Optional[str] = None) -> None:
-        """Carousel Slide
+        """轮播幻灯片
 
-        This element represents `Quasar's QCarouselSlide <https://quasar.dev/vue-components/carousel#qcarouselslide-api>`_ component.
-        It is a child of a `ui.carousel` element.
+        此元素表示`Quasar的QCarouselSlide <https://quasar.dev/vue-components/carousel#qcarouselslide-api>`_组件。
+        它是`ui.carousel`元素的子元素。
 
-        :param name: name of the slide (will be the value of the `ui.carousel` element, auto-generated if `None`)
+        :param name: 幻灯片的名称（将是`ui.carousel`元素的值，如果为`None`则自动生成）
         """
         super().__init__(tag='q-carousel-slide')
         self.carousel = cast(ValueElement, context.slot.parent)

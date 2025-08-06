@@ -15,19 +15,19 @@ except ImportError:
 class Plotly(Element, component='plotly.vue', dependencies=['lib/plotly/plotly.min.js']):
 
     def __init__(self, figure: Union[Dict, go.Figure]) -> None:
-        """Plotly Element
+        """Plotly元素
 
-        Renders a Plotly chart.
-        There are two ways to pass a Plotly figure for rendering, see parameter `figure`:
+        渲染Plotly图表。
+        有两种方式传递Plotly图形进行渲染，参见参数`figure`：
 
-        * Pass a `go.Figure` object, see https://plotly.com/python/
+        * 传递`go.Figure`对象，参见 https://plotly.com/python/
 
-        * Pass a Python `dict` object with keys `data`, `layout`, `config` (optional), see https://plotly.com/javascript/
+        * 传递包含键`data`、`layout`、`config`（可选）的Python`dict`对象，参见 https://plotly.com/javascript/
 
-        For best performance, use the declarative `dict` approach for creating a Plotly chart.
+        为获得最佳性能，建议使用声明式的`dict`方法创建Plotly图表。
 
-        :param figure: Plotly figure to be rendered. Can be either a `go.Figure` instance, or
-                       a `dict` object with keys `data`, `layout`, `config` (optional).
+        :param figure: 要渲染的Plotly图形。可以是`go.Figure`实例，
+                       或包含键`data`、`layout`、`config`（可选）的`dict`对象。
         """
         if not optional_features.has('plotly'):
             raise ImportError('Plotly is not installed. Please run "pip install nicegui[plotly]".')
@@ -40,7 +40,7 @@ class Plotly(Element, component='plotly.vue', dependencies=['lib/plotly/plotly.m
         self._update_method = 'update'
 
     def update_figure(self, figure: Union[Dict, go.Figure]):
-        """Overrides figure instance of this Plotly chart and updates chart on client side."""
+        """覆盖此Plotly图表的图形实例并在客户端更新图表。"""
         self.figure = figure
         self.update()
 

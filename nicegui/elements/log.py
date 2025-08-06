@@ -7,11 +7,11 @@ from .label import Label
 class Log(Element, default_classes='nicegui-log'):
 
     def __init__(self, max_lines: Optional[int] = None) -> None:
-        """Log View
+        """日志视图
 
-        Create a log view that allows to add new lines without re-transmitting the whole history to the client.
+        创建一个日志视图，允许添加新行而无需将整个历史记录重新传输到客户端。
 
-        :param max_lines: maximum number of lines before dropping oldest ones (default: `None`)
+        :param max_lines: 删除最旧行之前的最大行数（默认：`None`）
         """
         super().__init__()
         self.max_lines = max_lines
@@ -20,12 +20,12 @@ class Log(Element, default_classes='nicegui-log'):
              classes: Optional[str] = None,
              style: Optional[str] = None,
              props: Optional[str] = None) -> None:
-        """Add a new line to the log.
+        """向日志添加新行。
 
-        :param line: the line to add (can contain line breaks)
-        :param classes: classes to apply to the line (*added in version 2.18.0*)
-        :param style: style to apply to the line (*added in version 2.18.0*)
-        :param props: props to apply to the line (*added in version 2.18.0*)
+        :param line: 要添加的行（可以包含换行符）
+        :param classes: 应用于行的类（*在版本2.18.0中添加*）
+        :param style: 应用于行的样式（*在版本2.18.0中添加*）
+        :param props: 应用于行的属性（*在版本2.18.0中添加*）
         """
         for text in str(line).splitlines():
             with self:

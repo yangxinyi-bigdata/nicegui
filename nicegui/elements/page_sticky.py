@@ -22,14 +22,14 @@ class PageSticky(Element):
                  y_offset: float = 0,
                  *,
                  expand: bool = False) -> None:
-        """Page sticky
+        """页面固定元素
 
-        This element is based on Quasar's `QPageSticky <https://quasar.dev/layout/page-sticky>`_ component.
+        此元素基于Quasar的`QPageSticky <https://quasar.dev/layout/page-sticky>`_组件。
 
-        :param position: position on the screen (default: "bottom-right")
-        :param x_offset: horizontal offset (default: 0)
-        :param y_offset: vertical offset (default: 0)
-        :param expand: whether to fully expand instead of shrinking to fit the content (default: ``False``, *added in version 2.1.0*)
+        :param position: 屏幕上的位置（默认："bottom-right"）
+        :param x_offset: 水平偏移量（默认：0）
+        :param y_offset: 垂直偏移量（默认：0）
+        :param expand: 是否完全展开而不是收缩以适应内容（默认：``False``，*在版本2.1.0中添加*）
         """
         super().__init__('q-page-sticky')
         self._props['position'] = position

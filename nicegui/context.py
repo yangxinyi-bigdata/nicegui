@@ -12,12 +12,12 @@ class Context:
 
     @property
     def slot_stack(self) -> List[Slot]:
-        """Return the slot stack of the current asyncio task."""
+        """返回当前异步任务的插槽堆栈。"""
         return Slot.get_stack()
 
     @property
     def slot(self) -> Slot:
-        """Return the current slot."""
+        """返回当前插槽。"""
         slot_stack = self.slot_stack
         if not slot_stack:
             raise RuntimeError('The current slot cannot be determined because the slot stack for this task is empty.\n'
@@ -27,7 +27,7 @@ class Context:
 
     @property
     def client(self) -> Client:
-        """Return the current client."""
+        """返回当前客户端。"""
         return self.slot.parent.client
 
 

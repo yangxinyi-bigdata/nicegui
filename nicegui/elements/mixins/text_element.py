@@ -7,10 +7,19 @@ from ...element import Element
 
 
 class TextElement(Element):
+    """文本元素混入
+
+    为元素提供文本内容管理功能的混入类。
+    支持文本绑定和动态更新。
+    """
     text = BindableProperty(
         on_change=lambda sender, text: cast(Self, sender)._handle_text_change(text))  # pylint: disable=protected-access
 
     def __init__(self, *, text: str, **kwargs: Any) -> None:
+        """初始化文本元素
+
+        :param text: 元素的文本内容
+        """
         super().__init__(**kwargs)
         self.text = text
         self._text_to_model_text(text)
@@ -20,14 +29,14 @@ class TextElement(Element):
                      target_name: str = 'text',
                      forward: Optional[Callable[[Any], Any]] = None,
                      ) -> Self:
-        """Bind the text of this element to the target object's target_name property.
+        """将此元素的文本绑定到目标对象的target_name属性。
 
-        The binding works one way only, from this element to the target.
-        The update happens immediately and whenever a value changes.
+        绑定是单向的，从此元素到目标。
+        更新会立即发生，并在值变化时进行。
 
-        :param target_object: The object to bind to.
-        :param target_name: The name of the property to bind to.
-        :param forward: A function to apply to the value before applying it to the target (default: identity).
+        :param target_object: 要绑定到的对象。
+        :param target_name: 要绑定到的属性名称。
+        :param forward: 在应用到目标之前应用于值的函数（默认：恒等函数）。
         """
         bind_to(self, 'text', target_object, target_name, forward)
         return self
@@ -37,14 +46,14 @@ class TextElement(Element):
                        target_name: str = 'text',
                        backward: Optional[Callable[[Any], Any]] = None,
                        ) -> Self:
-        """Bind the text of this element from the target object's target_name property.
+        """将此元素的文本从目标对象的target_name属性绑定。
 
-        The binding works one way only, from the target to this element.
-        The update happens immediately and whenever a value changes.
+        绑定是单向的，从目标到此元素。
+        更新会立即发生，并在值变化时进行。
 
-        :param target_object: The object to bind from.
-        :param target_name: The name of the property to bind from.
-        :param backward: A function to apply to the value before applying it to this element (default: identity).
+        :param target_object: 要绑定来源的对象。
+        :param target_name: 要绑定来源的属性名称。
+        :param backward: 在应用到元素之前应用于值的函数（默认：恒等函数）。
         """
         bind_from(self, 'text', target_object, target_name, backward)
         return self
@@ -55,34 +64,38 @@ class TextElement(Element):
                   forward: Optional[Callable[[Any], Any]] = None,
                   backward: Optional[Callable[[Any], Any]] = None,
                   ) -> Self:
-        """Bind the text of this element to the target object's target_name property.
+        """将此元素的文本绑定到目标对象的target_name属性。
 
-        The binding works both ways, from this element to the target and from the target to this element.
-        The update happens immediately and whenever a value changes.
-        The backward binding takes precedence for the initial synchronization.
+        绑定是双向的，从此元素到目标和从目标到此元素。
+        更新会立即发生，并在值变化时进行。
+        反向绑定在初始同步时具有优先权。
 
-        :param target_object: The object to bind to.
-        :param target_name: The name of the property to bind to.
-        :param forward: A function to apply to the value before applying it to the target (default: identity).
-        :param backward: A function to apply to the value before applying it to this element (default: identity).
+        :param target_object: 要绑定到的对象。
+        :param target_name: 要绑定到的属性名称。
+        :param forward: 在应用到目标之前应用于值的函数（默认：恒等函数）。
+        :param backward: 在应用到元素之前应用于值的函数（默认：恒等函数）。
         """
         bind(self, 'text', target_object, target_name, forward=forward, backward=backward)
         return self
 
     def set_text(self, text: str) -> None:
-        """Set the text of this element.
+        """设置此元素的文本。
 
-        :param text: The new text.
+        :param text: 新文本。
         """
         self.text = text
 
     def _handle_text_change(self, text: str) -> None:
-        """Called when the text of this element changes.
+        """当元素文本变化时调用。
 
-        :param text: The new text.
+        :param text: 新文本。
         """
         self._text_to_model_text(text)
         self.update()
 
     def _text_to_model_text(self, text: str) -> None:
+        """将文本转换为模型文本格式
+
+        :param text: 要转换的文本
+        """
         self._text = text

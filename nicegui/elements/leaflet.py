@@ -32,16 +32,16 @@ class Leaflet(Element, component='leaflet.js', default_classes='nicegui-leaflet'
                  hide_drawn_items: bool = False,
                  additional_resources: Optional[List[str]] = None,
                  ) -> None:
-        """Leaflet map
+        """Leaflet地图
 
-        This element is a wrapper around the `Leaflet <https://leafletjs.com/>`_ JavaScript library.
+        此元素是`Leaflet <https://leafletjs.com/>`_ JavaScript库的包装器。
 
-        :param center: initial center location of the map (latitude/longitude, default: (0.0, 0.0))
-        :param zoom: initial zoom level of the map (default: 13)
-        :param draw_control: whether to show the draw toolbar (default: False)
-        :param options: additional options passed to the Leaflet map (default: {})
-        :param hide_drawn_items: whether to hide drawn items on the map (default: False, *added in version 2.0.0*)
-        :param additional_resources: additional resources like CSS or JS files to load (default: None, *added in version 2.11.0*)
+        :param center: 地图的初始中心位置（纬度/经度，默认：(0.0, 0.0)）
+        :param zoom: 地图的初始缩放级别（默认：13）
+        :param draw_control: 是否显示绘制工具栏（默认：False）
+        :param options: 传递给Leaflet地图的附加选项（默认：{}）
+        :param hide_drawn_items: 是否隐藏地图上绘制的项目（默认：False，*在版本2.0.0中添加*）
+        :param additional_resources: 要加载的附加资源，如CSS或JS文件（默认：None，*在版本2.11.0中添加*）
         """
         super().__init__()
         self.add_resource(Path(__file__).parent / 'lib' / 'leaflet')
@@ -86,9 +86,9 @@ class Leaflet(Element, component='leaflet.js', default_classes='nicegui-leaflet'
                 self.run_method('add_layer', layer.to_dict(), layer.id)
 
     async def initialized(self, timeout: float = 3.0) -> None:
-        """Wait until the map is initialized.
+        """等待地图初始化完成。
 
-        :param timeout: timeout in seconds (default: 3 seconds)
+        :param timeout: 超时时间，以秒为单位（默认：3秒）
         """
         event = asyncio.Event()
         self.on('init', event.set, [])
@@ -111,7 +111,7 @@ class Leaflet(Element, component='leaflet.js', default_classes='nicegui-leaflet'
         return super().run_method(name, *args, timeout=timeout)
 
     def set_center(self, center: Tuple[float, float]) -> None:
-        """Set the center location of the map."""
+        """设置地图的中心位置。"""
         if self._props['center'] == center:
             return
         self._props['center'] = center
@@ -119,7 +119,7 @@ class Leaflet(Element, component='leaflet.js', default_classes='nicegui-leaflet'
             self.run_map_method('setView', center, self.zoom)
 
     def set_zoom(self, zoom: int) -> None:
-        """Set the zoom level of the map."""
+        """设置地图的缩放级别。"""
         if self._props['zoom'] == zoom:
             return
         self._props['zoom'] = zoom
@@ -127,43 +127,43 @@ class Leaflet(Element, component='leaflet.js', default_classes='nicegui-leaflet'
             self.run_map_method('setView', self.center, zoom)
 
     def remove_layer(self, layer: Layer) -> None:
-        """Remove a layer from the map."""
+        """从地图中移除图层。"""
         self.layers.remove(layer)
         self.run_method('remove_layer', layer.id)
 
     def clear_layers(self) -> None:
-        """Remove all layers from the map."""
+        """从地图中移除所有图层。"""
         self.layers.clear()
         self.run_method('clear_layers')
 
     def run_map_method(self, name: str, *args, timeout: float = 1) -> AwaitableResponse:
-        """Run a method of the Leaflet map instance.
+        """运行Leaflet地图实例的方法。
 
-        Refer to the `Leaflet documentation <https://leafletjs.com/reference.html#map-methods-for-modifying-map-state>`_ for a list of methods.
+        方法列表请参考`Leaflet文档 <https://leafletjs.com/reference.html#map-methods-for-modifying-map-state>`_。
 
-        If the function is awaited, the result of the method call is returned.
-        Otherwise, the method is executed without waiting for a response.
+        如果函数被等待，则返回方法调用的结果。
+        否则，方法将执行而不等待响应。
 
-        :param name: name of the method (a prefix ":" indicates that the arguments are JavaScript expressions)
-        :param args: arguments to pass to the method
-        :param timeout: timeout in seconds (default: 1 second)
+        :param name: 方法名称（前缀":"表示参数是JavaScript表达式）
+        :param args: 传递给方法的参数
+        :param timeout: 超时时间，以秒为单位（默认：1秒）
 
-        :return: AwaitableResponse that can be awaited to get the result of the method call
+        :return: 可以等待以获取方法调用结果的AwaitableResponse
         """
         return self.run_method('run_map_method', name, *args, timeout=timeout)
 
     def run_layer_method(self, layer_id: str, name: str, *args, timeout: float = 1) -> AwaitableResponse:
-        """Run a method of a Leaflet layer.
+        """运行Leaflet图层的方法。
 
-        If the function is awaited, the result of the method call is returned.
-        Otherwise, the method is executed without waiting for a response.
+        如果函数被等待，则返回方法调用的结果。
+        否则，方法将执行而不等待响应。
 
-        :param layer_id: ID of the layer
-        :param name: name of the method (a prefix ":" indicates that the arguments are JavaScript expressions)
-        :param args: arguments to pass to the method
-        :param timeout: timeout in seconds (default: 1 second)
+        :param layer_id: 图层的ID
+        :param name: 方法名称（前缀":"表示参数是JavaScript表达式）
+        :param args: 传递给方法的参数
+        :param timeout: 超时时间，以秒为单位（默认：1秒）
 
-        :return: AwaitableResponse that can be awaited to get the result of the method call
+        :return: 可以等待以获取方法调用结果的AwaitableResponse
         """
         return self.run_method('run_layer_method', layer_id, name, *args, timeout=timeout)
 

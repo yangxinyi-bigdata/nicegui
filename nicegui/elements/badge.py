@@ -12,15 +12,14 @@ class Badge(TextElement, BackgroundColorElement, TextColorElement):
                  color: Optional[str] = 'primary',
                  text_color: Optional[str] = None,
                  outline: bool = False) -> None:
-        """Badge
+        """徽章
 
-        A badge element wrapping Quasar's
-        `QBadge <https://quasar.dev/vue-components/badge>`_ component.
+        封装Quasar的`QBadge <https://quasar.dev/vue-components/badge>`_组件的徽章元素。
 
-        :param text: the initial value of the text field
-        :param color: the color name for component (either a Quasar, Tailwind, or CSS color or `None`, default: "primary")
-        :param text_color: text color (either a Quasar, Tailwind, or CSS color or `None`, default: `None`)
-        :param outline: use 'outline' design (colored text and borders only) (default: False)
+        :param text: 文本字段的初始值
+        :param color: 组件的颜色名称（Quasar、Tailwind或CSS颜色，或`None`，默认："primary"）
+        :param text_color: 文本颜色（Quasar、Tailwind或CSS颜色，或`None`，默认：`None`）
+        :param outline: 使用'outline'设计（仅彩色文本和边框）（默认：False）
         """
         super().__init__(tag='q-badge', text=text, text_color=text_color, background_color=color)
         self._props['outline'] = outline

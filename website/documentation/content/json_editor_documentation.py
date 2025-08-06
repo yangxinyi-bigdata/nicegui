@@ -23,15 +23,15 @@ def main_demo() -> None:
                    on_change=lambda e: ui.notify(f'Change: {e}'))
 
 
-@doc.demo('Validation', '''
-    You can use the `schema` parameter to define a [JSON schema](https://json-schema.org/) for validating the data being edited.
-    In this demo, the editor will warn if the data does not match the schema:
+@doc.demo('验证', '''
+    您可以使用 `schema` 参数定义 [JSON schema](https://json-schema.org/) 来验证正在编辑的数据。
+    在此演示中，如果数据与模式不匹配，编辑器将发出警告：
 
-    - `id` must be an integer
-    - `name` must be a string
-    - `price` must be a number greater than 0
+    - `id` 必须是整数
+    - `name` 必须是字符串
+    - `price` 必须是大于 0 的数字
 
-    *Added in version 2.8.0*
+    *在版本 2.8.0 中添加*
 ''')
 def schema_demo() -> None:
     schema = {
@@ -58,14 +58,14 @@ def schema_demo() -> None:
     ui.json_editor({'content': {'json': data}}, schema=schema)
 
 
-@doc.demo('Run methods', '''
-    You can run methods of the JSONEditor instance using the `run_editor_method` method.
-    This demo shows how to expand and collapse all nodes and how to get the current data.
+@doc.demo('运行方法', '''
+    您可以使用 `run_editor_method` 方法运行 JSONEditor 实例的方法。
+    此演示展示如何展开和折叠所有节点以及如何获取当前数据。
 
-    The colon ":" in front of the method name "expand" indicates that the value "path => true" is a JavaScript expression
-    that is evaluated on the client before it is passed to the method.
+    方法名称 "expand" 前面的冒号 ":" 表示值 "path => true" 是一个 JavaScript 表达式，
+    该表达式在传递给方法之前在客户端上求值。
 
-    Note that requesting data from the client is only supported for page functions, not for the shared auto-index page.
+    请注意，从客户端请求数据仅支持页面函数，不支持共享的自动索引页面。
 ''')
 def methods_demo() -> None:
     # @ui.page('/')

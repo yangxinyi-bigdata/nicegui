@@ -8,6 +8,11 @@ from ...events import Handler, ValueChangeEventArguments, handle_event
 
 
 class SelectableElement(Element):
+    """可选择元素混入
+
+    为元素提供选择状态管理功能的混入类。
+    支持选择状态绑定和选择事件处理。
+    """
     selected = BindableProperty(
         on_change=lambda sender, selected: cast(Self, sender)._handle_selection_change(selected))  # pylint: disable=protected-access
 
@@ -16,6 +21,12 @@ class SelectableElement(Element):
                  selected: bool,
                  on_selection_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  **kwargs: Any) -> None:
+        """初始化可选择元素
+
+        :param selectable: 元素是否可选择
+        :param selected: 初始选择状态
+        :param on_selection_change: 选择状态变化时的回调函数
+        """
         super().__init__(**kwargs)
         if not selectable:
             return
@@ -32,7 +43,7 @@ class SelectableElement(Element):
             self.on_selection_change(on_selection_change)
 
     def on_selection_change(self, callback: Handler[ValueChangeEventArguments]) -> Self:
-        """Add a callback to be invoked when the selection state changes."""
+        """添加选择状态变化时要调用的回调函数。"""
         self._selection_change_handlers.append(callback)
         return self
 
@@ -41,14 +52,14 @@ class SelectableElement(Element):
                          target_name: str = 'selected',
                          forward: Optional[Callable[[Any], Any]] = None,
                          ) -> Self:
-        """Bind the selection state of this element to the target object's target_name property.
+        """将此元素的选择状态绑定到目标对象的target_name属性。
 
-        The binding works one way only, from this element to the target.
-        The update happens immediately and whenever a value changes.
+        绑定是单向的，从此元素到目标。
+        更新会立即发生，并在值变化时进行。
 
-        :param target_object: The object to bind to.
-        :param target_name: The name of the property to bind to.
-        :param forward: A function to apply to the value before applying it to the target (default: identity).
+        :param target_object: 要绑定到的对象。
+        :param target_name: 要绑定到的属性名称。
+        :param forward: 在应用到目标之前应用于值的函数（默认：恒等函数）。
         """
         bind_to(self, 'selected', target_object, target_name, forward)
         return self
@@ -58,14 +69,14 @@ class SelectableElement(Element):
                            target_name: str = 'selected',
                            backward: Optional[Callable[[Any], Any]] = None,
                            ) -> Self:
-        """Bind the selection state of this element from the target object's target_name property.
+        """将此元素的选择状态从目标对象的target_name属性绑定。
 
-        The binding works one way only, from the target to this element.
-        The update happens immediately and whenever a value changes.
+        绑定是单向的，从目标到此元素。
+        更新会立即发生，并在值变化时进行。
 
-        :param target_object: The object to bind from.
-        :param target_name: The name of the property to bind from.
-        :param backward: A function to apply to the value before applying it to this element (default: identity).
+        :param target_object: 要绑定来源的对象。
+        :param target_name: 要绑定来源的属性名称。
+        :param backward: 在应用到元素之前应用于值的函数（默认：恒等函数）。
         """
         bind_from(self, 'selected', target_object, target_name, backward)
         return self
@@ -76,31 +87,31 @@ class SelectableElement(Element):
                       forward: Optional[Callable[[Any], Any]] = None,
                       backward: Optional[Callable[[Any], Any]] = None,
                       ) -> Self:
-        """Bind the selection state of this element to the target object's target_name property.
+        """将此元素的选择状态绑定到目标对象的target_name属性。
 
-        The binding works both ways, from this element to the target and from the target to this element.
-        The update happens immediately and whenever a value changes.
-        The backward binding takes precedence for the initial synchronization.
+        绑定是双向的，从此元素到目标和从目标到此元素。
+        更新会立即发生，并在值变化时进行。
+        反向绑定在初始同步时具有优先权。
 
-        :param target_object: The object to bind to.
-        :param target_name: The name of the property to bind to.
-        :param forward: A function to apply to the value before applying it to the target (default: identity).
-        :param backward: A function to apply to the value before applying it to this element (default: identity).
+        :param target_object: 要绑定到的对象。
+        :param target_name: 要绑定到的属性名称。
+        :param forward: 在应用到目标之前应用于值的函数（默认：恒等函数）。
+        :param backward: 在应用到元素之前应用于值的函数（默认：恒等函数）。
         """
         bind(self, 'selected', target_object, target_name, forward=forward, backward=backward)
         return self
 
     def set_selected(self, selected: bool) -> None:
-        """Set the selection state of this element.
+        """设置此元素的选择状态。
 
-        :param selected: The new selection state.
+        :param selected: 新选择状态。
         """
         self.selected = selected
 
     def _handle_selection_change(self, selected: bool) -> None:
-        """Called when the selection state of this element changes.
+        """当元素选择状态变化时调用。
 
-        :param selected: The new selection state.
+        :param selected: 新选择状态。
         """
         self._props['selected'] = selected
         self.update()

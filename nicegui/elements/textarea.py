@@ -13,22 +13,22 @@ class Textarea(Input, component='input.js'):
                  on_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  validation: Optional[Union[Callable[..., Optional[str]], Dict[str, Callable[..., bool]]]] = None,
                  ) -> None:
-        """Textarea
+        """文本区域
 
-        This element is based on Quasar's `QInput <https://quasar.dev/vue-components/input>`_ component.
-        The ``type`` is set to ``textarea`` to create a multi-line text input.
+        此元素基于Quasar的`QInput <https://quasar.dev/vue-components/input>`_组件。
+        ``type``设置为``textarea``以创建多行文本输入。
 
-        You can use the `validation` parameter to define a dictionary of validation rules,
-        e.g. ``{'Too long!': lambda value: len(value) < 3}``.
-        The key of the first rule that fails will be displayed as an error message.
-        Alternatively, you can pass a callable that returns an optional error message.
-        To disable the automatic validation on every value change, you can use the `without_auto_validation` method.
+        您可以使用`validation`参数来定义验证规则字典，
+        例如``{'Too long!': lambda value: len(value) < 3}``。
+        第一个失败的规则的键将作为错误消息显示。
+        或者，您可以传递一个返回可选错误消息的可调用对象。
+        要禁用每次值更改时的自动验证，可以使用`without_auto_validation`方法。
 
-        :param label: displayed name for the textarea
-        :param placeholder: text to show if no value is entered
-        :param value: the initial value of the field
-        :param on_change: callback to execute when the value changes
-        :param validation: dictionary of validation rules or a callable that returns an optional error message (default: None for no validation)
+        :param label: 文本区域的显示名称
+        :param placeholder: 如果没有输入值时显示的文本
+        :param value: 字段的初始值
+        :param on_change: 值更改时执行的回调函数
+        :param validation: 验证规则字典或返回可选错误消息的可调用对象（默认：None表示无验证）
         """
         super().__init__(label, placeholder=placeholder, value=value, on_change=on_change, validation=validation)
         self._props['type'] = 'textarea'

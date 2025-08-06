@@ -3,11 +3,11 @@ from ..context import context
 
 
 def page_title(title: str) -> None:
-    """Page title
+    """页面标题
 
-    Set the page title for the current client.
+    为当前客户端设置页面标题。
 
-    :param title: page title
+    :param title: 页面标题
     """
     client = context.client
     client.title = title

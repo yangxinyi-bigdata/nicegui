@@ -27,21 +27,21 @@ class SubPages(Element, component='sub_pages.js', default_classes='nicegui-sub-p
                  data: Optional[Dict[str, Any]] = None,
                  show_404: bool = True,
                  ) -> None:
-        """Create a container for client-side routing within a page.
+        """创建页面内客户端路由的容器。
 
-        Provides URL-based navigation between different views to build single page applications (SPAs).
-        Routes are defined as path patterns mapping to page builder functions.
-        Path parameters like "/user/{id}" are extracted and passed to the builder function.
+        提供基于URL的不同视图之间的导航，以构建单页应用程序（SPA）。
+        路由定义为映射到页面构建器函数的路径模式。
+        像"/user/{id}"这样的路径参数会被提取并传递给构建器函数。
 
-        **This is an experimental feature, and the API is subject to change.**
+        **这是一个实验性功能，API可能会发生变化。**
 
-        *Added in version 2.22.0*
+        *在版本2.22.0中添加*
 
-        :param routes: dictionary mapping path patterns to page builder functions
-        :param root_path: path prefix to strip from incoming paths (ignored by nested ``ui.sub_pages`` elements)
-        :param data: arbitrary data passed to all page builder functions
-        :param show_404: whether to show a 404 error message if the full path could not be consumed
-            (can be useful for dynamically created nested sub pages) (default: ``True``)
+        :param routes: 将路径模式映射到页面构建器函数的字典
+        :param root_path: 从传入路径中去除的路径前缀（嵌套的``ui.sub_pages``元素会忽略此参数）
+        :param data: 传递给所有页面构建器函数的任意数据
+        :param show_404: 如果无法消耗完整路径是否显示404错误消息
+            （对于动态创建的嵌套子页面可能有用）（默认：``True``）
         """
         super().__init__()
         assert not context.client.shared, (
@@ -61,18 +61,18 @@ class SubPages(Element, component='sub_pages.js', default_classes='nicegui-sub-p
         self._show()
 
     def add(self, path: str, page: Callable) -> Self:
-        """Add a new route.
+        """添加新路由。
 
-        :param path: path pattern to match (e.g., "/user/{id}" for parameterized routes)
-        :param page: function to call when this path is accessed
-        :return: self for method chaining
+        :param path: 要匹配的路径模式（例如，参数化路由的"/user/{id}"）
+        :param page: 访问此路径时调用的函数
+        :return: 用于方法链式调用的self
         """
         self._routes[path] = page
         self._show()
         return self
 
     def _show(self) -> None:
-        """Display the page matching the current URL path."""
+        """显示与当前URL路径匹配的页面。"""
         self._rendered_path = ''
         match = self._find_matching_path()
         # NOTE: if path and query params are the same, only update fragment without re-rendering
@@ -125,7 +125,7 @@ class SubPages(Element, component='sub_pages.js', default_classes='nicegui-sub-p
         return True
 
     def _render_404(self) -> None:
-        """Display a 404 error message for unmatched routes."""
+        """为未匹配的路由显示404错误消息。"""
         Label(f'404: sub page {self._router.current_path} not found')
 
     def _render_error(self, _: Exception) -> None:  # NOTE: exception is exposed for debugging scenarios via inheritance

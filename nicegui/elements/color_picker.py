@@ -13,13 +13,13 @@ class ColorPicker(Menu):
                  on_pick: Optional[Handler[ColorPickEventArguments]] = None,
                  value: bool = False,
                  ) -> None:
-        """Color Picker
+        """颜色选择器
 
-        This element is based on Quasar's `QMenu <https://quasar.dev/vue-components/menu>`_ and
-        `QColor <https://quasar.dev/vue-components/color-picker>`_ components.
+        此元素基于Quasar的`QMenu <https://quasar.dev/vue-components/menu>`_和
+        `QColor <https://quasar.dev/vue-components/color-picker>`_组件。
 
-        :param on_pick: callback to execute when a color is picked
-        :param value: whether the menu is already opened (default: `False`)
+        :param on_pick: 选择颜色时执行的回调函数
+        :param value: 菜单是否已打开（默认：`False`）
         """
         super().__init__(value=value)
         self._pick_handlers = [on_pick] if on_pick else []
@@ -30,13 +30,13 @@ class ColorPicker(Menu):
             self.q_color = Element('q-color').on('change', handle_change)
 
     def set_color(self, color: str) -> None:
-        """Set the color of the picker.
+        """设置选择器的颜色。
 
-        :param color: the color to set
+        :param color: 要设置的颜色
         """
         self.q_color.props(f'model-value="{color}"')
 
     def on_pick(self, callback: Handler[ColorPickEventArguments]) -> Self:
-        """Add a callback to be invoked when a color is picked."""
+        """添加一个在选择颜色时调用的回调函数。"""
         self._pick_handlers.append(callback)
         return self

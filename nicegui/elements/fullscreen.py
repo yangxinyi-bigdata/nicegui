@@ -10,30 +10,30 @@ class Fullscreen(ValueElement, component='fullscreen.js'):
     def __init__(self, *,
                  require_escape_hold: bool = False,
                  on_value_change: Optional[Handler[ValueChangeEventArguments]] = None) -> None:
-        """Fullscreen control element
+        """全屏控制元素
 
-        This element is based on Quasar's `AppFullscreen <https://quasar.dev/quasar-plugins/app-fullscreen>`_ plugin
-        and provides a way to enter, exit and toggle the fullscreen mode.
+        此元素基于Quasar的`AppFullscreen <https://quasar.dev/quasar-plugins/app-fullscreen>`_插件，
+        提供进入、退出和切换全屏模式的方法。
 
-        Important notes:
+        重要说明：
 
-        * Due to security reasons, the fullscreen mode can only be entered from a previous user interaction such as a button click.
-        * The long-press escape requirement only works in some browsers like Google Chrome or Microsoft Edge.
+        * 由于安全原因，全屏模式只能从先前的用户交互（如按钮点击）进入。
+        * 长按退出键要求仅在某些浏览器（如Google Chrome或Microsoft Edge）中有效。
 
-        *Added in version 2.11.0*
+        *在版本2.11.0中添加*
 
-        :param require_escape_hold: whether the user needs to long-press the escape key to exit fullscreen mode
-        :param on_value_change: callback which is invoked when the fullscreen state changes
+        :param require_escape_hold: 用户是否需要长按退出键来退出全屏模式
+        :param on_value_change: 全屏状态变化时调用的回调函数
         """
         super().__init__(value=False, on_value_change=on_value_change)
         self._props['requireEscapeHold'] = require_escape_hold
 
     @property
     def require_escape_hold(self) -> bool:
-        """Whether the user needs to long-press of the escape key to exit fullscreen mode.
+        """用户是否需要长按退出键来退出全屏模式。
 
-        This feature is only supported in some browsers like Google Chrome or Microsoft Edge.
-        In unsupported browsers, this setting has no effect.
+        此功能仅在某些浏览器（如Google Chrome或Microsoft Edge）中受支持。
+        在不支持的浏览器中，此设置无效。
         """
         return self._props['requireEscapeHold']
 
@@ -43,15 +43,15 @@ class Fullscreen(ValueElement, component='fullscreen.js'):
         self.update()
 
     def enter(self) -> None:
-        """Enter fullscreen mode."""
+        """进入全屏模式。"""
         self.value = True
 
     def exit(self) -> None:
-        """Exit fullscreen mode."""
+        """退出全屏模式。"""
         self.value = False
 
     def toggle(self) -> None:
-        """Toggle fullscreen mode."""
+        """切换全屏模式。"""
         self.value = not self.value
 
     def _handle_value_change(self, value: bool) -> None:

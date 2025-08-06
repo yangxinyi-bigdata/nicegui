@@ -12,15 +12,15 @@ class Icon(NameElement, TextColorElement):
                  size: Optional[str] = None,
                  color: Optional[str] = None,
                  ) -> None:
-        """Icon
+        """图标
 
-        This element is based on Quasar's `QIcon <https://quasar.dev/vue-components/icon>`_ component.
+        此元素基于Quasar的`QIcon <https://quasar.dev/vue-components/icon>`_组件。
 
-        `Here <https://fonts.google.com/icons?icon.set=Material+Icons>`_ is a reference of possible names.
+        `此处 <https://fonts.google.com/icons?icon.set=Material+Icons>`_ 是可能的名称参考。
 
-        :param name: name of the icon (snake case, e.g. `add_circle`)
-        :param size: size in CSS units, including unit name or standard size name (xs|sm|md|lg|xl), examples: 16px, 2rem
-        :param color: icon color (either a Quasar, Tailwind, or CSS color or `None`, default: `None`)
+        :param name: 图标名称（蛇形命名法，例如`add_circle`）
+        :param size: CSS单位的大小，包括单位名称或标准尺寸名称（xs|sm|md|lg|xl），示例：16px, 2rem
+        :param color: 图标颜色（Quasar、Tailwind或CSS颜色，或`None`，默认：`None`）
         """
         super().__init__(tag='q-icon', name=name, text_color=color)
 

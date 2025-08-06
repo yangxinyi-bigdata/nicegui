@@ -10,19 +10,19 @@ from . import (
     query_documentation,
 )
 
-doc.title('Styling & Appearance')
+doc.title('样式与外观')
 
 
-@doc.demo('Styling', '''
-    NiceGUI uses the [Quasar Framework](https://quasar.dev/) and hence has its full design power.
-    Each NiceGUI element provides a `props` method whose content is passed [to the Quasar component](https://justpy.io/quasar_tutorial/introduction/#props-of-quasar-components):
-    Have a look at [the Quasar documentation](https://quasar.dev/vue-components/button#design) for all styling props.
-    Props with a leading `:` can contain JavaScript expressions that are evaluated on the client.
-    You can also apply [Tailwind CSS](https://v3.tailwindcss.com/) utility classes with the `classes` method.
+@doc.demo('样式', '''
+    NiceGUI 使用 [Quasar Framework](https://quasar.dev/)，因此具有其全部设计能力。
+    每个 NiceGUI 元素都提供一个 `props` 方法，其内容被[传递给 Quasar 组件](https://justpy.io/quasar_tutorial/introduction/#props-of-quasar-components)：
+    查看所有样式属性，请查看 [Quasar 文档](https://quasar.dev/vue-components/button#design)。
+    带有前导 `:` 的属性可以包含在客户端上计算的 JavaScript 表达式。
+    您也可以使用 `classes` 方法应用 [Tailwind CSS](https://v3.tailwindcss.com/) 实用类。
 
-    If you really need to apply CSS, you can use the `style` method. Here the delimiter is `;` instead of a blank space.
+    如果您确实需要应用 CSS，可以使用 `style` 方法。这里的分隔符是 `;` 而不是空格。
 
-    All three functions also provide `remove` and `replace` parameters in case the predefined look is not wanted in a particular styling.
+    所有三个函数还提供 `remove` 和 `replace` 参数，以防在特定样式中不想要预定义的外观。
 ''')
 def design_demo():
     ui.radio(['x', 'y', 'z'], value='x').props('inline color=green')
@@ -30,11 +30,11 @@ def design_demo():
     ui.label('Stylish!').style('color: #6E93D6; font-size: 200%; font-weight: 300')
 
 
-doc.text('Try styling NiceGUI elements!', '''
-    Try out how
-    [Tailwind CSS classes](https://v3.tailwindcss.com/),
-    [Quasar props](https://justpy.io/quasar_tutorial/introduction/#props-of-quasar-components),
-    and CSS styles affect NiceGUI elements.
+doc.text('尝试为 NiceGUI 元素添加样式！', '''
+    尝试一下
+    [Tailwind CSS 类](https://v3.tailwindcss.com/)、
+    [Quasar 属性](https://justpy.io/quasar_tutorial/introduction/#props-of-quasar-components)
+    和 CSS 样式如何影响 NiceGUI 元素。
 ''')
 
 
@@ -107,20 +107,20 @@ def styling_demo():
 
 
 @doc.demo('Tailwind CSS', '''
-    [Tailwind CSS](https://v3.tailwindcss.com/) is a CSS framework for rapidly building custom user interfaces.
-    NiceGUI provides a fluent, auto-complete friendly interface for adding Tailwind classes to UI elements.
+    [Tailwind CSS](https://v3.tailwindcss.com/) 是一个用于快速构建自定义用户界面的 CSS 框架。
+    NiceGUI 提供了一个流畅的、自动补全友好的界面，用于向 UI 元素添加 Tailwind 类。
 
-    You can discover available classes by navigating the methods of the `tailwind` property.
-    The builder pattern allows you to chain multiple classes together (as shown with "Label A").
-    You can also call the `tailwind` property with a list of classes (as shown with "Label B").
+    您可以通过浏览 `tailwind` 属性的方法来发现可用的类。
+    构建器模式允许您将多个类链接在一起（如"标签 A"所示）。
+    您也可以使用类列表调用 `tailwind` 属性（如"标签 B"所示）。
 
-    Although this is very similar to using the `classes` method, it is more convenient for Tailwind classes due to auto-completion.
+    尽管这与使用 `classes` 方法非常相似，但由于自动补全功能，它对 Tailwind 类来说更方便。
 
-    Last but not least, you can also predefine a style and apply it to multiple elements (labels C and D).
+    最后但同样重要的是，您还可以预定义样式并将其应用于多个元素（标签 C 和 D）。
 
-    Note that sometimes Tailwind is overruled by Quasar styles, e.g. when using `ui.button('Button').tailwind('bg-red-500')`.
-    This is a known limitation and not fully in our control.
-    But we try to provide solutions like the `color` parameter: `ui.button('Button', color='red-500')`.
+    请注意，有时 Tailwind 会被 Quasar 样式覆盖，例如当使用 `ui.button('Button').tailwind('bg-red-500')` 时。
+    这是一个已知的限制，我们无法完全控制。
+    但我们尝试提供像 `color` 参数这样的解决方案：`ui.button('Button', color='red-500')`。
 ''')
 def tailwind_demo():
     from nicegui import Tailwind
@@ -133,12 +133,12 @@ def tailwind_demo():
     ui.label('Label D').tailwind(red_style)
 
 
-@doc.demo('Tailwind CSS Layers', '''
-    Tailwind CSS' `@layer` directive allows you to define custom classes that can be used in your HTML.
-    NiceGUI supports this feature by allowing you to add custom classes to the `components` layer.
-    This way, you can define your own classes and use them in your UI elements.
-    In the example below, we define a custom class `blue-box` and apply it to two labels.
-    Note that the style tag is of type `text/tailwindcss` and not `text/css`.
+@doc.demo('Tailwind CSS 层', '''
+    Tailwind CSS 的 `@layer` 指令允许您定义可在 HTML 中使用的自定义类。
+    NiceGUI 通过允许您向 `components` 层添加自定义类来支持此功能。
+    这样，您可以定义自己的类并在 UI 元素中使用它们。
+    在下面的示例中，我们定义了一个自定义类 `blue-box` 并将其应用于两个标签。
+    请注意，样式标签的类型是 `text/tailwindcss` 而不是 `text/css`。
 ''')
 def tailwind_layers():
     ui.add_head_html('''
@@ -161,9 +161,9 @@ doc.intro(query_documentation)
 doc.intro(colors_documentation)
 
 
-@doc.demo('CSS Variables', '''
-    You can customize the appearance of NiceGUI by setting CSS variables.
-    Currently, the following variables with their default values are available:
+@doc.demo('CSS 变量', '''
+    您可以通过设置 CSS 变量来自定义 NiceGUI 的外观。
+    目前，以下变量及其默认值可用：
 
     - `--nicegui-default-padding: 1rem`
     - `--nicegui-default-gap: 1rem`
@@ -185,10 +185,10 @@ def css_variables_demo():
         ui.label('large gap')
 
 
-@doc.demo("Overwrite Tailwind's Default Style", '''
-    Tailwind resets the default style of HTML elements, like the font size of `h2` elements in this example.
-    You can overwrite these defaults by adding a style tag with type `text/tailwindcss`.
-    Without this type, the style will be evaluated too early and will be overwritten by Tailwind.
+@doc.demo("覆盖 Tailwind 的默认样式", '''
+    Tailwind 重置 HTML 元素的默认样式，如此示例中 `h2` 元素的字体大小。
+    您可以通过添加类型为 `text/tailwindcss` 的样式标签来覆盖这些默认值。
+    没有此类型，样式将被评估得太早，并被 Tailwind 覆盖。
 ''')
 def overwrite_tailwind_style_demo():
     ui.add_head_html('''
@@ -205,17 +205,17 @@ doc.intro(dark_mode_documentation)
 doc.intro(add_style_documentation)
 
 
-@doc.demo('Using other Vue UI frameworks', '''
-    **This is an experimental feature.**
-    **Many NiceGUI elements are likely to break, and the API is subject to change.**
+@doc.demo('使用其他 Vue UI 框架', '''
+    **这是一个实验性功能。**
+    **许多 NiceGUI 元素可能会损坏，API 可能会发生变化。**
 
-    NiceGUI uses the [Quasar Framework](https://quasar.dev/) by default.
-    However, you can also try to use other Vue UI frameworks
-    like [Element Plus](https://element-plus.org/en-US/) or [Vuetify](https://vuetifyjs.com/en/).
-    To do so, you need to add the framework's JavaScript and CSS file to the head of your HTML document
-    and configure NiceGUI accordingly by extending or replacing `app.config.vue_config_script`.
+    NiceGUI 默认使用 [Quasar Framework](https://quasar.dev/)。
+    但是，您也可以尝试使用其他 Vue UI 框架，
+    如 [Element Plus](https://element-plus.org/en-US/) 或 [Vuetify](https://vuetifyjs.com/en/)。
+    为此，您需要将框架的 JavaScript 和 CSS 文件添加到 HTML 文档的头部，
+    并通过扩展或替换 `app.config.vue_config_script` 来相应地配置 NiceGUI。
 
-    *Added in NiceGUI 2.21.0*
+    *在 NiceGUI 2.21.0 中添加*
 ''')
 def other_vue_ui_frameworks_demo():
     from nicegui import app

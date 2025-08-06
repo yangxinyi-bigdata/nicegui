@@ -23,13 +23,13 @@ class QueryElement(Element, component='query.js'):
 class Query:
 
     def __init__(self, selector: str) -> None:
-        """Query Selector
+        """查询选择器
 
-        To manipulate elements like the document body, you can use the `ui.query` function.
-        With the query result you can add classes, styles, and attributes like with every other UI element.
-        This can be useful for example to change the background color of the page (e.g. `ui.query('body').classes('bg-green')`).
+        要操作文档正文等元素，可以使用`ui.query`函数。
+        使用查询结果可以像其他UI元素一样添加类、样式和属性。
+        例如，这对于更改页面背景颜色很有用（例如`ui.query('body').classes('bg-green')`）。
 
-        :param selector: the CSS selector (e.g. "body", "#my-id", ".my-class", "div > p")
+        :param selector: CSS选择器（例如"body"、"#my-id"、".my-class"、"div > p"）
         """
         for element in context.client.elements.values():
             if isinstance(element, QueryElement) and element.props['selector'] == selector:
@@ -40,7 +40,7 @@ class Query:
 
     @property
     def element(self) -> QueryElement:
-        """The element this query belongs to."""
+        """此查询所属的元素。"""
         element = self._element()
         if element is None:
             raise RuntimeError('The element this query belongs to has been deleted.')
@@ -52,16 +52,16 @@ class Query:
                 toggle: Optional[str] = None,
                 replace: Optional[str] = None,
                 ) -> Self:
-        """Apply, remove, toggle, or replace HTML classes.
+        """应用、移除、切换或替换HTML类。
 
-        This allows modifying the look of the element or its layout using `Tailwind <https://v3.tailwindcss.com/>`_ or `Quasar <https://quasar.dev/>`_ classes.
+        这允许使用`Tailwind <https://v3.tailwindcss.com/>`_或`Quasar <https://quasar.dev/>`_类来修改元素的外观或布局。
 
-        Removing or replacing classes can be helpful if predefined classes are not desired.
+        如果不需要预定义的类，移除或替换类会很有帮助。
 
-        :param add: whitespace-delimited string of classes
-        :param remove: whitespace-delimited string of classes to remove from the element
-        :param toggle: whitespace-delimited string of classes to toggle (*added in version 2.7.0*)
-        :param replace: whitespace-delimited string of classes to use instead of existing ones
+        :param add: 空格分隔的类字符串
+        :param remove: 要从元素中移除的空格分隔的类字符串
+        :param toggle: 要切换的空格分隔的类字符串（*在版本2.7.0中添加*）
+        :param replace: 用于替换现有类的空格分隔的类字符串
         """
         element = self.element
         classes = Classes.update_list(element.props['classes'], add, remove, toggle, replace)
@@ -76,13 +76,13 @@ class Query:
 
     def style(self, add: Optional[str] = None, *, remove: Optional[str] = None, replace: Optional[str] = None) \
             -> Self:
-        """Apply, remove, or replace CSS definitions.
+        """应用、移除或替换CSS定义。
 
-        Removing or replacing styles can be helpful if the predefined style is not desired.
+        如果预定义的样式不符合需求，移除或替换样式会很有帮助。
 
-        :param add: semicolon-separated list of styles to add to the element
-        :param remove: semicolon-separated list of styles to remove from the element
-        :param replace: semicolon-separated list of styles to use instead of existing ones
+        :param add: 要添加到元素的用分号分隔的样式列表
+        :param remove: 要从元素中移除的用分号分隔的样式列表
+        :param replace: 用于替换现有样式的用分号分隔的样式列表
         """
         element = self.element
         old_style = Style.parse(remove)
@@ -97,15 +97,15 @@ class Query:
         return self
 
     def props(self, add: Optional[str] = None, *, remove: Optional[str] = None) -> Self:
-        """Add or remove props.
+        """添加或移除属性。
 
-        This allows modifying the look of the element or its layout using `Quasar <https://quasar.dev/>`_ props.
-        Since props are simply applied as HTML attributes, they can be used with any HTML element.
+        这允许使用`Quasar <https://quasar.dev/>`_属性来修改元素的外观或布局。
+        由于属性只是作为HTML属性应用，因此可以与任何HTML元素一起使用。
 
-        Boolean properties are assumed ``True`` if no value is specified.
+        如果未指定值，布尔属性假定为``True``。
 
-        :param add: whitespace-delimited list of either boolean values or key=value pair to add
-        :param remove: whitespace-delimited list of property keys to remove
+        :param add: 要添加的空格分隔的布尔值或key=value对列表
+        :param remove: 要移除的空格分隔的属性键列表
         """
         element = self.element
         old_props = Props.parse(remove)

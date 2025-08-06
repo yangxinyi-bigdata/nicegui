@@ -13,14 +13,14 @@ from .timer import Timer as timer
 class Code(ContentElement, component='code.js', default_classes='nicegui-code'):
 
     def __init__(self, content: str = '', *, language: Optional[str] = 'python') -> None:
-        """Code
+        """代码显示
 
-        This element displays a code block with syntax highlighting.
+        此元素显示带有语法高亮的代码块。
 
-        In secure environments (HTTPS or localhost), a copy button is displayed to copy the code to the clipboard.
+        在安全环境（HTTPS或localhost）中，会显示一个复制按钮用于将代码复制到剪贴板。
 
-        :param content: code to display
-        :param language: language of the code (default: "python")
+        :param content: 要显示的代码
+        :param language: 代码语言（默认："python"）
         """
         super().__init__(content=remove_indentation(content))
 
@@ -37,7 +37,7 @@ class Code(ContentElement, component='code.js', default_classes='nicegui-code'):
             timer(0.1, self._update_copy_button)
 
     async def show_checkmark(self) -> None:
-        """Show a checkmark icon for 3 seconds."""
+        """显示检查标记图标3秒钟。"""
         self.copy_button.props('icon=check')
         await asyncio.sleep(3.0)
         self.copy_button.props('icon=content_copy')

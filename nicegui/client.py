@@ -94,31 +94,30 @@ class Client:
 
     @property
     def is_auto_index_client(self) -> bool:
-        """Return True if this client is the auto-index client."""
+        """如果此客户端是自动索引客户端，则返回 True。"""
         return self is self.auto_index_client
 
     @property
     def ip(self) -> Optional[str]:
-        """Return the IP address of the client, or None if it is an
-        `auto-index page <https://nicegui.io/documentation/section_pages_routing#auto-index_page>`_.
+        """返回客户端的 IP 地址，如果是自动索引页面则返回 None。
 
-        *Updated in version 2.0.0: The IP address is available even before the client connects.*
+        *在 2.0.0 版本中更新：IP 地址在客户端连接之前就可用。*
         """
         return self.request.client.host if self.request is not None and self.request.client is not None else None
 
     @property
     def has_socket_connection(self) -> bool:
-        """Return True if the client is connected, False otherwise."""
+        """如果客户端已连接则返回 True，否则返回 False。"""
         return self.tab_id is not None
 
     @property
     def head_html(self) -> str:
-        """Return the HTML code to be inserted in the <head> of the page template."""
+        """返回要插入到页面模板 <head> 中的 HTML 代码。"""
         return self.shared_head_html + self._head_html
 
     @property
     def body_html(self) -> str:
-        """Return the HTML code to be inserted in the <body> of the page template."""
+        """返回要插入到页面模板 <body> 中的 HTML 代码。"""
         return self.shared_body_html + self._body_html
 
     def __enter__(self) -> Self:
@@ -129,7 +128,7 @@ class Client:
         self.content.__exit__()
 
     def build_response(self, request: Request, status_code: int = 200) -> Response:
-        """Build a FastAPI response for the client."""
+        """为客户端构建 FastAPI 响应。"""
         self.outbox.updates.clear()
         prefix = request.headers.get('X-Forwarded-Prefix', request.scope.get('root_path', ''))
         elements = json.dumps({
@@ -179,22 +178,22 @@ class Client:
         )
 
     def resolve_title(self) -> str:
-        """Return the title of the page."""
+        """返回页面标题。"""
         return self.page.resolve_title() if self.title is None else self.title
 
     async def connected(self, timeout: float = 3.0, check_interval: float = 0.1) -> None:
-        """Block execution until the client is connected."""
+        """阻塞执行直到客户端连接。"""
         self.is_waiting_for_connection = True
         self._waiting_for_connection.set()
         deadline = time.time() + timeout
         while not self.has_socket_connection:
             if time.time() > deadline:
-                raise TimeoutError(f'No connection after {timeout} seconds')
+                raise TimeoutError(f'{timeout} 秒后无连接')
             await asyncio.sleep(check_interval)
         self.is_waiting_for_connection = False
 
     async def disconnected(self, check_interval: float = 0.1) -> None:
-        """Block execution until the client disconnects."""
+        """阻塞执行直到客户端断开连接。"""
         if not self.has_socket_connection:
             await self.connected()
         self.is_waiting_for_disconnect = True
@@ -203,18 +202,18 @@ class Client:
         self.is_waiting_for_disconnect = False
 
     def run_javascript(self, code: str, *, timeout: float = 1.0) -> AwaitableResponse:
-        """Execute JavaScript on the client.
+        """在客户端上执行 JavaScript。
 
-        The client connection must be established before this method is called.
-        You can do this by `await client.connected()` or register a callback with `client.on_connect(...)`.
+        调用此方法之前必须建立客户端连接。
+        您可以通过 `await client.connected()` 或使用 `client.on_connect(...)` 注册回调来实现。
 
-        If the function is awaited, the result of the JavaScript code is returned.
-        Otherwise, the JavaScript code is executed without waiting for a response.
+        如果等待该函数，则返回 JavaScript 代码的结果。
+        否则，JavaScript 代码将在不等待响应的情况下执行。
 
-        :param code: JavaScript code to run
-        :param timeout: timeout in seconds (default: `1.0`)
+        :param code: 要运行的 JavaScript 代码
+        :param timeout: 超时时间（秒）（默认：`1.0`）
 
-        :return: AwaitableResponse that can be awaited to get the result of the JavaScript code
+        :return: 可以等待以获取 JavaScript 代码结果的 AwaitableResponse
         """
         request_id = str(uuid.uuid4())
         target_id = self._temporary_socket_id or self.id
@@ -232,24 +231,24 @@ class Client:
         return AwaitableResponse(send_and_forget, send_and_wait)
 
     def open(self, target: Union[Callable[..., Any], str], new_tab: bool = False) -> None:
-        """Open a new page in the client."""
+        """在客户端中打开新页面。"""
         path = target if isinstance(target, str) else self.page_routes[target]
         self.outbox.enqueue_message('open', {'path': path, 'new_tab': new_tab}, self.id)
 
     def download(self, src: Union[str, bytes], filename: Optional[str] = None, media_type: str = '') -> None:
-        """Download a file from a given URL or raw bytes."""
+        """从给定 URL 或原始字节下载文件。"""
         self.outbox.enqueue_message('download', {'src': src, 'filename': filename, 'media_type': media_type}, self.id)
 
     def on_connect(self, handler: Union[Callable[..., Any], Awaitable]) -> None:
-        """Add a callback to be invoked when the client connects."""
+        """添加客户端连接时要调用的回调。"""
         self.connect_handlers.append(handler)
 
     def on_disconnect(self, handler: Union[Callable[..., Any], Awaitable]) -> None:
-        """Add a callback to be invoked when the client disconnects."""
+        """添加客户端断开连接时要调用的回调。"""
         self.disconnect_handlers.append(handler)
 
     def handle_handshake(self, socket_id: str, document_id: str, next_message_id: Optional[int]) -> None:
-        """Cancel pending disconnect task and invoke connect handlers."""
+        """取消挂起的断开任务并调用连接处理程序。"""
         self._socket_to_document_id[socket_id] = document_id
         self._cancel_delete_task(document_id)
         self._num_connections[document_id] += 1
@@ -262,11 +261,11 @@ class Client:
             self.safe_invoke(t)
 
     def handle_disconnect(self, socket_id: str) -> None:
-        """Wait for the browser to reconnect; invoke disconnect handlers if it doesn't.
+        """等待浏览器重新连接；如果不重新连接则调用断开处理程序。
 
-        NOTE:
-        In contrast to connect handlers, disconnect handlers are not called during a reconnect.
-        This behavior should be fixed in version 3.0.
+        注意：
+        与连接处理程序不同，断开处理程序在重新连接期间不会被调用。
+        此行为应在 3.0 版本中修复。
         """
         if socket_id not in self._socket_to_document_id:
             return
@@ -293,7 +292,7 @@ class Client:
             self._delete_tasks.pop(document_id).cancel()
 
     def handle_event(self, msg: Dict) -> None:
-        """Forward an event to the corresponding element."""
+        """将事件转发给相应的元素。"""
         with self:
             sender = self.elements.get(msg['id'])
             if sender is not None and not sender.is_ignoring_events:
@@ -303,11 +302,11 @@ class Client:
                 sender._handle_event(msg)  # pylint: disable=protected-access
 
     def handle_javascript_response(self, msg: Dict) -> None:
-        """Store the result of a JavaScript command."""
+        """存储 JavaScript 命令的结果。"""
         JavaScriptRequest.resolve(msg['request_id'], msg.get('result'))
 
     def safe_invoke(self, func: Union[Callable[..., Any], Awaitable]) -> None:
-        """Invoke the potentially async function in the client context and catch any exceptions."""
+        """在客户端上下文中调用可能是异步的函数并捕获任何异常。"""
         func_name = func.__name__ if hasattr(func, '__name__') else str(func)
         try:
             if isinstance(func, Awaitable):
@@ -327,7 +326,7 @@ class Client:
             core.app.handle_exception(e)
 
     def remove_elements(self, elements: Iterable[Element]) -> None:
-        """Remove the given elements from the client."""
+        """从客户端中移除给定的元素。"""
         element_list = list(elements)  # NOTE: we need to iterate over the elements multiple times
         binding.remove(element_list)
         for element in element_list:
@@ -337,14 +336,14 @@ class Client:
             self.elements.pop(element.id, None)
 
     def remove_all_elements(self) -> None:
-        """Remove all elements from the client."""
+        """从客户端中移除所有元素。"""
         self.remove_elements(self.elements.values())
 
     def delete(self) -> None:
-        """Delete a client and all its elements.
+        """删除客户端及其所有元素。
 
-        If the global clients dictionary does not contain the client, its elements are still removed and a KeyError is raised.
-        Normally this should never happen, but has been observed (see #1826).
+        如果全局客户端字典不包含该客户端，其元素仍会被移除并引发 KeyError。
+        通常这种情况不应该发生，但已经被观察到（参见 #1826）。
         """
         self.remove_all_elements()
         self.outbox.stop()
@@ -352,18 +351,18 @@ class Client:
         self._deleted = True
 
     def check_existence(self) -> None:
-        """Check if the client still exists and print a warning if it doesn't."""
+        """检查客户端是否仍然存在，如果不存在则打印警告。"""
         if self._deleted:
-            helpers.warn_once('Client has been deleted but is still being used. '
-                              'This is most likely a bug in your application code. '
-                              'See https://github.com/zauberzeug/nicegui/issues/3028 for more information.',
+            helpers.warn_once('客户端已被删除但仍在使用中。 '
+                              '这很可能是应用程序代码中的错误。 '
+                              '有关更多信息，请参见 https://github.com/zauberzeug/nicegui/issues/3028。',
                               stack_info=True)
 
     @contextmanager
     def individual_target(self, socket_id: str) -> Iterator[None]:
-        """Use individual socket ID while in this context.
+        """在此上下文中使用单独的套接字 ID。
 
-        This context is useful for limiting messages from the shared auto-index page to a single client.
+        此上下文对于限制来自共享自动索引页面的消息到单个客户端很有用。
         """
         self._temporary_socket_id = socket_id
         yield
@@ -371,7 +370,7 @@ class Client:
 
     @classmethod
     async def prune_instances(cls) -> None:
-        """Prune stale clients in an endless loop."""
+        """在无限循环中清理过期的客户端。"""
         while True:
             try:
                 stale_clients = [
@@ -383,7 +382,7 @@ class Client:
                     client.delete()
             except Exception:
                 # NOTE: make sure the loop doesn't crash
-                log.exception('Error while pruning clients')
+                log.exception('清理客户端时出错')
             try:
                 await asyncio.sleep(10)
             except asyncio.CancelledError:

@@ -29,21 +29,21 @@ from . import (
     tooltip_documentation,
 )
 
-doc.title('Page *Layout*')
+doc.title('页面*布局*')
 
 
-@doc.demo('Auto-context', '''
-    In order to allow writing intuitive UI descriptions, NiceGUI automatically tracks the context in which elements are created.
-    This means that there is no explicit `parent` parameter.
-    Instead the parent context is defined using a `with` statement.
-    It is also passed to event handlers and timers.
+@doc.demo('自动上下文', '''
+    为了允许编写直观的 UI 描述，NiceGUI 会自动跟踪元素创建的上下文。
+    这意味着没有明确的 `parent` 参数。
+    而是使用 `with` 语句来定义父上下文。
+    它也会传递给事件处理器和计时器。
 
-    In the demo, the label "Card content" is added to the card.
-    And because the `ui.button` is also added to the card, the label "Click!" will also be created in this context.
-    The label "Tick!", which is added once after one second, is also added to the card.
+    在演示中，标签"Card content"被添加到卡片中。
+    并且因为 `ui.button` 也被添加到卡片中，标签"Click!"也将在这个上下文中创建。
+    标签"Tick!"在一秒后添加一次，也被添加到卡片中。
 
-    This design decision allows for easily creating modular components that keep working after moving them around in the UI.
-    For example, you can move label and button somewhere else, maybe wrap them in another container, and the code will still work.
+    这个设计决策允许轻松创建模块化组件，在 UI 中移动后仍能继续工作。
+    例如，您可以将标签和按钮移动到其他地方，也许将它们包装在另一个容器中，代码仍然可以工作。
 ''')
 def auto_context_demo():
     with ui.card():
@@ -61,17 +61,17 @@ doc.intro(slide_item_documentation)
 doc.intro(fullscreen_documentation)
 
 
-@doc.demo('Clear Containers', '''
-    To remove all elements from a row, column or card container, use can call
+@doc.demo('清空容器', '''
+    要从行、列或卡片容器中删除所有元素，可以调用
     ```py
     container.clear()
     ```
 
-    Alternatively, you can remove individual elements by calling
+    或者，您可以通过调用来删除单个元素
 
     - `container.remove(element: Element)`,
-    - `container.remove(index: int)`, or
-    - `element.delete()`.
+    - `container.remove(index: int)`, 或
+    - `element.delete()`。
 ''')
 def clear_containers_demo():
     container = ui.row()

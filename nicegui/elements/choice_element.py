@@ -38,10 +38,10 @@ class ChoiceElement(ValueElement):
         super().update()
 
     def set_options(self, options: Union[List, Dict], *, value: Any = ...) -> None:
-        """Set the options of this choice element.
+        """设置此选择元素的选项。
 
-        :param options: The new options.
-        :param value: The new value. If not given, the current value is kept.
+        :param options: 新的选项。
+        :param value: 新的值。如果未给出，则保持当前值。
         """
         self.options = options
         if value is not ...:

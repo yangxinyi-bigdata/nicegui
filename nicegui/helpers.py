@@ -24,22 +24,22 @@ _shown_warnings: Set[str] = set()
 
 
 def warn_once(message: str, *, stack_info: bool = False) -> None:
-    """Print a warning message only once."""
+    """只打印一次警告消息。"""
     if message not in _shown_warnings:
         log.warning(message, stack_info=stack_info)
         _shown_warnings.add(message)
 
 
 def is_pytest() -> bool:
-    """Check if the code is running in pytest."""
+    """检查代码是否在 pytest 中运行。"""
     return 'PYTEST_CURRENT_TEST' in os.environ
 
 
 def is_coroutine_function(obj: Any) -> bool:
-    """Check if the object is a coroutine function.
+    """检查对象是否是协程函数。
 
-    This function is needed because functools.partial is not a coroutine function, but its func attribute is.
-    Note: It will return false for coroutine objects.
+    需要此函数是因为 functools.partial 不是协程函数，但其 func 属性是。
+    注意：对于协程对象，它将返回 false。
     """
     while isinstance(obj, functools.partial):
         obj = obj.func
@@ -47,7 +47,7 @@ def is_coroutine_function(obj: Any) -> bool:
 
 
 def expects_arguments(func: Callable) -> bool:
-    """Check if the function expects non-variable arguments without a default value."""
+    """检查函数是否需要非可变参数且没有默认值。"""
     return any(p.default is Parameter.empty and
                p.kind is not Parameter.VAR_POSITIONAL and
                p.kind is not Parameter.VAR_KEYWORD
@@ -55,7 +55,7 @@ def expects_arguments(func: Callable) -> bool:
 
 
 def is_file(path: Optional[Union[str, Path]]) -> bool:
-    """Check if the path is a file that exists."""
+    """检查路径是否为存在的文件。"""
     if not path:
         return False
     if isinstance(path, str) and path.strip().startswith('data:'):
@@ -67,7 +67,7 @@ def is_file(path: Optional[Union[str, Path]]) -> bool:
 
 
 def hash_file_path(path: Path, *, max_time: Optional[float] = None) -> str:
-    """Hash the given path based on its string representation and optionally the last modification time of given files."""
+    """基于给定路径的字符串表示形式以及可选的给定文件最后修改时间来哈希该路径。"""
     hasher = hashlib.sha256(path.as_posix().encode())
     if max_time is not None:
         hasher.update(struct.pack('!d', max_time))
@@ -75,7 +75,7 @@ def hash_file_path(path: Path, *, max_time: Optional[float] = None) -> str:
 
 
 def is_port_open(host: str, port: int) -> bool:
-    """Check if the port is open by checking if a TCP connection can be established."""
+    """通过检查是否可以建立 TCP 连接来检查端口是否开放。"""
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         sock.connect((host, port))
@@ -90,18 +90,18 @@ def is_port_open(host: str, port: int) -> bool:
 
 
 def schedule_browser(protocol: str, host: str, port: int) -> Tuple[threading.Thread, threading.Event]:
-    """Wait non-blockingly for the port to be open, then start a webbrowser.
+    """非阻塞地等待端口开放，然后启动网页浏览器。
 
-    This function launches a thread in order to be non-blocking.
-    This thread then uses `is_port_open` to check when the port opens.
-    When connectivity is confirmed, the webbrowser is launched using `webbrowser.open`.
+    此函数启动一个线程以实现非阻塞。
+    该线程然后使用 `is_port_open` 来检查端口何时开放。
+    当连接确认时，使用 `webbrowser.open` 启动网页浏览器。
 
-    The thread is created as a daemon thread, in order to not interfere with Ctrl+C.
+    该线程创建为守护线程，以免干扰 Ctrl+C。
 
-    If you need to stop this thread, you can do this by setting the Event, that gets returned.
-    The thread will stop with the next loop without opening the browser.
+    如果需要停止此线程，可以通过设置返回的 Event 来实现。
+    该线程将在下一个循环中停止而不打开浏览器。
 
-    :return: A tuple consisting of the actual thread object and an event for stopping the thread.
+    :return: 由实际线程对象和用于停止线程的事件组成的元组。
     """
     cancel = threading.Event()
 
@@ -119,17 +119,17 @@ def schedule_browser(protocol: str, host: str, port: int) -> Tuple[threading.Thr
 
 
 def kebab_to_camel_case(string: str) -> str:
-    """Convert a kebab-case string to camelCase."""
+    """将 kebab-case 字符串转换为 camelCase。"""
     return ''.join(word.capitalize() if i else word for i, word in enumerate(string.split('-')))
 
 
 def event_type_to_camel_case(string: str) -> str:
-    """Convert an event type string to camelCase."""
+    """将事件类型字符串转换为 camelCase。"""
     return '.'.join(kebab_to_camel_case(part) if part != '-' else part for part in string.split('.'))
 
 
 def require_top_level_layout(element: Element) -> None:
-    """Check if the element is a top level layout element."""
+    """检查元素是否为顶级布局元素。"""
     parent = context.slot.parent
     if parent != parent.client.content:
         raise RuntimeError(

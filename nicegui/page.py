@@ -33,32 +33,32 @@ class page:
                  api_router: Optional[APIRouter] = None,
                  **kwargs: Any,
                  ) -> None:
-        """Page
+        """页面
 
-        This decorator marks a function to be a page builder.
-        Each user accessing the given route will see a new instance of the page.
-        This means it is private to the user and not shared with others
-        (as it is done `when placing elements outside of a page decorator <https://nicegui.io/documentation/section_pages_routing#auto-index_page>`_).
+        此装饰器标记一个函数作为页面构建器。
+        每个访问给定路由的用户将看到页面的新实例。
+        这意味着它是用户私有的，不与他人共享
+        （这与`在页面装饰器外放置元素 <https://nicegui.io/documentation/section_pages_routing#auto-index_page>`_时的做法不同）。
 
-        Notes:
+        注意：
 
-        - The name of the decorated function is unused and can be anything.
-        - The page route is determined by the `path` argument and registered globally.
-        - The decorator does only work for free functions and static methods.
-          Instance methods or initializers would require a `self` argument, which the router cannot associate.
-          See `our modularization example <https://github.com/zauberzeug/nicegui/tree/main/examples/modularization/>`_
-          for strategies to structure your code.
+        - 被装饰函数的名称未被使用，可以是任何内容。
+        - 页面路由由 `path` 参数确定并全局注册。
+        - 该装饰器仅适用于自由函数和静态方法。
+          实例方法或初始化器将需要 `self` 参数，而路由器无法关联该参数。
+          请参阅`我们的模块化示例 <https://github.com/zauberzeug/nicegui/tree/main/examples/modularization/>`_
+          以了解代码结构的策略。
 
-        :param path: route of the new page (path must start with '/')
-        :param title: optional page title
-        :param viewport: optional viewport meta tag content
-        :param favicon: optional relative filepath or absolute URL to a favicon (default: `None`, NiceGUI icon will be used)
-        :param dark: whether to use Quasar's dark mode (defaults to `dark` argument of `run` command)
-        :param language: language of the page (defaults to `language` argument of `run` command)
-        :param response_timeout: maximum time for the decorated function to build the page (default: 3.0 seconds)
-        :param reconnect_timeout: maximum time the server waits for the browser to reconnect (defaults to `reconnect_timeout` argument of `run` command))
-        :param api_router: APIRouter instance to use, can be left `None` to use the default
-        :param kwargs: additional keyword arguments passed to FastAPI's @app.get method
+        :param path: 新页面的路由（路径必须以 '/' 开头）
+        :param title: 可选的页面标题
+        :param viewport: 可选的视口 meta 标签内容
+        :param favicon: 可选的相对文件路径或指向图标的绝对 URL（默认：`None`，将使用 NiceGUI 图标）
+        :param dark: 是否使用 Quasar 的深色模式（默认为 `run` 命令的 `dark` 参数）
+        :param language: 页面的语言（默认为 `run` 命令的 `language` 参数）
+        :param response_timeout: 被装饰函数构建页面的最大时间（默认：3.0 秒）
+        :param reconnect_timeout: 服务器等待浏览器重新连接的最大时间（默认为 `run` 命令的 `reconnect_timeout` 参数）
+        :param api_router: 要使用的 APIRouter 实例，可以保留为 `None` 以使用默认值
+        :param kwargs: 传递给 FastAPI 的 @app.get 方法的额外关键字参数
         """
         self._path = path
         self.title = title
@@ -75,27 +75,27 @@ class page:
 
     @property
     def path(self) -> str:
-        """The path of the page including the APIRouter's prefix."""
+        """页面路径，包括 APIRouter 的前缀。"""
         return self.api_router.prefix + self._path
 
     def resolve_title(self) -> str:
-        """Return the title of the page."""
+        """返回页面标题。"""
         return self.title if self.title is not None else core.app.config.title
 
     def resolve_viewport(self) -> str:
-        """Return the viewport of the page."""
+        """返回页面的视口。"""
         return self.viewport if self.viewport is not None else core.app.config.viewport
 
     def resolve_dark(self) -> Optional[bool]:
-        """Return whether the page should use dark mode."""
+        """返回页面是否应该使用深色模式。"""
         return self.dark if self.dark is not ... else core.app.config.dark
 
     def resolve_language(self) -> Language:
-        """Return the language of the page."""
+        """返回页面的语言。"""
         return self.language if self.language is not ... else core.app.config.language
 
     def resolve_reconnect_timeout(self) -> float:
-        """Return the reconnect_timeout of the page."""
+        """返回页面的重新连接超时时间。"""
         return self.reconnect_timeout if self.reconnect_timeout is not None else core.app.config.reconnect_timeout
 
     def __call__(self, func: Callable[..., Any]) -> Callable[..., Any]:

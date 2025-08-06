@@ -27,21 +27,21 @@ class Chip(IconElement, ValueElement, TextElement, BackgroundColorElement, TextC
                  removable: bool = False,
                  on_value_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  ) -> None:
-        """Chip
+        """芯片
 
-        A chip element wrapping Quasar's `QChip <https://quasar.dev/vue-components/chip>`_ component.
-        It can be clickable, selectable and removable.
+        封装Quasar的`QChip <https://quasar.dev/vue-components/chip>`_组件的芯片元素。
+        它可以是可点击、可选择和可移除的。
 
-        :param text: the initial value of the text field (default: "")
-        :param icon: the name of an icon to be displayed on the chip (default: `None`)
-        :param color: the color name for component (either a Quasar, Tailwind, or CSS color or `None`, default: "primary")
-        :param text_color: text color (either a Quasar, Tailwind, or CSS color or `None`, default: `None`)
-        :param on_click: callback which is invoked when chip is clicked. Makes the chip clickable if set
-        :param selectable: whether the chip is selectable (default: `False`)
-        :param selected: whether the chip is selected (default: `False`)
-        :param on_selection_change: callback which is invoked when the chip's selection state is changed
-        :param removable: whether the chip is removable. Shows a small "x" button if True (default: `False`)
-        :param on_value_change: callback which is invoked when the chip is removed or unremoved
+        :param text: 文本字段的初始值（默认：""）
+        :param icon: 显示在芯片上的图标名称（默认：`None`）
+        :param color: 组件的颜色名称（Quasar、Tailwind或CSS颜色，或`None`，默认："primary"）
+        :param text_color: 文本颜色（Quasar、Tailwind或CSS颜色，或`None`，默认：`None`）
+        :param on_click: 芯片被点击时调用的回调函数。设置后使芯片可点击
+        :param selectable: 芯片是否可选择（默认：`False`）
+        :param selected: 芯片是否被选中（默认：`False`）
+        :param on_selection_change: 芯片选择状态更改时调用的回调函数
+        :param removable: 芯片是否可移除。如果为True则显示一个小"x"按钮（默认：`False`）
+        :param on_value_change: 芯片被移除或未移除时调用的回调函数
         """
         super().__init__(tag='q-chip', value=True, on_value_change=on_value_change,
                          icon=icon, text=text, text_color=text_color, background_color=color,
@@ -53,7 +53,7 @@ class Chip(IconElement, ValueElement, TextElement, BackgroundColorElement, TextC
             self.on_click(on_click)
 
     def on_click(self, callback: Handler[ClickEventArguments]) -> Self:
-        """Add a callback to be invoked when the chip is clicked."""
+        """添加芯片被点击时调用的回调函数。"""
         self._props['clickable'] = True
         self.update()
         self.on('click', lambda _: handle_event(callback, ClickEventArguments(sender=self, client=self.client)), [])

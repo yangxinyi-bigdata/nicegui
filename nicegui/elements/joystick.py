@@ -17,15 +17,15 @@ class Joystick(Element,
                  on_end: Optional[Handler[JoystickEventArguments]] = None,
                  throttle: float = 0.05,
                  **options: Any) -> None:
-        """Joystick
+        """虚拟摇杆
 
-        Create a joystick based on `nipple.js <https://yoannmoi.net/nipplejs/>`_.
+        基于`nipple.js <https://yoannmoi.net/nipplejs/>`_创建虚拟摇杆。
 
-        :param on_start: callback for when the user touches the joystick
-        :param on_move: callback for when the user moves the joystick
-        :param on_end: callback for when the user releases the joystick
-        :param throttle: throttle interval in seconds for the move event (default: 0.05)
-        :param options: arguments like `color` which should be passed to the `underlying nipple.js library <https://github.com/yoannmoinet/nipplejs#options>`_
+        :param on_start: 用户触摸摇杆时的回调函数
+        :param on_move: 用户移动摇杆时的回调函数
+        :param on_end: 用户释放摇杆时的回调函数
+        :param throttle: 移动事件的节流间隔，以秒为单位（默认：0.05）
+        :param options: 应该传递给`底层nipple.js库 <https://github.com/yoannmoinet/nipplejs#options>`_的参数，如`color`
         """
         super().__init__()
         self._props['options'] = options
@@ -64,16 +64,16 @@ class Joystick(Element,
         self.on('end', handle_end, [])
 
     def on_start(self, callback: Handler[JoystickEventArguments]) -> Self:
-        """Add a callback to be invoked when the user touches the joystick."""
+        """添加用户触摸摇杆时要调用的回调函数。"""
         self._start_handlers.append(callback)
         return self
 
     def on_move(self, callback: Handler[JoystickEventArguments]) -> Self:
-        """Add a callback to be invoked when the user moves the joystick."""
+        """添加用户移动摇杆时要调用的回调函数。"""
         self._move_handlers.append(callback)
         return self
 
     def on_end(self, callback: Handler[JoystickEventArguments]) -> Self:
-        """Add a callback to be invoked when the user releases the joystick."""
+        """添加用户释放摇杆时要调用的回调函数。"""
         self._end_handlers.append(callback)
         return self

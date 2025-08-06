@@ -27,18 +27,18 @@ class Layer:
 
     @abstractmethod
     def to_dict(self) -> dict:
-        """Return a dictionary representation of the layer."""
+        """返回图层的字典表示。"""
 
     def run_method(self, name: str, *args: Any, timeout: float = 1) -> AwaitableResponse:
-        """Run a method of the Leaflet layer.
+        """运行Leaflet图层的方法。
 
-        If the function is awaited, the result of the method call is returned.
-        Otherwise, the method is executed without waiting for a response.
+        如果函数被等待，则返回方法调用的结果。
+        否则，方法将执行而不等待响应。
 
-        :param name: name of the method (a prefix ":" indicates that the arguments are JavaScript expressions)
-        :param args: arguments to pass to the method
-        :param timeout: timeout in seconds (default: 1 second)
+        :param name: 方法名称（前缀":"表示参数是JavaScript表达式）
+        :param args: 传递给方法的参数
+        :param timeout: 超时时间，以秒为单位（默认：1秒）
 
-        :return: AwaitableResponse that can be awaited to get the result of the method call
+        :return: 可以等待以获取方法调用结果的AwaitableResponse
         """
         return self.leaflet.run_method('run_layer_method', self.id, name, *args, timeout=timeout)

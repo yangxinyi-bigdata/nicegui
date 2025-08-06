@@ -10,16 +10,16 @@ from . import (
     video_documentation,
 )
 
-doc.title('*Audiovisual* Elements')
+doc.title('*音视频*元素')
 
 doc.intro(image_documentation)
 
 
-@doc.demo('Captions and Overlays', '''
-    By nesting elements inside a `ui.image` you can create augmentations.
+@doc.demo('标题和叠加层', '''
+    通过在 `ui.image` 内嵌套元素，您可以创建增强效果。
 
-    Use [Quasar classes](https://quasar.dev/vue-components/img) for positioning and styling captions.
-    To overlay an SVG, make the `viewBox` exactly the size of the image and provide `100%` width/height to match the actual rendered size.
+    使用 [Quasar 类](https://quasar.dev/vue-components/img) 来定位和样式化标题。
+    要叠加 SVG，请使 `viewBox` 与图像大小完全相同，并提供 `100%` 宽度/高度以匹配实际渲染大小。
 ''')
 def captions_and_overlays_demo():
     with ui.image('https://picsum.photos/id/29/640/360'):
@@ -41,7 +41,7 @@ doc.intro(avatar_documentation)
 
 
 @doc.demo('SVG', '''
-    You can add Scalable Vector Graphics using the `ui.html` element.
+    您可以使用 `ui.html` 元素添加可缩放矢量图形。
 ''')
 def svg_demo():
     content = '''

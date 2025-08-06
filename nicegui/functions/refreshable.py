@@ -28,7 +28,7 @@ class RefreshableTarget:
     next_index: int = 0
 
     def run(self, func: Callable[..., _T]) -> _T:
-        """Run the function and return the result."""
+        """运行函数并返回结果。"""
         RefreshableTarget.current_target = self
         self.next_index = 0
         # pylint: disable=no-else-return
@@ -57,13 +57,13 @@ class RefreshableContainer(Element, component='refreshable.js'):
 class refreshable(Generic[_P, _T]):
 
     def __init__(self, func: Callable[_P, _T]) -> None:
-        """Refreshable UI functions
+        """可刷新的 UI 函数
 
-        The ``@ui.refreshable`` decorator allows you to create functions that have a ``refresh`` method.
-        This method will automatically delete all elements created by the function and recreate them.
+        ``@ui.refreshable`` 装饰器允许您创建具有 ``refresh`` 方法的函数。
+        此方法将自动删除函数创建的所有元素并重新创建它们。
 
-        For decorating refreshable methods in classes, there is a ``@ui.refreshable_method`` decorator,
-        which is equivalent but prevents static type checking errors.
+        对于在类中装饰可刷新方法，有一个 ``@ui.refreshable_method`` 装饰器，
+        它是等效的，但可以防止静态类型检查错误。
         """
         self.func = func
         self.instance = None
@@ -90,10 +90,10 @@ class refreshable(Generic[_P, _T]):
         return target.run(self.func)
 
     def refresh(self, *args: Any, **kwargs: Any) -> None:
-        """Refresh the UI elements created by this function.
+        """刷新此函数创建的 UI 元素。
 
-        This method accepts the same arguments as the function itself or a subset of them.
-        It will combine the arguments passed to the function with the arguments passed to this method.
+        此方法接受与函数本身相同的参数或其子集。
+        它将传递给函数的参数与传递给此方法的参数结合起来。
         """
         self.prune()
         for target in self.targets:
@@ -119,9 +119,9 @@ class refreshable(Generic[_P, _T]):
                     core.app.on_startup(result)
 
     def prune(self) -> None:
-        """Remove all targets that are no longer on a page with a client connection.
+        """删除所有不再在具有客户端连接的页面上的目标。
 
-        This method is called automatically before each refresh.
+        此方法在每次刷新之前自动调用。
         """
         self.targets = [target for target in self.targets if not target.container.is_deleted]
 
@@ -129,20 +129,20 @@ class refreshable(Generic[_P, _T]):
 class refreshable_method(Generic[_S, _P, _T], refreshable[_P, _T]):
 
     def __init__(self, func: Callable[Concatenate[_S, _P], _T]) -> None:
-        """Refreshable UI methods
+        """可刷新的 UI 方法
 
-        The `@ui.refreshable_method` decorator allows you to create methods that have a `refresh` method.
-        This method will automatically delete all elements created by the function and recreate them.
+        `@ui.refreshable_method` 装饰器允许您创建具有 `refresh` 方法的法。
+        此方法将自动删除函数创建的所有元素并重新创建它们。
         """
         super().__init__(func)  # type: ignore
 
 
 def state(value: Any) -> Tuple[Any, Callable[[Any], None]]:
-    """Create a state variable that automatically updates its refreshable UI container.
+    """创建一个自动更新其可刷新 UI 容器的状态变量。
 
-    :param value: The initial value of the state variable.
+    :param value: 状态变量的初始值。
 
-    :return: A tuple containing the current value and a function to update the value.
+    :return: 包含当前值和更新值的函数的元组。
     """
     target = cast(RefreshableTarget, RefreshableTarget.current_target)
 

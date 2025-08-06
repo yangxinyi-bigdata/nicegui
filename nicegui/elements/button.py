@@ -18,19 +18,19 @@ class Button(IconElement, TextElement, DisableableElement, BackgroundColorElemen
                  color: Optional[str] = 'primary',
                  icon: Optional[str] = None,
                  ) -> None:
-        """Button
+        """按钮
 
-        This element is based on Quasar's `QBtn <https://quasar.dev/vue-components/button>`_ component.
+        此元素基于Quasar的`QBtn <https://quasar.dev/vue-components/button>`_组件。
 
-        The ``color`` parameter accepts a Quasar color, a Tailwind color, or a CSS color.
-        If a Quasar color is used, the button will be styled according to the Quasar theme including the color of the text.
-        Note that there are colors like "red" being both a Quasar color and a CSS color.
-        In such cases the Quasar color will be used.
+        ``color``参数接受Quasar颜色、Tailwind颜色或CSS颜色。
+        如果使用Quasar颜色，按钮将根据Quasar主题进行样式设置，包括文本颜色。
+        请注意，像"red"这样的颜色既是Quasar颜色也是CSS颜色。
+        在这种情况下将使用Quasar颜色。
 
-        :param text: the label of the button
-        :param on_click: callback which is invoked when button is pressed
-        :param color: the color of the button (either a Quasar, Tailwind, or CSS color or `None`, default: 'primary')
-        :param icon: the name of an icon to be displayed on the button (default: `None`)
+        :param text: 按钮的标签文本
+        :param on_click: 按钮被按下时调用的回调函数
+        :param color: 按钮的颜色（Quasar、Tailwind或CSS颜色，或`None`，默认：'primary'）
+        :param icon: 显示在按钮上的图标名称（默认：`None`）
         """
         super().__init__(tag='q-btn', text=text, background_color=color, icon=icon)
 
@@ -38,7 +38,7 @@ class Button(IconElement, TextElement, DisableableElement, BackgroundColorElemen
             self.on_click(on_click)
 
     def on_click(self, callback: Handler[ClickEventArguments]) -> Self:
-        """Add a callback to be invoked when the button is clicked."""
+        """添加一个在按钮被点击时调用的回调函数。"""
         self.on('click', lambda _: handle_event(callback, ClickEventArguments(sender=self, client=self.client)), [])
         return self
 
@@ -46,7 +46,7 @@ class Button(IconElement, TextElement, DisableableElement, BackgroundColorElemen
         self._props['label'] = text
 
     async def clicked(self) -> None:
-        """Wait until the button is clicked."""
+        """等待直到按钮被点击。"""
         event = asyncio.Event()
         self.on('click', event.set, [])
         await self.client.connected()

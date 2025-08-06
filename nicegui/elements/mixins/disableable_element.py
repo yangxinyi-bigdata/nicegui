@@ -7,27 +7,34 @@ from ...element import Element
 
 
 class DisableableElement(Element):
+    """可禁用元素混入
+
+    为元素提供启用/禁用状态管理功能的混入类。
+    支持状态绑定和事件忽略控制。
+    """
     enabled = BindableProperty(
         on_change=lambda sender, value: cast(Self, sender)._handle_enabled_change(value))  # pylint: disable=protected-access
 
     def __init__(self, **kwargs: Any) -> None:
+        """初始化可禁用元素
+        """
         super().__init__(**kwargs)
         self.enabled = True
         self.ignores_events_when_disabled = True
 
     @property
     def is_ignoring_events(self) -> bool:
-        """Return whether the element is currently ignoring events."""
+        """返回元素当前是否正在忽略事件。"""
         if super().is_ignoring_events:
             return True
         return not self.enabled and self.ignores_events_when_disabled
 
     def enable(self) -> None:
-        """Enable the element."""
+        """启用元素。"""
         self.enabled = True
 
     def disable(self) -> None:
-        """Disable the element."""
+        """禁用元素。"""
         self.enabled = False
 
     def bind_enabled_to(self,
@@ -35,14 +42,14 @@ class DisableableElement(Element):
                         target_name: str = 'enabled',
                         forward: Optional[Callable[[Any], Any]] = None,
                         ) -> Self:
-        """Bind the enabled state of this element to the target object's target_name property.
+        """将此元素的启用状态绑定到目标对象的target_name属性。
 
-        The binding works one way only, from this element to the target.
-        The update happens immediately and whenever a value changes.
+        绑定是单向的，从此元素到目标。
+        更新会立即发生，并在值变化时进行。
 
-        :param target_object: The object to bind to.
-        :param target_name: The name of the property to bind to.
-        :param forward: A function to apply to the value before applying it to the target (default: identity).
+        :param target_object: 要绑定到的对象。
+        :param target_name: 要绑定到的属性名称。
+        :param forward: 在应用到目标之前应用于值的函数（默认：恒等函数）。
         """
         bind_to(self, 'enabled', target_object, target_name, forward)
         return self
@@ -52,14 +59,14 @@ class DisableableElement(Element):
                           target_name: str = 'enabled',
                           backward: Optional[Callable[[Any], Any]] = None,
                           ) -> Self:
-        """Bind the enabled state of this element from the target object's target_name property.
+        """将此元素的启用状态从目标对象的target_name属性绑定。
 
-        The binding works one way only, from the target to this element.
-        The update happens immediately and whenever a value changes.
+        绑定是单向的，从目标到此元素。
+        更新会立即发生，并在值变化时进行。
 
-        :param target_object: The object to bind from.
-        :param target_name: The name of the property to bind from.
-        :param backward: A function to apply to the value before applying it to this element (default: identity).
+        :param target_object: 要绑定来源的对象。
+        :param target_name: 要绑定来源的属性名称。
+        :param backward: 在应用到元素之前应用于值的函数（默认：恒等函数）。
         """
         bind_from(self, 'enabled', target_object, target_name, backward)
         return self
@@ -70,28 +77,31 @@ class DisableableElement(Element):
                      forward: Optional[Callable[[Any], Any]] = None,
                      backward: Optional[Callable[[Any], Any]] = None,
                      ) -> Self:
-        """Bind the enabled state of this element to the target object's target_name property.
+        """将此元素的启用状态绑定到目标对象的target_name属性。
 
-        The binding works both ways, from this element to the target and from the target to this element.
-        The update happens immediately and whenever a value changes.
-        The backward binding takes precedence for the initial synchronization.
+        绑定是双向的，从此元素到目标和从目标到此元素。
+        更新会立即发生，并在值变化时进行。
+        反向绑定在初始同步时具有优先权。
 
-        :param target_object: The object to bind to.
-        :param target_name: The name of the property to bind to.
-        :param forward: A function to apply to the value before applying it to the target (default: identity).
-        :param backward: A function to apply to the value before applying it to this element (default: identity).
+        :param target_object: 要绑定到的对象。
+        :param target_name: 要绑定到的属性名称。
+        :param forward: 在应用到目标之前应用于值的函数（默认：恒等函数）。
+        :param backward: 在应用到元素之前应用于值的函数（默认：恒等函数）。
         """
         bind(self, 'enabled', target_object, target_name, forward=forward, backward=backward)
         return self
 
     def set_enabled(self, value: bool) -> None:
-        """Set the enabled state of the element."""
+        """设置元素的启用状态。
+
+        :param value: 启用状态。
+        """
         self.enabled = value
 
     def _handle_enabled_change(self, enabled: bool) -> None:
-        """Called when the element is enabled or disabled.
+        """当元素启用或禁用时调用。
 
-        :param enabled: The new state.
+        :param enabled: 新状态。
         """
         self._props['disable'] = not enabled
         self.update()

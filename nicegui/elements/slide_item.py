@@ -16,22 +16,22 @@ SlideSide = Literal['left', 'right', 'top', 'bottom']
 class SlideItem(DisableableElement):
 
     def __init__(self, text: str = '', *, on_slide: Optional[Handler[SlideEventArguments]] = None) -> None:
-        """Slide Item
+        """滑动项
 
-        This element is based on Quasar's `QSlideItem <https://quasar.dev/vue-components/slide-item/>`_ component.
+        此元素基于Quasar的`QSlideItem <https://quasar.dev/vue-components/slide-item/>`_组件。
 
-        If the ``text`` parameter is provided, a nested ``ui.item`` element will be created with the given text.
-        If you want to customize how the text is displayed, you can place custom elements inside the slide item.
+        如果提供了``text``参数，将使用给定文本创建嵌套的``ui.item``元素。
+        如果要自定义文本的显示方式，可以在滑动项内放置自定义元素。
 
-        To fill slots for individual slide actions, use the ``left``, ``right``, ``top``, or ``bottom`` methods or
-        the ``action`` method with a side argument ("left", "right", "top", or "bottom").
+        要填充各个滑动操作的插槽，使用``left``、``right``、``top``或``bottom``方法，
+        或使用带有侧边参数（"left"、"right"、"top"或"bottom"）的``action``方法。
 
-        Once a slide action has occurred, the slide item can be reset back to its initial state using the ``reset`` method.
+        一旦发生滑动操作，可以使用``reset``方法将滑动项重置回其初始状态。
 
-        *Added in version 2.12.0*
+        *在版本2.12.0中添加*
 
-        :param text: text to be displayed (default: "")
-        :param on_slide: callback which is invoked when any slide action is activated
+        :param text: 要显示的文本（默认：""）
+        :param on_slide: 激活任何滑动操作时调用的回调函数
         """
         super().__init__(tag='q-slide-item')
 
@@ -48,12 +48,12 @@ class SlideItem(DisableableElement):
                on_slide: Optional[Handler[SlideEventArguments]] = None,
                color: Optional[str] = 'primary',
                ) -> Slot:
-        """Add a slide action to a specified side.
+        """向指定侧边添加滑动操作。
 
-        :param side: side of the slide item where the slide should be added ("left", "right", "top", "bottom")
-        :param text: text to be displayed (default: "")
-        :param on_slide: callback which is invoked when the slide action is activated
-        :param color: the color of the slide background (either a Quasar, Tailwind, or CSS color or ``None``, default: "primary")
+        :param side: 应添加滑动的滑动项侧边（"left"、"right"、"top"、"bottom"）
+        :param text: 要显示的文本（默认：""）
+        :param on_slide: 激活滑动操作时调用的回调函数
+        :param color: 滑动背景的颜色（Quasar、Tailwind或CSS颜色或``None``，默认："primary"）
         """
         if color:
             self._props[f'{side}-color'] = color
@@ -73,11 +73,11 @@ class SlideItem(DisableableElement):
              on_slide: Optional[Handler[SlideEventArguments]] = None,
              color: Optional[str] = 'primary',
              ) -> Slot:
-        """Add a slide action to the left side.
+        """向左侧添加滑动操作。
 
-        :param text: text to be displayed (default: "")
-        :param on_slide: callback which is invoked when the slide action is activated
-        :param color: the color of the slide background (either a Quasar, Tailwind, or CSS color or ``None``, default: "primary")
+        :param text: 要显示的文本（默认：""）
+        :param on_slide: 激活滑动操作时调用的回调函数
+        :param color: 滑动背景的颜色（Quasar、Tailwind或CSS颜色或``None``，默认："primary"）
         """
         return self.action('left', text=text, on_slide=on_slide, color=color)
 
@@ -86,11 +86,11 @@ class SlideItem(DisableableElement):
               on_slide: Optional[Handler[SlideEventArguments]] = None,
               color: Optional[str] = 'primary',
               ) -> Slot:
-        """Add a slide action to the right side.
+        """向右侧添加滑动操作。
 
-        :param text: text to be displayed (default: "")
-        :param on_slide: callback which is invoked when the slide action is activated
-        :param color: the color of the slide background (either a Quasar, Tailwind, or CSS color or ``None``, default: "primary")
+        :param text: 要显示的文本（默认：""）
+        :param on_slide: 激活滑动操作时调用的回调函数
+        :param color: 滑动背景的颜色（Quasar、Tailwind或CSS颜色或``None``，默认："primary"）
         """
         return self.action('right', text=text, on_slide=on_slide, color=color)
 
@@ -99,11 +99,11 @@ class SlideItem(DisableableElement):
             on_slide: Optional[Handler[SlideEventArguments]] = None,
             color: Optional[str] = 'primary',
             ) -> Slot:
-        """Add a slide action to the top side.
+        """向顶部添加滑动操作。
 
-        :param text: text to be displayed (default: "")
-        :param on_slide: callback which is invoked when the slide action is activated
-        :param color: the color of the slide background (either a Quasar, Tailwind, or CSS color or ``None``, default: "primary")
+        :param text: 要显示的文本（默认：""）
+        :param on_slide: 激活滑动操作时调用的回调函数
+        :param color: 滑动背景的颜色（Quasar、Tailwind或CSS颜色或``None``，默认："primary"）
         """
         return self.action('top', text=text, on_slide=on_slide, color=color)
 
@@ -112,21 +112,21 @@ class SlideItem(DisableableElement):
                on_slide: Optional[Handler[SlideEventArguments]] = None,
                color: Optional[str] = 'primary',
                ) -> Slot:
-        """Add a slide action to the bottom side.
+        """向底部添加滑动操作。
 
-        :param text: text to be displayed (default: "")
-        :param on_slide: callback which is invoked when the slide action is activated
-        :param color: the color of the slide background (either a Quasar, Tailwind, or CSS color or ``None``, default: "primary")
+        :param text: 要显示的文本（默认：""）
+        :param on_slide: 激活滑动操作时调用的回调函数
+        :param color: 滑动背景的颜色（Quasar、Tailwind或CSS颜色或``None``，默认："primary"）
         """
         return self.action('bottom', text=text, on_slide=on_slide, color=color)
 
     def on_slide(self, side: SlideSide | None, handler: Handler[SlideEventArguments]) -> Self:
-        """Add a callback to be invoked when the slide action is activated."""
+        """添加激活滑动操作时要调用的回调函数。"""
         self.on(side or 'action', lambda e: handle_event(handler, SlideEventArguments(sender=self,
                                                                                       client=self.client,
                                                                                       side=e.args.get('side', side))))
         return self
 
     def reset(self) -> None:
-        """Reset the slide item to its initial state."""
+        """将滑动项重置为初始状态。"""
         self.run_method('reset')

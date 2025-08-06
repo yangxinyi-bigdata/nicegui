@@ -3,10 +3,10 @@ from ..context import context
 
 
 def add_head_html(code: str, *, shared: bool = False) -> None:
-    """Add HTML code to the head of the page.
+    """向页面头部添加 HTML 代码。
 
-    :param code: HTML code to add
-    :param shared: if True, the code is added to all pages
+    :param code: 要添加的 HTML 代码
+    :param shared: 如果为 True，代码将添加到所有页面
     """
     if shared:
         Client.shared_head_html += code + '\n'
@@ -18,10 +18,10 @@ def add_head_html(code: str, *, shared: bool = False) -> None:
 
 
 def add_body_html(code: str, *, shared: bool = False) -> None:
-    """Add HTML code to the body of the page.
+    """向页面主体添加 HTML 代码。
 
-    :param code: HTML code to add
-    :param shared: if True, the code is added to all pages
+    :param code: 要添加的 HTML 代码
+    :param shared: 如果为 True，代码将添加到所有页面
     """
     if shared:
         Client.shared_body_html += code + '\n'

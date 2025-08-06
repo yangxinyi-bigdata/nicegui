@@ -14,22 +14,22 @@ class Splitter(ValueElement, DisableableElement, default_classes='nicegui-splitt
                  value: Optional[float] = 50,
                  on_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  ) -> None:
-        """Splitter
+        """分割器
 
-        The `ui.splitter` element divides the screen space into resizable sections,
-        allowing for flexible and responsive layouts in your application.
+        `ui.splitter`元素将屏幕空间划分为可调整大小的部分，
+        在应用程序中实现灵活和响应式的布局。
 
-        Based on Quasar's Splitter component:
+        基于Quasar的分割器组件：
         `Splitter <https://quasar.dev/vue-components/splitter>`_
 
-        It provides three customizable slots, ``before``, ``after``, and ``separator``,
-        which can be used to embed other elements within the splitter.
+        它提供三个可自定义的插槽：``before``、``after``和``separator``，
+        可用于在分割器中嵌入其他元素。
 
-        :param horizontal: Whether to split horizontally instead of vertically
-        :param limits: Two numbers representing the minimum and maximum split size of the two panels
-        :param value: Size of the first panel (or second if using reverse)
-        :param reverse: Whether to apply the model size to the second panel instead of the first
-        :param on_change: callback which is invoked when the user releases the splitter
+        :param horizontal: 是否水平分割而不是垂直分割
+        :param limits: 表示两个面板最小和最大分割大小的两个数字
+        :param value: 第一个面板的大小（如果使用reverse则为第二个面板）
+        :param reverse: 是否将模型大小应用于第二个面板而不是第一个面板
+        :param on_change: 用户释放分割器时调用的回调函数
         """
         super().__init__(tag='q-splitter', value=value, on_value_change=on_change, throttle=0.05)
         self._props['horizontal'] = horizontal

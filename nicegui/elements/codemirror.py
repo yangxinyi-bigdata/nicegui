@@ -261,25 +261,25 @@ class CodeMirror(ValueElement, DisableableElement, component='codemirror.js', de
         line_wrapping: bool = False,
         highlight_whitespace: bool = False,
     ) -> None:
-        """CodeMirror
+        """CodeMirror代码编辑器
 
-        An element to create a code editor using `CodeMirror <https://codemirror.net/>`_.
+        使用`CodeMirror <https://codemirror.net/>`_创建代码编辑器的元素。
 
-        It supports syntax highlighting for over 140 languages, more than 30 themes, line numbers, code folding, (limited) auto-completion, and more.
+        它支持140多种语言的语法高亮、30多个主题、行号、代码折叠、（有限的）自动补全等功能。
 
-        Supported languages and themes:
-            - Languages: A list of supported languages can be found in the `@codemirror/language-data <https://github.com/codemirror/language-data/blob/main/src/language-data.ts>`_ package.
-            - Themes: A list can be found in the `@uiw/codemirror-themes-all <https://github.com/uiwjs/react-codemirror/tree/master/themes/all>`_ package.
+        支持的语言和主题：
+            - 语言：支持的语言列表可以在`@codemirror/language-data <https://github.com/codemirror/language-data/blob/main/src/language-data.ts>`_包中找到。
+            - 主题：列表可以在`@uiw/codemirror-themes-all <https://github.com/uiwjs/react-codemirror/tree/master/themes/all>`_包中找到。
 
-        At runtime, the methods `supported_languages` and `supported_themes` can be used to get supported languages and themes.
+        在运行时，可以使用`supported_languages`和`supported_themes`方法来获取支持的语言和主题。
 
-        :param value: initial value of the editor (default: "")
-        :param on_change: callback to be executed when the value changes (default: `None`)
-        :param language: initial language of the editor (case-insensitive, default: `None`)
-        :param theme: initial theme of the editor (default: "basicLight")
-        :param indent: string to use for indentation (any string consisting entirely of the same whitespace character, default: "    ")
-        :param line_wrapping: whether to wrap lines (default: `False`)
-        :param highlight_whitespace: whether to highlight whitespace (default: `False`)
+        :param value: 编辑器的初始值（默认：""）
+        :param on_change: 值更改时要执行的回调函数（默认：`None`）
+        :param language: 编辑器的初始语言（不区分大小写，默认：`None`）
+        :param theme: 编辑器的初始主题（默认："basicLight"）
+        :param indent: 用于缩进的字符串（任何完全由相同空白字符组成的字符串，默认："    "）
+        :param line_wrapping: 是否自动换行（默认：`False`）
+        :param highlight_whitespace: 是否高亮显示空白字符（默认：`False`）
         """
         super().__init__(value=value, on_value_change=self._update_codepoints)
         self._codepoints = b''
@@ -297,7 +297,7 @@ class CodeMirror(ValueElement, DisableableElement, component='codemirror.js', de
 
     @property
     def theme(self) -> str:
-        """The current theme of the editor."""
+        """编辑器的当前主题。"""
         return self._props['theme']
 
     @theme.setter
@@ -306,18 +306,18 @@ class CodeMirror(ValueElement, DisableableElement, component='codemirror.js', de
         self.update()
 
     def set_theme(self, theme: SUPPORTED_THEMES) -> None:
-        """Sets the theme of the editor."""
+        """设置编辑器的主题。"""
         self._props['theme'] = theme
         self.update()
 
     @property
     def supported_themes(self) -> List[str]:
-        """List of supported themes."""
+        """支持的主题列表。"""
         return list(get_args(SUPPORTED_THEMES))
 
     @property
     def language(self) -> str:
-        """The current language of the editor."""
+        """编辑器的当前语言。"""
         return self._props['language']
 
     @language.setter
@@ -326,17 +326,17 @@ class CodeMirror(ValueElement, DisableableElement, component='codemirror.js', de
         self.update()
 
     def set_language(self, language: Optional[SUPPORTED_LANGUAGES] = None) -> None:
-        """Sets the language of the editor (case-insensitive)."""
+        """设置编辑器的语言（不区分大小写）。"""
         self._props['language'] = language
         self.update()
 
     @property
     def supported_languages(self) -> List[str]:
-        """List of supported languages."""
+        """支持的语言列表。"""
         return list(get_args(SUPPORTED_LANGUAGES))
 
     def _event_args_to_value(self, e: GenericEventArguments) -> str:
-        """The event contains a change set which is applied to the current value."""
+        """事件包含一个应用于当前值的变更集。"""
         return self._apply_change_set(e.args['sections'], e.args['inserted'])
 
     @staticmethod
@@ -344,10 +344,10 @@ class CodeMirror(ValueElement, DisableableElement, component='codemirror.js', de
         return b''.join(b'\0\1' if ord(c) > 0xFFFF else b'\1' for c in doc)
 
     def _update_codepoints(self) -> None:
-        """Update `self._codepoints` as a concatenation of "1" for code points <=0xFFFF and "01" for code points >0xFFFF.
+        """更新`self._codepoints`，将码位<=0xFFFF的连接为"1"，将码位>0xFFFF的连接为"01"。
 
-        This captures how many Unicode code points are encoded by each UTF-16 code unit.
-        This is used to convert JavaScript string indices to Python by summing `self._codepoints` up to the JavaScript index.
+        这捕获了每个UTF-16代码单元编码了多少Unicode码位。
+        这用于通过将`self._codepoints`求和到JavaScript索引来将JavaScript字符串索引转换为Python索引。
         """
         if not self._send_update_on_value_change:
             return  # the update is triggered by the user and codepoints are updated incrementally

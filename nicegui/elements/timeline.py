@@ -12,13 +12,13 @@ class Timeline(Element):
                  layout: Literal['dense', 'comfortable', 'loose'] = 'dense',
                  color: Optional[str] = None,
                  ) -> None:
-        """Timeline
+        """时间线
 
-        This element represents `Quasar's QTimeline <https://quasar.dev/vue-components/timeline#qtimeline-api>`_ component.
+        此元素代表`Quasar的QTimeline <https://quasar.dev/vue-components/timeline#qtimeline-api>`_组件。
 
-        :param side: Side ("left" or "right"; default: "left").
-        :param layout: Layout ("dense", "comfortable" or "loose"; default: "dense").
-        :param color: Color of the icons.
+        :param side: 侧边（"left"或"right"；默认："left"）。
+        :param layout: 布局（"dense"、"comfortable"或"loose"；默认："dense"）。
+        :param color: 图标的颜色。
         """
         super().__init__('q-timeline')
         self._props['side'] = side
@@ -41,19 +41,19 @@ class TimelineEntry(IconElement, default_classes='nicegui-timeline-entry'):
                  subtitle: Optional[str] = None,
                  color: Optional[str] = None,
                  ) -> None:
-        """Timeline Entry
+        """时间线条目
 
-        This element represents `Quasar's QTimelineEntry <https://quasar.dev/vue-components/timeline#qtimelineentry-api>`_ component.
+        此元素代表`Quasar的QTimelineEntry <https://quasar.dev/vue-components/timeline#qtimelineentry-api>`_组件。
 
-        :param body: Body text.
-        :param side: Side ("left" or "right"; default: "left").
-        :param heading: Whether the timeline entry is a heading.
-        :param tag: HTML tag name to be used if it is a heading.
-        :param icon: Icon name.
-        :param avatar: Avatar URL.
-        :param title: Title text.
-        :param subtitle: Subtitle text.
-        :param color: Color or the timeline.
+        :param body: 正文文本。
+        :param side: 侧边（"left"或"right"；默认："left"）。
+        :param heading: 时间线条目是否为标题。
+        :param tag: 如果是标题要使用的HTML标签名称。
+        :param icon: 图标名称。
+        :param avatar: 头像URL。
+        :param title: 标题文本。
+        :param subtitle: 副标题文本。
+        :param color: 时间线的颜色。
         """
         super().__init__(tag='q-timeline-entry', icon=icon)
         if body is not None:

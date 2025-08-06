@@ -26,7 +26,7 @@ try:
 
             @property
             def element(self) -> Matplotlib:
-                """The element this matplotlib figure belongs to."""
+                """此matplotlib图形所属的元素。"""
                 element = self._element()
                 if element is None:
                     raise RuntimeError('The element this matplotlib figure belongs to has been deleted.')
@@ -45,12 +45,12 @@ except ImportError:
 class Pyplot(Element, default_classes='nicegui-pyplot'):
 
     def __init__(self, *, close: bool = True, **kwargs: Any) -> None:
-        """Pyplot Context
+        """Pyplot上下文
 
-        Create a context to configure a `Matplotlib <https://matplotlib.org/>`_ plot.
+        创建用于配置`Matplotlib <https://matplotlib.org/>`_图表的上下文。
 
-        :param close: whether the figure should be closed after exiting the context; set to `False` if you want to update it later (default: `True`)
-        :param kwargs: arguments like `figsize` which should be passed to `pyplot.figure <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`_
+        :param close: 退出上下文后是否关闭图形；如果要稍后更新则设置为`False`（默认：`True`）
+        :param kwargs: 应传递给`pyplot.figure <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`_的参数，如`figsize`
         """
         if not optional_features.has('matplotlib'):
             raise ImportError('Matplotlib is not installed. Please run "pip install matplotlib".')
@@ -87,12 +87,12 @@ class Pyplot(Element, default_classes='nicegui-pyplot'):
 class Matplotlib(Element, default_classes='nicegui-matplotlib'):
 
     def __init__(self, **kwargs: Any) -> None:
-        """Matplotlib
+        """Matplotlib图形
 
-        Create a `Matplotlib <https://matplotlib.org/>`_ element rendering a Matplotlib figure.
-        The figure is automatically updated when leaving the figure context.
+        创建渲染Matplotlib图形的`Matplotlib <https://matplotlib.org/>`_元素。
+        离开图形上下文时图形会自动更新。
 
-        :param kwargs: arguments like `figsize` which should be passed to `matplotlib.figure.Figure <https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure>`_
+        :param kwargs: 应传递给`matplotlib.figure.Figure <https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure>`_的参数，如`figsize`
         """
         if not optional_features.has('matplotlib'):
             raise ImportError('Matplotlib is not installed. Please run "pip install matplotlib".')

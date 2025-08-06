@@ -10,12 +10,12 @@ class Grid(Element, default_classes='nicegui-grid'):
                  rows: Optional[Union[int, str]] = None,
                  columns: Optional[Union[int, str]] = None,
                  ) -> None:
-        """Grid Element
+        """网格元素
 
-        Provides a container which arranges its child in a grid.
+        提供一个将其子元素排列在网格中的容器。
 
-        :param rows: number of rows in the grid or a string with the grid-template-rows CSS property (e.g. 'auto 1fr')
-        :param columns: number of columns in the grid or a string with the grid-template-columns CSS property (e.g. 'auto 1fr')
+        :param rows: 网格中的行数或带有grid-template-rows CSS属性的字符串（例如'auto 1fr'）
+        :param columns: 网格中的列数或带有grid-template-columns CSS属性的字符串（例如'auto 1fr'）
         """
         super().__init__('div')
 

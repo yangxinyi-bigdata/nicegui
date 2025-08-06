@@ -33,18 +33,18 @@ def notify(message: Any, *,
            multi_line: bool = False,
            **kwargs: Any,
            ) -> None:
-    """Notification
+    """通知
 
-    Displays a notification on the screen.
+    在屏幕上显示通知。
 
-    :param message: content of the notification
-    :param position: position on the screen ("top-left", "top-right", "bottom-left", "bottom-right", "top", "bottom", "left", "right" or "center", default: "bottom")
-    :param close_button: optional label of a button to dismiss the notification (default: `False`)
-    :param type: optional type ("positive", "negative", "warning", "info" or "ongoing")
-    :param color: optional color name
-    :param multi_line: enable multi-line notifications
+    :param message: 通知的内容
+    :param position: 屏幕上的位置（"top-left", "top-right", "bottom-left", "bottom-right", "top", "bottom", "left", "right" 或 "center"，默认："bottom"）
+    :param close_button: 用于关闭通知的按钮的可选标签（默认：`False`）
+    :param type: 可选类型（"positive", "negative", "warning", "info" 或 "ongoing"）
+    :param color: 可选颜色名称
+    :param multi_line: 启用多行通知
 
-    Note: You can pass additional keyword arguments according to `Quasar's Notify API <https://quasar.dev/quasar-plugins/notify#notify-api>`_.
+    注意：您可以根据 `Quasar 的 Notify API <https://quasar.dev/quasar-plugins/notify#notify-api>`_ 传递其他关键字参数。
     """
     options = {ARG_MAP.get(key, key): value for key, value in locals().items() if key != 'kwargs' and value is not None}
     options['message'] = str(message)

@@ -23,35 +23,35 @@ class Select(LabelElement, ValidationElement, ChoiceElement, DisableableElement,
                  validation: Optional[Union[ValidationFunction, ValidationDict]] = None,
                  key_generator: Optional[Union[Callable[[Any], Any], Iterator[Any]]] = None,
                  ) -> None:
-        """Dropdown Selection
+        """下拉选择框
 
-        This element is based on Quasar's `QSelect <https://quasar.dev/vue-components/select>`_ component.
+        此元素基于Quasar的`QSelect <https://quasar.dev/vue-components/select>`_组件。
 
-        The options can be specified as a list of values, or as a dictionary mapping values to labels.
-        After manipulating the options, call `update()` to update the options in the UI.
+        选项可以指定为值列表，或者映射值到标签的字典。
+        操作选项后，调用`update()`来更新UI中的选项。
 
-        If `with_input` is True, an input field is shown to filter the options.
+        如果`with_input`为True，会显示一个输入框来过滤选项。
 
-        If `new_value_mode` is not None, it implies `with_input=True` and the user can enter new values in the input field.
-        See `Quasar's documentation <https://quasar.dev/vue-components/select#the-new-value-mode-prop>`_ for details.
-        Note that this mode is ineffective when setting the `value` property programmatically.
+        如果`new_value_mode`不为None，则意味着`with_input=True`，用户可以在输入框中输入新值。
+        详情请参见`Quasar文档 <https://quasar.dev/vue-components/select#the-new-value-mode-prop>`_。
+        注意，在以编程方式设置`value`属性时，此模式无效。
 
-        You can use the `validation` parameter to define a dictionary of validation rules,
-        e.g. ``{'Too long!': lambda value: len(value) < 3}``.
-        The key of the first rule that fails will be displayed as an error message.
-        Alternatively, you can pass a callable that returns an optional error message.
-        To disable the automatic validation on every value change, you can use the `without_auto_validation` method.
+        您可以使用`validation`参数来定义验证规则字典，
+        例如``{'Too long!': lambda value: len(value) < 3}``。
+        第一个失败的规则的键将作为错误消息显示。
+        或者，您可以传递一个返回可选错误消息的可调用对象。
+        要禁用每次值更改时的自动验证，可以使用`without_auto_validation`方法。
 
-        :param options: a list ['value1', ...] or dictionary `{'value1':'label1', ...}` specifying the options
-        :param label: the label to display above the selection
-        :param value: the initial value
-        :param on_change: callback to execute when selection changes
-        :param with_input: whether to show an input field to filter the options
-        :param new_value_mode: handle new values from user input (default: None, i.e. no new values)
-        :param multiple: whether to allow multiple selections
-        :param clearable: whether to add a button to clear the selection
-        :param validation: dictionary of validation rules or a callable that returns an optional error message (default: None for no validation)
-        :param key_generator: a callback or iterator to generate a dictionary key for new values
+        :param options: 指定选项的列表 ['value1', ...] 或字典 `{'value1':'label1', ...}`
+        :param label: 显示在选择框上方的标签
+        :param value: 初始值
+        :param on_change: 选择更改时执行的回调函数
+        :param with_input: 是否显示输入框来过滤选项
+        :param new_value_mode: 处理用户输入的新值（默认：None，即无新值）
+        :param multiple: 是否允许多选
+        :param clearable: 是否添加清除选择的按钮
+        :param validation: 验证规则字典或返回可选错误消息的可调用对象（默认：None表示无验证）
+        :param key_generator: 为新值生成字典键的回调函数或迭代器
         """
         self.multiple = multiple
         if multiple:
@@ -85,7 +85,7 @@ class Select(LabelElement, ValidationElement, ChoiceElement, DisableableElement,
 
     @property
     def is_showing_popup(self) -> bool:
-        """Whether the options popup is currently shown."""
+        """选项弹出窗口当前是否显示。"""
         return self._is_showing_popup
 
     def _event_args_to_value(self, e: GenericEventArguments) -> Any:

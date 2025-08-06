@@ -49,26 +49,26 @@ class App(FastAPI):
 
     @property
     def is_starting(self) -> bool:
-        """Return whether NiceGUI is starting."""
+        """返回 NiceGUI 是否正在启动。"""
         return self._state == State.STARTING
 
     @property
     def is_started(self) -> bool:
-        """Return whether NiceGUI is started."""
+        """返回 NiceGUI 是否已启动。"""
         return self._state == State.STARTED
 
     @property
     def is_stopping(self) -> bool:
-        """Return whether NiceGUI is stopping."""
+        """返回 NiceGUI 是否正在停止。"""
         return self._state == State.STOPPING
 
     @property
     def is_stopped(self) -> bool:
-        """Return whether NiceGUI is stopped."""
+        """返回 NiceGUI 是否已停止。"""
         return self._state == State.STOPPED
 
     def start(self) -> None:
-        """Start NiceGUI. (For internal use only.)"""
+        """启动 NiceGUI。（仅供内部使用。）"""
         self._state = State.STARTING
         for t in self._startup_handlers:
             Client.auto_index_client.safe_invoke(t)
@@ -77,7 +77,7 @@ class App(FastAPI):
         self._state = State.STARTED
 
     async def stop(self) -> None:
-        """Stop NiceGUI. (For internal use only.)"""
+        """停止 NiceGUI。（仅供内部使用。）"""
         self._state = State.STOPPING
         with Client.auto_index_client:
             for t in self._shutdown_handlers:
@@ -90,64 +90,64 @@ class App(FastAPI):
         self._state = State.STOPPED
 
     def on_connect(self, handler: Union[Callable, Awaitable]) -> None:
-        """Called every time a new client connects to NiceGUI.
+        """每次新客户端连接到 NiceGUI 时调用。
 
-        The callback has an optional parameter of `nicegui.Client`.
+        回调有一个可选的 `nicegui.Client` 参数。
         """
         self._connect_handlers.append(handler)
 
     def on_disconnect(self, handler: Union[Callable, Awaitable]) -> None:
-        """Called every time a new client disconnects from NiceGUI.
+        """每次新客户端从 NiceGUI 断开连接时调用。
 
-        The callback has an optional parameter of `nicegui.Client`.
+        回调有一个可选的 `nicegui.Client` 参数。
         """
         self._disconnect_handlers.append(handler)
 
     def on_startup(self, handler: Union[Callable, Awaitable]) -> None:
-        """Called when NiceGUI is started or restarted.
+        """当 NiceGUI 启动或重新启动时调用。
 
-        Needs to be called before `ui.run()`.
+        需要在 `ui.run()` 之前调用。
         """
         if self.is_started:
             raise RuntimeError('Unable to register another startup handler. NiceGUI has already been started.')
         self._startup_handlers.append(handler)
 
     def on_shutdown(self, handler: Union[Callable, Awaitable]) -> None:
-        """Called when NiceGUI is shut down or restarted.
+        """当 NiceGUI 关闭或重新启动时调用。
 
-        When NiceGUI is shut down or restarted, all tasks still in execution will be automatically canceled.
+        当 NiceGUI 关闭或重新启动时，所有仍在执行的任务将自动取消。
         """
         self._shutdown_handlers.append(handler)
 
     def on_exception(self, handler: Callable) -> None:
-        """Called when an exception occurs.
+        """发生异常时调用。
 
-        The callback has an optional parameter of `Exception`.
+        回调有一个可选的 `Exception` 参数。
         """
         self._exception_handlers.append(handler)
 
     def handle_exception(self, exception: Exception) -> None:
-        """Handle an exception by invoking all registered exception handlers."""
+        """通过调用所有注册的异常处理程序来处理异常。"""
         for handler in self._exception_handlers:
             result = handler() if not inspect.signature(handler).parameters else handler(exception)
             if helpers.is_coroutine_function(handler):
                 background_tasks.create(result, name=f'exception {handler.__name__}')
 
     def on_page_exception(self, handler: Callable) -> None:
-        """Called when an exception occurs in a page and allows to create a custom error page.
+        """页面中发生异常时调用，允许创建自定义错误页面。
 
-        The callback can accept an optional ``Exception`` as argument.
-        All UI elements created in the callback are displayed on the error page.
-        Asynchronous handlers are currently not supported.
+        回调可以接受一个可选的 ``Exception`` 作为参数。
+        在回调中创建的所有 UI 元素都显示在错误页面上。
+        目前不支持异步处理程序。
 
-        *Added in version 2.20.0*
+        *在 2.20.0 版本中添加*
         """
         self._page_exception_handler = handler
 
     def shutdown(self) -> None:
-        """Shut down NiceGUI.
+        """关闭 NiceGUI。
 
-        This will programmatically stop the server.
+        这将以编程方式停止服务器。
         """
         if self.native.main_window:
             self.native.main_window.destroy()
@@ -162,20 +162,20 @@ class App(FastAPI):
                          *,
                          follow_symlink: bool = False,
                          max_cache_age: int = 3600) -> None:
-        """Add a directory of static files.
+        """添加静态文件目录。
 
-        `add_static_files()` makes a local directory available at the specified endpoint, e.g. `'/static'`.
-        This is useful for providing local data like images to the frontend.
-        Otherwise the browser would not be able to access the files.
-        Do only put non-security-critical files in there, as they are accessible to everyone.
+        `add_static_files()` 使本地目录在指定端点处可用，例如 `'/static'`。
+        这对于向前端提供图像等本地数据很有用。
+        否则浏览器将无法访问这些文件。
+        请只放入非安全关键文件，因为每个人都可以访问它们。
 
-        To make a single file accessible, you can use `add_static_file()`.
-        For media files which should be streamed, you can use `add_media_files()` or `add_media_file()` instead.
+        要使单个文件可访问，您可以使用 `add_static_file()`。
+        对于应该流式传输的媒体文件，您可以使用 `add_media_files()` 或 `add_media_file()`。
 
-        :param url_path: string that starts with a slash "/" and identifies the path at which the files should be served
-        :param local_directory: local folder with files to serve as static content
-        :param follow_symlink: whether to follow symlinks (default: False)
-        :param max_cache_age: value for max-age set in Cache-Control header (*added in version 2.8.0*)
+        :param url_path: 以斜杠 "/" 开头的字符串，标识文件应该提供服务的路径
+        :param local_directory: 包含要作为静态内容提供的文件的本地文件夹
+        :param follow_symlink: 是否遵循符号链接（默认：False）
+        :param max_cache_age: 在 Cache-Control 标头中设置的 max-age 值（*在 2.8.0 版本中添加*）
         """
         if url_path == '/':
             raise ValueError('''Path cannot be "/", because it would hide NiceGUI's internal "/_nicegui" route.''')
@@ -195,23 +195,23 @@ class App(FastAPI):
                         single_use: bool = False,
                         strict: bool = True,
                         max_cache_age: int = 3600) -> str:
-        """Add a single static file.
+        """添加单个静态文件。
 
-        Allows a local file to be accessed online with enabled caching.
-        If `url_path` is not specified, a path will be generated.
+        允许本地文件在线访问并启用缓存。
+        如果未指定 `url_path`，将生成一个路径。
 
-        To make a whole folder of files accessible, use `add_static_files()` instead.
-        For media files which should be streamed, you can use `add_media_files()` or `add_media_file()` instead.
+        要使整个文件夹的文件可访问，请使用 `add_static_files()`。
+        对于应该流式传输的媒体文件，您可以使用 `add_media_files()` 或 `add_media_file()`。
 
-        Deprecation warning:
-        Non-existing files will raise a ``FileNotFoundError`` rather than a ``ValueError`` in version 3.0 if ``strict`` is ``True``.
+        弃用警告：
+        如果 ``strict`` 为 ``True``，在 3.0 版本中不存在的文件将引发 ``FileNotFoundError`` 而不是 ``ValueError``。
 
-        :param local_file: local file to serve as static content
-        :param url_path: string that starts with a slash "/" and identifies the path at which the file should be served (default: None -> auto-generated URL path)
-        :param single_use: whether to remove the route after the file has been downloaded once (default: False)
-        :param strict: whether to raise a ``ValueError`` if the file does not exist (default: False, *added in version 2.12.0*)
-        :param max_cache_age: value for max-age set in Cache-Control header (*added in version 2.8.0*)
-        :return: encoded URL which can be used to access the file
+        :param local_file: 要作为静态内容提供的本地文件
+        :param url_path: 以斜杠 "/" 开头的字符串，标识文件应该提供服务的路径（默认：None -> 自动生成的 URL 路径）
+        :param single_use: 是否在文件下载一次后删除路由（默认：False）
+        :param strict: 如果文件不存在是否引发 ``ValueError``（默认：False，*在 2.12.0 版本中添加*）
+        :param max_cache_age: 在 Cache-Control 标头中设置的 max-age 值（*在 2.8.0 版本中添加*）
+        :return: 可用于访问文件的编码 URL
         """
         if max_cache_age < 0:
             raise ValueError('''Value of max_cache_age must be a positive integer or 0.''')
@@ -230,18 +230,18 @@ class App(FastAPI):
         return urllib.parse.quote(path)
 
     def add_media_files(self, url_path: str, local_directory: Union[str, Path]) -> None:
-        """Add directory of media files.
+        """添加媒体文件目录。
 
-        `add_media_files()` allows a local files to be streamed from a specified endpoint, e.g. `'/media'`.
-        This should be used for media files to support proper streaming.
-        Otherwise the browser would not be able to access and load the the files incrementally or jump to different positions in the stream.
-        Do only put non-security-critical files in there, as they are accessible to everyone.
+        `add_media_files()` 允许从指定端点流式传输本地文件，例如 `'/media'`。
+        这应该用于媒体文件以支持适当的流式传输。
+        否则浏览器将无法逐步访问和加载文件或跳转到流中的不同位置。
+        请只放入非安全关键文件，因为每个人都可以访问它们。
 
-        To make a single file accessible via streaming, you can use `add_media_file()`.
-        For small static files, you can use `add_static_files()` or `add_static_file()` instead.
+        要使单个文件通过流式传输可访问，您可以使用 `add_media_file()`。
+        对于小型静态文件，您可以使用 `add_static_files()` 或 `add_static_file()`。
 
-        :param url_path: string that starts with a slash "/" and identifies the path at which the files should be served
-        :param local_directory: local folder with files to serve as media content
+        :param url_path: 以斜杠 "/" 开头的字符串，标识文件应该提供服务的路径
+        :param local_directory: 包含要作为媒体内容提供的文件的本地文件夹
         """
         @self.get(url_path.rstrip('/') + '/{filename:path}')  # NOTE: prevent double slashes in route pattern
         def read_item(request: Request, filename: str, nicegui_chunk_size: int = 8192) -> Response:
@@ -255,22 +255,22 @@ class App(FastAPI):
                        url_path: Optional[str] = None,
                        single_use: bool = False,
                        strict: bool = True) -> str:
-        """Add a single media file.
+        """添加单个媒体文件。
 
-        Allows a local file to be streamed.
-        If `url_path` is not specified, a path will be generated.
+        允许本地文件被流式传输。
+        如果未指定 `url_path`，将生成一个路径。
 
-        To make a whole folder of media files accessible via streaming, use `add_media_files()` instead.
-        For small static files, you can use `add_static_files()` or `add_static_file()` instead.
+        要使整个媒体文件夹通过流式传输可访问，请使用 `add_media_files()`。
+        对于小型静态文件，您可以使用 `add_static_files()` 或 `add_static_file()`。
 
-        Deprecation warning:
-        Non-existing files will raise a ``FileNotFoundError`` rather than a ``ValueError`` in version 3.0 if ``strict`` is ``True``.
+        弃用警告：
+        如果 ``strict`` 为 ``True``，在 3.0 版本中不存在的文件将引发 ``FileNotFoundError`` 而不是 ``ValueError``。
 
-        :param local_file: local file to serve as media content
-        :param url_path: string that starts with a slash "/" and identifies the path at which the file should be served (default: None -> auto-generated URL path)
-        :param single_use: whether to remove the route after the media file has been downloaded once (default: False)
-        :param strict: whether to raise a ``ValueError`` if the file does not exist (default: False, *added in version 2.12.0*)
-        :return: encoded URL which can be used to access the file
+        :param local_file: 要作为媒体内容提供的本地文件
+        :param url_path: 以斜杠 "/" 开头的字符串，标识文件应该提供服务的路径（默认：None -> 自动生成的 URL 路径）
+        :param single_use: 是否在媒体文件下载一次后删除路由（默认：False）
+        :param strict: 如果文件不存在是否引发 ``ValueError``（默认：False，*在 2.12.0 版本中添加*）
+        :return: 可用于访问文件的编码 URL
         """
         file = Path(local_file).resolve()
         if strict and not file.is_file():
@@ -286,11 +286,11 @@ class App(FastAPI):
         return urllib.parse.quote(path)
 
     def remove_route(self, path: str) -> None:
-        """Remove routes with the given path."""
+        """删除具有给定路径的路由。"""
         self.routes[:] = [r for r in self.routes if getattr(r, 'path', None) != path]
 
     def reset(self) -> None:
-        """Reset app to its initial state. (Useful for testing.)"""
+        """将应用程序重置为其初始状态。（对测试有用。）"""
         self.storage.clear()
         self._startup_handlers.clear()
         self._shutdown_handlers.clear()
@@ -301,14 +301,14 @@ class App(FastAPI):
 
     @staticmethod
     def clients(path: str) -> Iterator[Client]:
-        """Iterate over all connected clients with a matching path.
+        """迭代所有具有匹配路径的连接客户端。
 
-        When using `@ui.page("/path")` each client gets a private view of this page.
-        Updates must be sent to each client individually, which this iterator simplifies.
+        当使用 `@ui.page("/path")` 时，每个客户端都会获得此页面的私有视图。
+        更新必须单独发送给每个客户端，此迭代器简化了此过程。
 
-        *Added in version 2.7.0*
+        *在 2.7.0 版本中添加*
 
-        :param path: string to filter clients by
+        :param path: 用于过滤客户端的字符串
         """
         for client in Client.instances.values():
             if client.page.path == path:

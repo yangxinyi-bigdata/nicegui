@@ -21,7 +21,7 @@ class Server(uvicorn.Server):
 
     @classmethod
     def create_singleton(cls, config: CustomServerConfig) -> None:
-        """Create a singleton instance of the server."""
+        """创建服务器的单例实例。"""
         cls.instance = cls(config=config)
 
     def run(self, sockets: Optional[List[socket.socket]] = None) -> None:

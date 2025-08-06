@@ -10,38 +10,48 @@ ValidationDict = Dict[str, Callable[[Any], bool]]
 
 
 class ValidationElement(ValueElement):
+    """验证元素混入
+
+    为元素提供数据验证功能的混入类。
+    支持同步和异步验证函数，以及验证规则字典。
+    自动管理错误消息显示和验证状态。
+    """
 
     def __init__(self, validation: Optional[Union[ValidationFunction, ValidationDict]], **kwargs: Any) -> None:
+        """初始化验证元素
+
+        :param validation: 验证函数或验证规则字典（``None``表示禁用验证）
+        """
         self._validation = validation
         self._auto_validation = True
         self._error: Optional[str] = None
         super().__init__(**kwargs)
-        self._props['error'] = None if validation is None else False  # NOTE: reserve bottom space for error message
+        self._props['error'] = None if validation is None else False  # 注意：为错误消息保留底部空间
 
     @property
     def validation(self) -> Optional[Union[ValidationFunction, ValidationDict]]:
-        """The validation function or dictionary of validation functions."""
+        """验证函数或验证函数字典。"""
         return self._validation
 
     @validation.setter
     def validation(self, validation: Optional[Union[ValidationFunction, ValidationDict]]) -> None:
-        """Sets the validation function or dictionary of validation functions.
+        """设置验证函数或验证函数字典。
 
-        :param validation: validation function or dictionary of validation functions (``None`` to disable validation)
+        :param validation: 验证函数或验证函数字典（``None``表示禁用验证）
         """
         self._validation = validation
         self.validate(return_result=False)
 
     @property
     def error(self) -> Optional[str]:
-        """The latest error message from the validation functions."""
+        """来自验证函数的最新错误消息。"""
         return self._error
 
     @error.setter
     def error(self, error: Optional[str]) -> None:
-        """Sets the error message.
+        """设置错误消息。
 
-        :param error: The optional error message
+        :param error: 可选的错误消息
         """
         new_error_prop = None if self.validation is None else (error is not None)
         if self._error == error and self._props['error'] == new_error_prop:
@@ -52,15 +62,15 @@ class ValidationElement(ValueElement):
         self.update()
 
     def validate(self, *, return_result: bool = True) -> bool:
-        """Validate the current value and set the error message if necessary.
+        """验证当前值并在必要时设置错误消息。
 
-        For async validation functions, ``return_result`` must be set to ``False`` and the return value will be ``True``,
-        independently of the validation result which is evaluated in the background.
+        对于异步验证函数，``return_result``必须设置为``False``，返回值将为``True``，
+        独立于在后台评估的验证结果。
 
-        *Updated in version 2.7.0: Added support for async validation functions.*
+        *在版本2.7.0中更新：添加了对异步验证函数的支持。*
 
-        :param return_result: whether to return the result of the validation (default: ``True``)
-        :return: whether the validation was successful (always ``True`` for async validation functions)
+        :param return_result: 是否返回验证结果（默认：``True``）
+        :return: 验证是否成功（异步验证函数总是返回``True``）
         """
         if helpers.is_coroutine_function(self._validation):
             async def await_error():
@@ -69,7 +79,7 @@ class ValidationElement(ValueElement):
                 assert isinstance(result, Awaitable)
                 self.error = await result
             if return_result:
-                raise NotImplementedError('The validate method cannot return results for async validation functions.')
+                raise NotImplementedError('validate方法无法为异步验证函数返回结果。')
             background_tasks.create(await_error(), name=f'validate {self.id}')
             return True
 
@@ -89,7 +99,7 @@ class ValidationElement(ValueElement):
         return True
 
     def without_auto_validation(self) -> Self:
-        """Disable automatic validation on value change."""
+        """禁用值变化时的自动验证。"""
         self._auto_validation = False
         return self
 

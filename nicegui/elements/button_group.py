@@ -4,9 +4,9 @@ from ..element import Element
 class ButtonGroup(Element):
 
     def __init__(self) -> None:
-        """Button Group
+        """按钮组
 
-        This element is based on Quasar's `QBtnGroup <https://quasar.dev/vue-components/button-group>`_ component.
-        You must use the same design props on both the parent button group and the children buttons.
+        此元素基于Quasar的`QBtnGroup <https://quasar.dev/vue-components/button-group>`_组件。
+        您必须在父按钮组和子按钮上使用相同的设计属性。
         """
         super().__init__(tag='q-btn-group')

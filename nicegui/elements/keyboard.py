@@ -25,40 +25,40 @@ class Keyboard(Element, component='keyboard.js'):
                  ignore: List[Literal['input', 'select', 'button', 'textarea']] =
                      ['input', 'select', 'button', 'textarea'],  # noqa: B006
                  ) -> None:
-        """Keyboard
+        """虚拟键盘
 
-        Adds global keyboard event tracking.
+        添加全局键盘事件跟踪。
 
-        The ``on_key`` callback receives a ``KeyEventArguments`` object with the following attributes:
+        ``on_key``回调函数接收一个具有以下属性的``KeyEventArguments``对象：
 
-        - ``sender``: the ``Keyboard`` element
-        - ``client``: the client object
-        - ``action``: a ``KeyboardAction`` object with the following attributes:
-            - ``keydown``: whether the key was pressed
-            - ``keyup``: whether the key was released
-            - ``repeat``: whether the key event was a repeat
-        - ``key``: a ``KeyboardKey`` object with the following attributes:
-            - ``name``: the name of the key (e.g. "a", "Enter", "ArrowLeft"; see `here <https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values>`_ for a list of possible values)
-            - ``code``: the code of the key (e.g. "KeyA", "Enter", "ArrowLeft")
-            - ``location``: the location of the key (0 for standard keys, 1 for left keys, 2 for right keys, 3 for numpad keys)
-        - ``modifiers``: a ``KeyboardModifiers`` object with the following attributes:
-            - ``alt``: whether the alt key was pressed
-            - ``ctrl``: whether the ctrl key was pressed
-            - ``meta``: whether the meta key was pressed
-            - ``shift``: whether the shift key was pressed
+        - ``sender``: ``Keyboard``元素
+        - ``client``: 客户端对象
+        - ``action``: 具有以下属性的``KeyboardAction``对象：
+            - ``keydown``: 是否按下按键
+            - ``keyup``: 是否释放按键
+            - ``repeat``: 是否为重复的按键事件
+        - ``key``: 具有以下属性的``KeyboardKey``对象：
+            - ``name``: 按键名称（例如"a", "Enter", "ArrowLeft"；可能值列表请参见`此处 <https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values>`_）
+            - ``code``: 按键代码（例如"KeyA", "Enter", "ArrowLeft"）
+            - ``location``: 按键位置（0表示标准键，1表示左侧键，2表示右侧键，3表示数字键盘键）
+        - ``modifiers``: 具有以下属性的``KeyboardModifiers``对象：
+            - ``alt``: 是否按下alt键
+            - ``ctrl``: 是否按下ctrl键
+            - ``meta``: 是否按下meta键
+            - ``shift``: 是否按下shift键
 
-        For convenience, the ``KeyboardKey`` object also has the following properties:
-            - ``is_cursorkey``: whether the key is a cursor (arrow) key
-            - ``number``: the integer value of a number key (0-9, ``None`` for other keys)
+        为方便起见，``KeyboardKey``对象还具有以下属性：
+            - ``is_cursorkey``: 是否为光标（箭头）键
+            - ``number``: 数字键的整数值（0-9，其他键为``None``）
             - ``backspace``, ``tab``, ``enter``, ``shift``, ``control``, ``alt``, ``pause``, ``caps_lock``, ``escape``, ``space``,
               ``page_up``, ``page_down``, ``end``, ``home``, ``arrow_left``, ``arrow_up``, ``arrow_right``, ``arrow_down``,
               ``print_screen``, ``insert``, ``delete``, ``meta``,
-              ``f1``, ``f2``, ``f3``, ``f4``, ``f5``, ``f6``, ``f7``, ``f8``, ``f9``, ``f10``, ``f11``, ``f12``: whether the key is the respective key
+              ``f1``, ``f2``, ``f3``, ``f4``, ``f5``, ``f6``, ``f7``, ``f8``, ``f9``, ``f10``, ``f11``, ``f12``: 是否为相应的键
 
-        :param on_key: callback to be executed when keyboard events occur.
-        :param active: boolean flag indicating whether the callback should be executed or not (default: ``True``)
-        :param repeating: boolean flag indicating whether held keys should be sent repeatedly (default: ``True``)
-        :param ignore: ignore keys when one of these element types is focussed (default: ``['input', 'select', 'button', 'textarea']``)
+        :param on_key: 键盘事件发生时要执行的回调函数。
+        :param active: 布尔标志，指示是否应执行回调函数（默认：``True``）
+        :param repeating: 布尔标志，指示是否应重复发送按住的键（默认：``True``）
+        :param ignore: 当这些元素类型之一获得焦点时忽略按键（默认：``['input', 'select', 'button', 'textarea']``）
         """
         super().__init__()
         self._key_handlers = [on_key] if on_key else []
@@ -99,6 +99,6 @@ class Keyboard(Element, component='keyboard.js'):
             handle_event(handler, arguments)
 
     def on_key(self, handler: Handler[KeyEventArguments]) -> Self:
-        """Add a callback to be invoked when keyboard events occur."""
+        """添加键盘事件发生时要调用的回调函数。"""
         self._key_handlers.append(handler)
         return self

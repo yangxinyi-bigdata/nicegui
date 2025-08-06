@@ -32,30 +32,30 @@ class InteractiveImage(SourceElement, ContentElement, component='interactive_ima
                  events: List[str] = ['click'],  # noqa: B006
                  cross: Union[bool, str] = False,
                  ) -> None:
-        """Interactive Image
+        """交互式图像
 
-        Create an image with an SVG overlay that handles mouse events and yields image coordinates.
-        It is also the best choice for non-flickering image updates.
-        If the source URL changes faster than images can be loaded by the browser, some images are simply skipped.
-        Thereby repeatedly updating the image source will automatically adapt to the available bandwidth.
-        See `OpenCV Webcam <https://github.com/zauberzeug/nicegui/tree/main/examples/opencv_webcam/main.py>`_ for an example.
+        创建一个带有SVG覆盖层的图像，处理鼠标事件并返回图像坐标。
+        这也是无闪烁图像更新的最佳选择。
+        如果源URL变化速度超过浏览器加载图像的速度，一些图像将被跳过。
+        因此，重复更新图像源将自动适应可用带宽。
+        参见`OpenCV摄像头示例 <https://github.com/zauberzeug/nicegui/tree/main/examples/opencv_webcam/main.py>`_。
 
-        The mouse event handler is called with mouse event arguments containing
+        鼠标事件处理程序被调用时包含鼠标事件参数：
 
-        - `type` (the name of the JavaScript event),
-        - `image_x` and `image_y` (image coordinates in pixels),
-        - `button` and `buttons` (mouse button numbers from the JavaScript event), as well as
-        - `alt`, `ctrl`, `meta`, and `shift` (modifier keys from the JavaScript event).
+        - `type`（JavaScript事件的名称），
+        - `image_x` 和 `image_y`（以像素为单位的图像坐标），
+        - `button` 和 `buttons`（来自JavaScript事件的鼠标按钮编号），以及
+        - `alt`、`ctrl`、`meta` 和 `shift`（来自JavaScript事件的修饰键）。
 
-        You can also pass a tuple of width and height instead of an image source.
-        This will create an empty image with the given size.
+        您也可以传递宽度和高度的元组而不是图像源。
+        这将创建一个具有给定大小的空图像。
 
-        :param source: the source of the image; can be an URL, local file path, a base64 string or just an image size
-        :param content: SVG content which should be overlaid; viewport has the same dimensions as the image
-        :param size: size of the image (width, height) in pixels; only used if `source` is not set
-        :param on_mouse: callback for mouse events (contains image coordinates `image_x` and `image_y` in pixels)
-        :param events: list of JavaScript events to subscribe to (default: `['click']`)
-        :param cross: whether to show crosshairs or a color string (default: `False`)
+        :param source: 图像的源；可以是URL、本地文件路径、base64字符串或仅是图像大小
+        :param content: 应该覆盖的SVG内容；视口与图像具有相同的尺寸
+        :param size: 图像的大小（宽度、高度），以像素为单位；仅在未设置`source`时使用
+        :param on_mouse: 鼠标事件的回调函数（包含以像素为单位的图像坐标`image_x`和`image_y`）
+        :param events: 要订阅的JavaScript事件列表（默认：`['click']`）
+        :param cross: 是否显示十字准线或颜色字符串（默认：`False`）
         """
         super().__init__(source=source, content=content)
         self._props['events'] = events[:]
@@ -69,7 +69,7 @@ class InteractiveImage(SourceElement, ContentElement, component='interactive_ima
         return super().set_source(source)
 
     def on_mouse(self, on_mouse: Handler[MouseEventArguments]) -> Self:
-        """Add a callback to be invoked when a mouse event occurs."""
+        """添加鼠标事件发生时要调用的回调函数。"""
         def handle_mouse(e: GenericEventArguments) -> None:
             args = cast(dict, e.args)
             arguments = MouseEventArguments(
@@ -95,7 +95,7 @@ class InteractiveImage(SourceElement, ContentElement, component='interactive_ima
         super()._set_props(source)
 
     def force_reload(self) -> None:
-        """Force the image to reload from the source."""
+        """强制图像从源重新加载。"""
         if self._props['src'].startswith('data:'):
             log.warning('ui.interactive_image: force_reload() only works with network sources (not base64)')
             return
@@ -103,9 +103,9 @@ class InteractiveImage(SourceElement, ContentElement, component='interactive_ima
         self.update()
 
     def add_layer(self, *, content: str = '') -> InteractiveImageLayer:
-        """Add a new layer with its own content.
+        """添加一个具有自己内容的新图层。
 
-        *Added in version 2.17.0*
+        *在版本2.17.0中添加*
         """
         with self:
             layer = InteractiveImageLayer(source=self.source, content=content, size=self._props['size']) \
@@ -119,11 +119,11 @@ class InteractiveImageLayer(SourceElement, ContentElement, component='interactiv
     PIL_CONVERT_FORMAT = 'PNG'
 
     def __init__(self, *, source: str, content: str, size: Optional[Tuple[float, float]]) -> None:
-        """Interactive Image Layer
+        """交互式图像图层
 
-        This element is created when adding a layer to an ``InteractiveImage``.
+        在向``InteractiveImage``添加图层时创建此元素。
 
-        *Added in version 2.17.0*
+        *在版本2.17.0中添加*
         """
         super().__init__(source=source, content=content)
         self._props['size'] = size

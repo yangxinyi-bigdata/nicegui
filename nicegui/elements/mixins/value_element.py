@@ -8,15 +8,20 @@ from ...events import GenericEventArguments, Handler, ValueChangeEventArguments,
 
 
 class ValueElement(Element):
+    """值元素混入
+
+    为元素提供值管理功能的混入类。
+    支持值绑定、值变化事件处理和多种值更新策略。
+    """
     VALUE_PROP: str = 'model-value'
-    '''Name of the prop that holds the value of the element'''
+    '''保存元素值的属性名称'''
 
     LOOPBACK: Optional[bool] = True
-    '''Whether to set the new value directly on the client or after getting an update from the server.
+    '''是否直接在客户端设置新值，还是在从服务器获取更新后设置。
 
-    - ``True``: The value is updated by sending a change event to the server which responds with an update.
-    - ``False``: The value is updated by setting the VALUE_PROP directly on the client.
-    - ``None``: The value is updated automatically by the Vue element.
+    - ``True``: 值通过向服务器发送变化事件来更新，服务器响应更新。
+    - ``False``: 值通过直接在客户端设置VALUE_PROP来更新。
+    - ``None``: 值由Vue元素自动更新。
     '''
 
     value = BindableProperty(
@@ -28,6 +33,12 @@ class ValueElement(Element):
                  throttle: float = 0,
                  **kwargs: Any,
                  ) -> None:
+        """初始化值元素
+
+        :param value: 元素的初始值
+        :param on_value_change: 值变化时的回调函数
+        :param throttle: 事件节流时间（秒）
+        """
         super().__init__(**kwargs)
         self._send_update_on_value_change = True
         self.set_value(value)
@@ -42,7 +53,7 @@ class ValueElement(Element):
         self.on(f'update:{self.VALUE_PROP}', handle_change, [None], throttle=throttle)
 
     def on_value_change(self, callback: Handler[ValueChangeEventArguments]) -> Self:
-        """Add a callback to be invoked when the value changes."""
+        """添加值变化时要调用的回调函数。"""
         self._change_handlers.append(callback)
         return self
 
@@ -51,14 +62,14 @@ class ValueElement(Element):
                       target_name: str = 'value',
                       forward: Optional[Callable[[Any], Any]] = None,
                       ) -> Self:
-        """Bind the value of this element to the target object's target_name property.
+        """将此元素的值绑定到目标对象的target_name属性。
 
-        The binding works one way only, from this element to the target.
-        The update happens immediately and whenever a value changes.
+        绑定是单向的，从此元素到目标。
+        更新会立即发生，并在值变化时进行。
 
-        :param target_object: The object to bind to.
-        :param target_name: The name of the property to bind to.
-        :param forward: A function to apply to the value before applying it to the target (default: identity).
+        :param target_object: 要绑定到的对象。
+        :param target_name: 要绑定到的属性名称。
+        :param forward: 在应用到目标之前应用于值的函数（默认：恒等函数）。
         """
         bind_to(self, 'value', target_object, target_name, forward)
         return self
@@ -68,14 +79,14 @@ class ValueElement(Element):
                         target_name: str = 'value',
                         backward: Optional[Callable[[Any], Any]] = None,
                         ) -> Self:
-        """Bind the value of this element from the target object's target_name property.
+        """将此元素的值从目标对象的target_name属性绑定。
 
-        The binding works one way only, from the target to this element.
-        The update happens immediately and whenever a value changes.
+        绑定是单向的，从目标到此元素。
+        更新会立即发生，并在值变化时进行。
 
-        :param target_object: The object to bind from.
-        :param target_name: The name of the property to bind from.
-        :param backward: A function to apply to the value before applying it to this element (default: identity).
+        :param target_object: 要绑定来源的对象。
+        :param target_name: 要绑定来源的属性名称。
+        :param backward: 在应用到元素之前应用于值的函数（默认：恒等函数）。
         """
         bind_from(self, 'value', target_object, target_name, backward)
         return self
@@ -86,28 +97,32 @@ class ValueElement(Element):
                    forward: Optional[Callable[[Any], Any]] = None,
                    backward: Optional[Callable[[Any], Any]] = None,
                    ) -> Self:
-        """Bind the value of this element to the target object's target_name property.
+        """将此元素的值绑定到目标对象的target_name属性。
 
-        The binding works both ways, from this element to the target and from the target to this element.
-        The update happens immediately and whenever a value changes.
-        The backward binding takes precedence for the initial synchronization.
+        绑定是双向的，从此元素到目标和从目标到此元素。
+        更新会立即发生，并在值变化时进行。
+        反向绑定在初始同步时具有优先权。
 
-        :param target_object: The object to bind to.
-        :param target_name: The name of the property to bind to.
-        :param forward: A function to apply to the value before applying it to the target (default: identity).
-        :param backward: A function to apply to the value before applying it to this element (default: identity).
+        :param target_object: 要绑定到的对象。
+        :param target_name: 要绑定到的属性名称。
+        :param forward: 在应用到目标之前应用于值的函数（默认：恒等函数）。
+        :param backward: 在应用到元素之前应用于值的函数（默认：恒等函数）。
         """
         bind(self, 'value', target_object, target_name, forward=forward, backward=backward)
         return self
 
     def set_value(self, value: Any) -> None:
-        """Set the value of this element.
+        """设置此元素的值。
 
-        :param value: The value to set.
+        :param value: 要设置的值。
         """
         self.value = value
 
     def _handle_value_change(self, value: Any) -> None:
+        """处理元素值变化
+
+        :param value: 新值
+        """
         self._props[self.VALUE_PROP] = self._value_to_model_value(value)
         if self._send_update_on_value_change:
             self.update()
@@ -116,10 +131,25 @@ class ValueElement(Element):
             handle_event(handler, args)
 
     def _event_args_to_value(self, e: GenericEventArguments) -> Any:
+        """将事件参数转换为值
+
+        :param e: 事件参数
+        :return: 转换后的值
+        """
         return e.args
 
     def _value_to_model_value(self, value: Any) -> Any:
+        """将值转换为模型值格式
+
+        :param value: 要转换的值
+        :return: 模型值
+        """
         return value
 
     def _value_to_event_value(self, value: Any) -> Any:
+        """将值转换为事件值格式
+
+        :param value: 要转换的值
+        :return: 事件值
+        """
         return value

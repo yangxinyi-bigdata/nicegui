@@ -12,16 +12,16 @@ class LinePlot(Pyplot):
                  close: bool = True,
                  **kwargs: Any,
                  ) -> None:
-        """Line Plot
+        """线图
 
-        Create a line plot using pyplot.
-        The `push` method provides live updating when utilized in combination with `ui.timer`.
+        使用pyplot创建线图。
+        `push`方法在与`ui.timer`结合使用时提供实时更新。
 
-        :param n: number of lines
-        :param limit: maximum number of datapoints per line (new points will displace the oldest)
-        :param update_every: update plot only after pushing new data multiple times to save CPU and bandwidth
-        :param close: whether the figure should be closed after exiting the context; set to `False` if you want to update it later (default: `True`)
-        :param kwargs: arguments like `figsize` which should be passed to `pyplot.figure <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`_
+        :param n: 线条数量
+        :param limit: 每条线最大数据点数（新点将替换最旧的点）
+        :param update_every: 仅在多次推送新数据后更新图表以节省CPU和带宽
+        :param close: 退出上下文后是否关闭图形；如果要稍后更新则设置为`False`（默认：`True`）
+        :param kwargs: 应传递给`pyplot.figure <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`_的参数，如`figsize`
         """
         super().__init__(close=close, **kwargs)
 
@@ -33,10 +33,10 @@ class LinePlot(Pyplot):
         self.push_counter = 0
 
     def with_legend(self, titles: List[str], **kwargs: Any):
-        """Add a legend to the plot.
+        """向图表添加图例。
 
-        :param titles: list of titles for the lines
-        :param kwargs: additional arguments which should be passed to `pyplot.legend <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html>`_
+        :param titles: 线条的标题列表
+        :param kwargs: 应传递给`pyplot.legend <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html>`_的附加参数
         """
         self.fig.gca().legend(titles, **kwargs)
         self._convert_to_html()
@@ -49,12 +49,12 @@ class LinePlot(Pyplot):
              x_limits: Union[None, Literal['auto'], Tuple[float, float]] = 'auto',
              y_limits: Union[None, Literal['auto'], Tuple[float, float]] = 'auto',
              ) -> None:
-        """Push new data to the plot.
+        """向图表推送新数据。
 
-        :param x: list of x values
-        :param Y: list of lists of y values (one list per line)
-        :param x_limits: new x limits (tuple of floats, or "auto" to fit the data points, or ``None`` to leave unchanged, *added in version 2.10.0*)
-        :param y_limits: new y limits (tuple of floats, or "auto" to fit the data points, or ``None`` to leave unchanged, *added in version 2.10.0*)
+        :param x: x值列表
+        :param Y: y值列表的列表（每条线一个列表）
+        :param x_limits: 新的x限制（浮点数元组，或"auto"以适应数据点，或``None``保持不变，*在版本2.10.0中添加*）
+        :param y_limits: 新的y限制（浮点数元组，或"auto"以适应数据点，或``None``保持不变，*在版本2.10.0中添加*）
         """
         self.push_counter += 1
 
@@ -92,7 +92,7 @@ class LinePlot(Pyplot):
         self.update()
 
     def clear(self) -> None:
-        """Clear the line plot."""
+        """清除线图。"""
         super().clear()
         self.x.clear()
         for y in self.Y:

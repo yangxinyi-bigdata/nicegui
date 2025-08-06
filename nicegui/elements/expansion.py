@@ -17,16 +17,16 @@ class Expansion(IconElement, TextElement, ValueElement, DisableableElement, defa
                  value: bool = False,
                  on_value_change: Optional[Handler[ValueChangeEventArguments]] = None
                  ) -> None:
-        """Expansion Element
+        """展开元素
 
-        Provides an expandable container based on Quasar's `QExpansionItem <https://quasar.dev/vue-components/expansion-item>`_ component.
+        提供基于Quasar的`QExpansionItem <https://quasar.dev/vue-components/expansion-item>`_组件的可展开容器。
 
-        :param text: title text
-        :param caption: optional caption (or sub-label) text
-        :param icon: optional icon (default: None)
-        :param group: optional group name for coordinated open/close state within the group a.k.a. "accordion mode"
-        :param value: whether the expansion should be opened on creation (default: `False`)
-        :param on_value_change: callback to execute when value changes
+        :param text: 标题文本
+        :param caption: 可选的标题（或子标签）文本
+        :param icon: 可选图标（默认：None）
+        :param group: 可选的组名，用于在组内协调打开/关闭状态，即"手风琴模式"
+        :param value: 创建时是否应该打开展开（默认：`False`）
+        :param on_value_change: 值更改时执行的回调函数
         """
         super().__init__(tag='q-expansion-item', icon=icon, text=text, value=value, on_value_change=on_value_change)
         if caption is not None:
@@ -35,11 +35,11 @@ class Expansion(IconElement, TextElement, ValueElement, DisableableElement, defa
             self._props['group'] = group
 
     def open(self) -> None:
-        """Open the expansion."""
+        """打开展开。"""
         self.value = True
 
     def close(self) -> None:
-        """Close the expansion."""
+        """关闭展开。"""
         self.value = False
 
     def _text_to_model_text(self, text: str) -> None:

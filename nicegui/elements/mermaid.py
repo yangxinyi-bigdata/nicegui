@@ -12,21 +12,21 @@ class Mermaid(ContentElement,
     CONTENT_PROP = 'content'
 
     def __init__(self, content: str, config: Optional[Dict] = None) -> None:
-        """Mermaid Diagrams
+        """Mermaid图表
 
-        Renders diagrams and charts written in the Markdown-inspired `Mermaid <https://mermaid.js.org/>`_ language.
-        The mermaid syntax can also be used inside Markdown elements by providing the extension string 'mermaid' to the ``ui.markdown`` element.
+        渲染用Markdown启发的`Mermaid <https://mermaid.js.org/>`_语言编写的图表和图形。
+        Mermaid语法也可以在Markdown元素内部使用，通过向``ui.markdown``元素提供扩展字符串'mermaid'。
 
-        The optional configuration dictionary is passed directly to mermaid before the first diagram is rendered.
-        This can be used to set such options as
+        可选的配置字典在第一个图表渲染之前直接传递给mermaid。
+        这可用于设置以下选项：
 
-            ``{'securityLevel': 'loose', ...}`` - allow running JavaScript when a node is clicked
-            ``{'logLevel': 'info', ...}`` - log debug info to the console
+            ``{'securityLevel': 'loose', ...}`` - 允许在点击节点时运行JavaScript
+            ``{'logLevel': 'info', ...}`` - 将调试信息记录到控制台
 
-        Refer to the Mermaid documentation for the ``mermaid.initialize()`` method for a full list of options.
+        有关完整选项列表，请参考Mermaid文档中的``mermaid.initialize()``方法。
 
-        :param content: the Mermaid content to be displayed
-        :param config: configuration dictionary to be passed to ``mermaid.initialize()``
+        :param content: 要显示的Mermaid内容
+        :param config: 要传递给``mermaid.initialize()``的配置字典
         """
         super().__init__(content=content)
         self._props['config'] = config

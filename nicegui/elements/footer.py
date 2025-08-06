@@ -12,20 +12,20 @@ class Footer(ValueElement, default_classes='nicegui-footer'):
                  elevated: bool = False,
                  wrap: bool = True,
                  ) -> None:
-        """Footer
+        """页脚
 
-        This element is based on Quasar's `QFooter <https://quasar.dev/layout/header-and-footer#qfooter-api>`_ component.
+        此元素基于Quasar的`QFooter <https://quasar.dev/layout/header-and-footer#qfooter-api>`_组件。
 
-        Like other layout elements, the footer can not be nested inside other elements.
+        与其他布局元素一样，页脚不能嵌套在其他元素内部。
 
-        Note: The footer is automatically placed below other layout elements in the DOM to improve accessibility.
-        To change the order, use the `move` method.
+        注意：页脚会自动放置在DOM中其他布局元素之下以提高可访问性。
+        要更改顺序，请使用`move`方法。
 
-        :param value: whether the footer is already opened (default: `True`)
-        :param fixed: whether the footer is fixed or scrolls with the content (default: `True`)
-        :param bordered: whether the footer should have a border (default: `False`)
-        :param elevated: whether the footer should have a shadow (default: `False`)
-        :param wrap: whether the footer should wrap its content (default: `True`)
+        :param value: 页脚是否已打开（默认：`True`）
+        :param fixed: 页脚是否固定或随内容滚动（默认：`True`）
+        :param bordered: 页脚是否应有边框（默认：`False`）
+        :param elevated: 页脚是否应有阴影（默认：`False`）
+        :param wrap: 页脚是否应换行其内容（默认：`True`）
         """
         require_top_level_layout(self)
         with context.client.layout:
@@ -41,13 +41,13 @@ class Footer(ValueElement, default_classes='nicegui-footer'):
         self.move(target_index=-1)
 
     def toggle(self) -> None:
-        """Toggle the footer"""
+        """切换页脚"""
         self.value = not self.value
 
     def show(self) -> None:
-        """Show the footer"""
+        """显示页脚"""
         self.value = True
 
     def hide(self) -> None:
-        """Hide the footer"""
+        """隐藏页脚"""
         self.value = False

@@ -15,9 +15,9 @@ def main_demo() -> None:
     ui.button('Orange', on_click=lambda e: e.sender.parent_slot.parent.style('background-color: #ffeedd'))
 
 
-@doc.demo('Set background gradient', '''
-    It's easy to set a background gradient, image or similar.
-    See [w3schools.com](https://www.w3schools.com/cssref/pr_background-image.php) for more information about setting background with CSS.
+@doc.demo('设置背景渐变', '''
+    设置背景渐变、图像或类似内容很容易。
+    参见 [w3schools.com](https://www.w3schools.com/cssref/pr_background-image.php) 了解有关使用 CSS 设置背景的更多信息。
 ''')
 def background_image():
     # ui.query('body').classes('bg-gradient-to-t from-blue-400 to-blue-100')
@@ -25,9 +25,9 @@ def background_image():
     ui.context.slot_stack[-1].parent.classes('bg-gradient-to-t from-blue-400 to-blue-100')
 
 
-@doc.demo('Modify default page padding', '''
-    By default, NiceGUI provides a built-in padding around the content of the page.
-    You can modify it using the class selector `.nicegui-content`.
+@doc.demo('修改默认页面填充', '''
+    默认情况下，NiceGUI 在页面内容周围提供内置的填充。
+    您可以使用类选择器 `.nicegui-content` 修改它。
 ''')
 def remove_padding():
     # ui.query('.nicegui-content').classes('p-0')

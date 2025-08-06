@@ -14,21 +14,21 @@ from . import (
 
 CONSTANT_UUID = str(uuid.uuid4())
 
-doc.title('*Pages* & Routing')
+doc.title('*页面*与路由')
 
 doc.intro(page_documentation)
 
 
 @doc.auto_execute
-@doc.demo('Auto-index page', '''
-    Pages created with the `@ui.page` decorator are "private".
-    Their content is re-created for each client.
-    Thus, in the demo to the right, the displayed ID on the private page changes when the browser reloads the page.
+@doc.demo('自动索引页面', '''
+    使用 `@ui.page` 装饰器创建的页面是"私有的"。
+    它的内容会为每个客户端重新创建。
+    因此，在右侧的演示中，私有页面上显示的 ID 在浏览器重新加载页面时会发生变化。
 
-    UI elements that are not wrapped in a decorated page function are placed on an automatically generated index page at route "/".
-    This auto-index page is created once on startup and *shared* across all clients that might connect.
-    Thus, each connected client will see the *same* elements.
-    In the demo to the right, the displayed ID on the auto-index page remains constant when the browser reloads the page.
+    没有包装在装饰页面函数中的 UI 元素被放置在路由"/"处自动生成的索引页面上。
+    这个自动索引页面在启动时创建一次，并在可能连接的所有客户端之间*共享*。
+    因此，每个连接的客户端将看到*相同*的元素。
+    在右侧的演示中，自动索引页面上显示的 ID 在浏览器重新加载页面时保持不变。
 ''')
 def auto_index_page():
     from uuid import uuid4
@@ -49,12 +49,12 @@ doc.intro(sub_pages_documentation)
 
 
 @doc.auto_execute
-@doc.demo('Parameter injection', '''
-    Thanks to FastAPI, a page function accepts optional parameters to provide
-    [path parameters](https://fastapi.tiangolo.com/tutorial/path-params/),
-    [query parameters](https://fastapi.tiangolo.com/tutorial/query-params/) or the whole incoming
-    [request](https://fastapi.tiangolo.com/advanced/using-request-directly/) for accessing
-    the body payload, headers, cookies and more.
+@doc.demo('参数注入', '''
+    多亏了 FastAPI，页面函数接受可选参数来提供
+    [路径参数](https://fastapi.tiangolo.com/tutorial/path-params/)、
+    [查询参数](https://fastapi.tiangolo.com/tutorial/query-params/) 或整个传入的
+    [请求](https://fastapi.tiangolo.com/advanced/using-request-directly/)，用于访问
+    正文载荷、头部、cookie 等。
 ''')
 def parameter_demo():
     @ui.page('/icon/{icon}')
@@ -72,8 +72,8 @@ doc.intro(navigate_documentation)
 
 doc.redirects['open'] = 'navigate#ui_navigate_to_(formerly_ui_open)'
 doc.text('ui.open', f'''
-    The `ui.open` function is deprecated.
-    Use [`ui.navigate.to`]({doc.redirects["open"]}) instead.
+    `ui.open` 函数已被弃用。
+    请改用 [`ui.navigate.to`]({doc.redirects["open"]})。
 ''')
 
 doc.intro(download_documentation)
@@ -108,9 +108,9 @@ def add_media_files_demo():
     ui.video('https://cdn.coverr.co/videos/coverr-cloudy-sky-2765/1080p.mp4')
 
 
-@doc.demo('Add HTML to the page', '''
-    You can add HTML to the page by calling `ui.add_head_html` or `ui.add_body_html`.
-    This is useful for adding custom CSS styles or JavaScript code.
+@doc.demo('向页面添加 HTML', '''
+    您可以通过调用 `ui.add_head_html` 或 `ui.add_body_html` 向页面添加 HTML。
+    这对于添加自定义 CSS 样式或 JavaScript 代码很有用。
 ''')
 def add_head_html_demo():
     ui.add_head_html('''
@@ -125,16 +125,16 @@ def add_head_html_demo():
 
 
 @doc.auto_execute
-@doc.demo('API Responses', '''
-    NiceGUI is based on [FastAPI](https://fastapi.tiangolo.com/).
-    This means you can use all of FastAPI's features.
-    For example, you can implement a RESTful API in addition to your graphical user interface.
-    You simply import the `app` object from `nicegui`.
-    Or you can run NiceGUI on top of your own FastAPI app by using `ui.run_with(app)` instead of starting a server automatically with `ui.run()`.
+@doc.demo('API 响应', '''
+    NiceGUI 基于 [FastAPI](https://fastapi.tiangolo.com/)。
+    这意味着您可以使用 FastAPI 的所有功能。
+    例如，除了图形用户界面外，您还可以实现 RESTful API。
+    您只需从 `nicegui` 导入 `app` 对象。
+    或者您可以通过使用 `ui.run_with(app)` 在自己的 FastAPI 应用程序上运行 NiceGUI，而不是用 `ui.run()` 自动启动服务器。
 
-    You can also return any other FastAPI response object inside a page function.
-    For example, you can return a `RedirectResponse` to redirect the user to another page if certain conditions are met.
-    This is used in our [authentication demo](https://github.com/zauberzeug/nicegui/tree/main/examples/authentication/main.py).
+    您还可以在页面函数中返回任何其他 FastAPI 响应对象。
+    例如，如果满足某些条件，您可以返回 `RedirectResponse` 将用户重定向到另一个页面。
+    这在我们的[身份验证演示](https://github.com/zauberzeug/nicegui/tree/main/examples/authentication/main.py)中使用。
 ''')
 def fastapi_demo():
     import random

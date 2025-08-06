@@ -17,29 +17,29 @@ class InputChips(LabelElement, ValidationElement, DisableableElement):
                  clearable: bool = False,
                  validation: Optional[Union[ValidationFunction, ValidationDict]] = None,
                  ) -> None:
-        """Input Chips
+        """输入芯片
 
-        An input field that manages a collection of values as visual "chips" or tags.
-        Users can type to add new chips and remove existing ones by clicking or using keyboard shortcuts.
+        管理值集合作为可视化"芯片"或标签的输入字段。
+        用户可以输入来添加新芯片，并通过点击或使用键盘快捷键删除现有芯片。
 
-        This element is based on Quasar's `QSelect <https://quasar.dev/vue-components/select>`_ component.
-        Unlike a traditional dropdown selection, this variant focuses on free-form text input with chips,
-        making it ideal for tags, keywords, or any list of user-defined values.
+        此元素基于Quasar的`QSelect <https://quasar.dev/vue-components/select>`_组件。
+        与传统的下拉选择不同，此变体专注于带芯片的自由形式文本输入，
+        使其非常适合标签、关键字或任何用户定义值的列表。
 
-        You can use the ``validation`` parameter to define a dictionary of validation rules,
-        e.g. ``{'Too long!': lambda value: len(value) < 3}``.
-        The key of the first rule that fails will be displayed as an error message.
-        Alternatively, you can pass a callable that returns an optional error message.
-        To disable the automatic validation on every value change, you can use the `without_auto_validation` method.
+        您可以使用``validation``参数来定义验证规则字典，
+        例如``{'Too long!': lambda value: len(value) < 3}``。
+        第一个失败的规则的键将显示为错误消息。
+        或者，您可以传递一个返回可选错误消息的可调用对象。
+        要禁用每次值更改时的自动验证，可以使用`without_auto_validation`方法。
 
-        *Added in version 2.22.0*
+        *在版本2.22.0中添加*
 
-        :param label: the label to display above the selection
-        :param value: the initial value
-        :param on_change: callback to execute when selection changes
-        :param new_value_mode: handle new values from user input (default: "toggle")
-        :param clearable: whether to add a button to clear the selection
-        :param validation: dictionary of validation rules or a callable that returns an optional error message (default: None for no validation)
+        :param label: 在选择上方显示的标签
+        :param value: 初始值
+        :param on_change: 选择变化时要执行的回调函数
+        :param new_value_mode: 处理用户输入的新值（默认："toggle"）
+        :param clearable: 是否添加清除选择的按钮
+        :param validation: 验证规则字典或返回可选错误消息的可调用对象（默认：None表示无验证）
         """
         super().__init__(tag='q-select', label=label, value=value or [], on_value_change=on_change, validation=validation)
 

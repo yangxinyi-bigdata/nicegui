@@ -13,21 +13,21 @@ class Header(ValueElement, component='header.js', default_classes='nicegui-heade
                  wrap: bool = True,
                  add_scroll_padding: bool = True,
                  ) -> None:
-        """Header
+        """页头
 
-        This element is based on Quasar's `QHeader <https://quasar.dev/layout/header-and-footer#qheader-api>`_ component.
+        此元素基于Quasar的`QHeader <https://quasar.dev/layout/header-and-footer#qheader-api>`_组件。
 
-        Like other layout elements, the header can not be nested inside other elements.
+        与其他布局元素一样，页头不能嵌套在其他元素内部。
 
-        Note: The header is automatically placed above other layout elements in the DOM to improve accessibility.
-        To change the order, use the `move` method.
+        注意：页头会自动放置在DOM中其他布局元素之上以提高可访问性。
+        要更改顺序，请使用`move`方法。
 
-        :param value: whether the header is already opened (default: `True`)
-        :param fixed: whether the header should be fixed to the top of the page (default: `True`)
-        :param bordered: whether the header should have a border (default: `False`)
-        :param elevated: whether the header should have a shadow (default: `False`)
-        :param wrap: whether the header should wrap its content (default: `True`)
-        :param add_scroll_padding: whether to automatically prevent link targets from being hidden behind the header (default: `True`)
+        :param value: 页头是否已打开（默认：`True`）
+        :param fixed: 页头是否固定在页面顶部（默认：`True`）
+        :param bordered: 页头是否应有边框（默认：`False`）
+        :param elevated: 页头是否应有阴影（默认：`False`）
+        :param wrap: 页头是否应换行其内容（默认：`True`）
+        :param add_scroll_padding: 是否自动防止链接目标被页头隐藏（默认：`True`）
         """
         require_top_level_layout(self)
         with context.client.layout:
@@ -44,13 +44,13 @@ class Header(ValueElement, component='header.js', default_classes='nicegui-heade
         self.move(target_index=0)
 
     def toggle(self):
-        """Toggle the header"""
+        """切换页头"""
         self.value = not self.value
 
     def show(self):
-        """Show the header"""
+        """显示页头"""
         self.value = True
 
     def hide(self):
-        """Hide the header"""
+        """隐藏页头"""
         self.value = False

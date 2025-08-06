@@ -7,21 +7,21 @@ from ..logging import log
 
 
 class Download:
-    """Download functions
+    """下载函数
 
-    These functions allow you to download files, URLs or raw data.
+    这些函数允许您下载文件、URL 或原始数据。
 
-    *Added in version 2.14.0*
+    *在版本 2.14.0 中添加*
     """
 
     def __call__(self, src: Union[str, Path, bytes], filename: Optional[str] = None, media_type: str = '') -> None:
-        """Download
+        """下载
 
-        Function to trigger the download of a file, URL or bytes.
+        触发文件、URL 或字节下载的函数。
 
-        :param src: relative target URL, local path of a file or raw data which should be downloaded
-        :param filename: name of the file to download (default: name of the file on the server)
-        :param media_type: media type of the file to download (default: "")
+        :param src: 相对目标 URL、文件的本地路径或应下载的原始数据
+        :param filename: 要下载的文件名（默认：服务器上的文件名）
+        :param media_type: 要下载的文件的媒体类型（默认：""）
         """
         if isinstance(src, bytes):
             self.content(src, filename, media_type)
@@ -32,40 +32,40 @@ class Download:
             self.from_url(src, filename, media_type)
 
     def file(self, path: Union[str, Path], filename: Optional[str] = None, media_type: str = '') -> None:
-        """Download file from local path
+        """从本地路径下载文件
 
-        Function to trigger the download of a file.
+        触发文件下载的函数。
 
-        *Added in version 2.14.0*
+        *在版本 2.14.0 中添加*
 
-        :param path: local path of the file
-        :param filename: name of the file to download (default: name of the file on the server)
-        :param media_type: media type of the file to download (default: "")
+        :param path: 文件的本地路径
+        :param filename: 要下载的文件名（默认：服务器上的文件名）
+        :param media_type: 要下载的文件的媒体类型（默认：""）
         """
         src = core.app.add_static_file(local_file=path, single_use=True)
         context.client.download(src, filename, media_type)
 
     def from_url(self, url: str, filename: Optional[str] = None, media_type: str = '') -> None:
-        """Download from a relative URL
+        """从相对 URL 下载
 
-        Function to trigger the download from a relative URL.
+        触发从相对 URL 下载的函数。
 
-        Note:
-        This function is intended to be used with relative URLs only.
-        For absolute URLs, the browser ignores the download instruction and tries to view the file in a new tab
-        if possible, such as images, PDFs, etc.
-        Therefore, the download may only work for some file types such as .zip, .db, etc.
-        Furthermore, the browser ignores filename and media_type parameters,
-        respecting the origin server's headers instead.
-        Either replace the absolute URL with a relative one, or use ``ui.navigate.to(url, new_tab=True)`` instead.
+        注意：
+        此函数仅适用于相对 URL。
+        对于绝对 URL，浏览器会忽略下载指令，并尝试在新标签页中查看文件（如果可能），
+        例如图像、PDF 等。
+        因此，下载可能仅适用于某些文件类型，如 .zip、.db 等。
+        此外，浏览器会忽略 filename 和 media_type 参数，
+        而是尊重源服务器的头部信息。
+        请将绝对 URL 替换为相对 URL，或使用 ``ui.navigate.to(url, new_tab=True)`` 代替。
 
-        *Added in version 2.14.0*
+        *在版本 2.14.0 中添加*
 
-        *Updated in version 2.19.0: Added warning for cross-origin downloads*
+        *在版本 2.19.0 中更新：添加了跨源下载警告*
 
         :param url: URL
-        :param filename: name of the file to download (default: name of the file on the server)
-        :param media_type: media type of the file to download (default: "")
+        :param filename: 要下载的文件名（默认：服务器上的文件名）
+        :param media_type: 要下载的文件的媒体类型（默认：""）
         """
         is_relative = url.startswith('/') or url.startswith('./') or url.startswith('../')
         if not is_relative:
@@ -74,15 +74,15 @@ class Download:
         context.client.download(url, filename, media_type)
 
     def content(self, content: Union[bytes, str], filename: Optional[str] = None, media_type: str = '') -> None:
-        """Download raw bytes or string content
+        """下载原始字节或字符串内容
 
-        Function to trigger the download of raw data.
+        触发原始数据下载的函数。
 
-        *Added in version 2.14.0*
+        *在版本 2.14.0 中添加*
 
-        :param content: raw bytes or string
-        :param filename: name of the file to download (default: name of the file on the server)
-        :param media_type: media type of the file to download (default: "")
+        :param content: 原始字节或字符串
+        :param filename: 要下载的文件名（默认：服务器上的文件名）
+        :param media_type: 要下载的文件的媒体类型（默认：""）
         """
         if isinstance(content, str):
             content = content.encode('utf-8')

@@ -44,34 +44,34 @@ class ElementFilter(Generic[T]):
                  ) -> None:
         """ElementFilter
 
-        Sometimes it is handy to search the Python element tree of the current page.
-        ``ElementFilter()`` allows powerful filtering by kind of elements, markers and content.
-        It also provides a fluent interface to apply more filters like excluding elements or filtering for elements within a specific parent.
-        The filter can be used as an iterator to iterate over the found elements and is always applied while iterating and not when being instantiated.
+        有时候搜索当前页面的 Python 元素树会很方便。
+        ``ElementFilter()`` 允许通过元素类型、标记和内容进行强大的过滤。
+        它还提供了一个流畅的接口来应用更多过滤器，如排除元素或在特定父元素内过滤元素。
+        过滤器可以用作迭代器来迭代找到的元素，并且总是在迭代时应用，而不是在实例化时应用。
 
-        And element is yielded if it matches all of the following conditions:
+        元素在满足以下所有条件时被产生：
 
-        - The element is of the specified kind (if specified).
-        - The element is none of the excluded kinds.
-        - The element has all of the specified markers.
-        - The element has none of the excluded markers.
-        - The element contains all of the specified content.
-        - The element contains none of the excluded content.
+        - 元素是指定的类型（如果指定）。
+        - 元素不是任何排除的类型。
+        - 元素具有所有指定的标记。
+        - 元素没有任何排除的标记。
+        - 元素包含所有指定的内容。
+        - 元素没有任何排除的内容。
 
-        - Its ancestors include all of the specified instances defined via ``within``.
-        - Its ancestors include none of the specified instances defined via ``not_within``.
-        - Its ancestors include all of the specified kinds defined via ``within``.
-        - Its ancestors include none of the specified kinds defined via ``not_within``.
-        - Its ancestors include all of the specified markers defined via ``within``.
-        - Its ancestors include none of the specified markers defined via ``not_within``.
+        - 其祖先包括通过 ``within`` 定义的所有指定实例。
+        - 其祖先不包括通过 ``not_within`` 定义的任何指定实例。
+        - 其祖先包括通过 ``within`` 定义的所有指定类型。
+        - 其祖先不包括通过 ``not_within`` 定义的任何指定类型。
+        - 其祖先包括通过 ``within`` 定义的所有指定标记。
+        - 其祖先不包括通过 ``not_within`` 定义的任何指定标记。
 
-        Element "content" includes its text, label, icon, placeholder, value, message, content, source.
-        Partial matches like "Hello" in "Hello World!" are sufficient for content filtering.
+        元素"内容"包括其文本、标签、图标、占位符、值、消息、内容、源。
+        像 "Hello World!" 中的 "Hello" 这样的部分匹配就足以进行内容过滤。
 
-        :param kind: filter by element type; the iterator will be of type ``kind``
-        :param marker: filter by element markers; can be a list of strings or a single string where markers are separated by whitespace
-        :param content: filter for elements which contain ``content`` in one of their content attributes like ``.text``, ``.value``, ``.source``, ...; can be a singe string or a list of strings which all must match
-        :param local_scope: if `True`, only elements within the current scope are returned; by default the whole page is searched (this default behavior can be changed with ``ElementFilter.DEFAULT_LOCAL_SCOPE = True``)
+        :param kind: 按元素类型过滤；迭代器将是 ``kind`` 类型
+        :param marker: 按元素标记过滤；可以是字符串列表或单个字符串，其中标记由空格分隔
+        :param content: 过滤在其内容属性之一（如 ``.text``、``.value``、``.source`` 等）中包含 ``content`` 的元素；可以是单个字符串或必须全部匹配的字符串列表
+        :param local_scope: 如果为 `True`，则只返回当前范围内的元素；默认搜索整个页面（此默认行为可以通过 ``ElementFilter.DEFAULT_LOCAL_SCOPE = True`` 更改）
         """
         self._kind = kind
         self._markers = marker.split() if isinstance(marker, str) else marker or []
@@ -152,7 +152,7 @@ class ElementFilter(Generic[T]):
                marker: Optional[str] = None,
                instance: Union[Element, List[Element], None] = None,
                ) -> Self:
-        """Filter elements which have a specific match in the parent hierarchy."""
+        """过滤在父层次结构中具有特定匹配的元素。"""
         if kind is not None:
             assert issubclass(kind, Element)
             self._within_kinds.append(kind)
@@ -167,7 +167,7 @@ class ElementFilter(Generic[T]):
                 marker: Optional[str] = None,
                 content: Optional[str] = None,
                 ) -> Self:
-        """Exclude elements with specific element type, marker or content."""
+        """排除具有特定元素类型、标记或内容的元素。"""
         if kind is not None:
             assert issubclass(kind, Element)
             self._exclude_kinds.append(kind)
@@ -182,7 +182,7 @@ class ElementFilter(Generic[T]):
                    marker: Optional[str] = None,
                    instance: Union[Element, List[Element], None] = None,
                    ) -> Self:
-        """Exclude elements which have a parent of a specific type or marker."""
+        """排除具有特定类型或标记的父元素的元素。"""
         if kind is not None:
             assert issubclass(kind, Element)
             self._not_within_kinds.append(kind)
@@ -193,43 +193,43 @@ class ElementFilter(Generic[T]):
         return self
 
     def classes(self, add: Optional[str] = None, *, remove: Optional[str] = None, replace: Optional[str] = None) -> Self:
-        """Apply, remove, or replace HTML classes.
+        """应用、移除或替换 HTML 类。
 
-        This allows modifying the look of the element or its layout using `Tailwind <https://v3.tailwindcss.com/>`_ or `Quasar <https://quasar.dev/>`_ classes.
+        这允许使用 `Tailwind <https://v3.tailwindcss.com/>`_ 或 `Quasar <https://quasar.dev/>`_ 类修改元素的外观或布局。
 
-        Removing or replacing classes can be helpful if predefined classes are not desired.
+        如果不需要预定义的类，移除或替换类可能会有帮助。
 
-        :param add: whitespace-delimited string of classes
-        :param remove: whitespace-delimited string of classes to remove from the element
-        :param replace: whitespace-delimited string of classes to use instead of existing ones
+        :param add: 以空格分隔的类字符串
+        :param remove: 要从元素中移除的以空格分隔的类字符串
+        :param replace: 用于替换现有类的以空格分隔的类字符串
         """
         for element in self:
             element.classes(add, remove=remove, replace=replace)
         return self
 
     def style(self, add: Optional[str] = None, *, remove: Optional[str] = None, replace: Optional[str] = None) -> Self:
-        """Apply, remove, or replace CSS definitions.
+        """应用、移除或替换 CSS 定义。
 
-        Removing or replacing styles can be helpful if the predefined style is not desired.
+        如果不需要预定义的样式，移除或替换样式可能会有帮助。
 
-        :param add: semicolon-separated list of styles to add to the element
-        :param remove: semicolon-separated list of styles to remove from the element
-        :param replace: semicolon-separated list of styles to use instead of existing ones
+        :param add: 要添加到元素的以分号分隔的样式列表
+        :param remove: 要从元素中移除的以分号分隔的样式列表
+        :param replace: 用于替换现有样式的以分号分隔的样式列表
         """
         for element in self:
             element.style(add, remove=remove, replace=replace)
         return self
 
     def props(self, add: Optional[str] = None, *, remove: Optional[str] = None) -> Self:
-        """Add or remove props.
+        """添加或移除属性。
 
-        This allows modifying the look of the element or its layout using `Quasar <https://quasar.dev/>`_ props.
-        Since props are simply applied as HTML attributes, they can be used with any HTML element.
+        这允许使用 `Quasar <https://quasar.dev/>`_ 属性修改元素的外观或布局。
+        由于属性只是作为 HTML 属性应用，它们可以用于任何 HTML 元素。
 
-        Boolean properties are assumed ``True`` if no value is specified.
+        如果没有指定值，布尔属性假定为 ``True``。
 
-        :param add: whitespace-delimited list of either boolean values or key=value pair to add
-        :param remove: whitespace-delimited list of property keys to remove
+        :param add: 要添加的以空格分隔的布尔值或键值对列表
+        :param remove: 要移除的以空格分隔的属性键列表
         """
         for element in self:
             element.props(add, remove=remove)

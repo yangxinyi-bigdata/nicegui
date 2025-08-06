@@ -4,13 +4,13 @@ from . import doc
 
 
 @doc.auto_execute
-@doc.demo('Page Layout', '''
-    With `ui.header`, `ui.footer`, `ui.left_drawer` and `ui.right_drawer` you can add additional layout elements to a page.
-    The `fixed` argument controls whether the element should scroll or stay fixed on the screen.
-    The `top_corner` and `bottom_corner` arguments indicate whether a drawer should expand to the top or bottom of the page.
-    See <https://quasar.dev/layout/header-and-footer> and <https://quasar.dev/layout/drawer> for more information about possible props.
-    With `ui.page_sticky` you can place an element "sticky" on the screen.
-    See <https://quasar.dev/layout/page-sticky> for more information.
+@doc.demo('页面布局', '''
+    使用 `ui.header`、`ui.footer`、`ui.left_drawer` 和 `ui.right_drawer`，您可以向页面添加其他布局元素。
+    `fixed` 参数控制元素是否应该滚动或保持固定在屏幕上。
+    `top_corner` 和 `bottom_corner` 参数指示抽屉是否应该扩展到页面的顶部或底部。
+    有关可能的属性的更多信息，请参见 <https://quasar.dev/layout/header-and-footer> 和 <https://quasar.dev/layout/drawer>。
+    使用 `ui.page_sticky`，您可以在屏幕上"粘性"放置一个元素。
+    有关更多信息，请参见 <https://quasar.dev/layout/page-sticky>。
 ''')
 def page_layout_demo():
     @ui.page('/page_layout')
@@ -30,8 +30,8 @@ def page_layout_demo():
     ui.link('show page with fancy layout', page_layout)
 
 
-doc.reference(ui.header, title='Reference for ui.header')
-doc.reference(ui.left_drawer, title='Reference for ui.left_drawer')
-doc.reference(ui.right_drawer, title='Reference for ui.right_drawer')
-doc.reference(ui.footer, title='Reference for ui.footer')
-doc.reference(ui.page_sticky, title='Reference for ui.page_sticky')
+doc.reference(ui.header, title='ui.header 参考')
+doc.reference(ui.left_drawer, title='ui.left_drawer 参考')
+doc.reference(ui.right_drawer, title='ui.right_drawer 参考')
+doc.reference(ui.footer, title='ui.footer 参考')
+doc.reference(ui.page_sticky, title='ui.page_sticky 参考')

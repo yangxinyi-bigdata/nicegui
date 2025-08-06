@@ -11,14 +11,14 @@ def on(type: str,  # pylint: disable=redefined-builtin
        leading_events: bool = True,
        trailing_events: bool = True,
        ):
-    """Subscribe to a global event.
+    """订阅全局事件。
 
-    :param type: name of the event
-    :param handler: callback that is called upon occurrence of the event
-    :param args: arguments included in the event message sent to the event handler (default: `None` meaning all)
-    :param throttle: minimum time (in seconds) between event occurrences (default: 0.0)
-    :param leading_events: whether to trigger the event handler immediately upon the first event occurrence (default: `True`)
-    :param trailing_events: whether to trigger the event handler after the last event occurrence (default: `True`)
+    :param type: 事件名称
+    :param handler: 事件发生时调用的回调
+    :param args: 包含在发送到事件处理器的事件消息中的参数（默认：`None` 表示全部）
+    :param throttle: 事件发生之间的最小时间（秒）（默认：0.0）
+    :param leading_events: 是否在第一次事件发生时立即触发事件处理器（默认：`True`）
+    :param trailing_events: 是否在最后一次事件发生后触发事件处理器（默认：`True`）
     """
     context.client.layout.on(type, handler, args,
                              throttle=throttle, leading_events=leading_events, trailing_events=trailing_events)

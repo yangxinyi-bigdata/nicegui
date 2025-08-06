@@ -12,15 +12,15 @@ class Pagination(ValueElement, DisableableElement):
                  direction_links: bool = False,
                  value: Optional[int] = ...,  # type: ignore
                  on_change: Optional[Handler[ValueChangeEventArguments]] = None) -> None:
-        """Pagination
+        """分页
 
-        A pagination element wrapping Quasar's `QPagination <https://quasar.dev/vue-components/pagination>`_ component.
+        封装Quasar的`QPagination <https://quasar.dev/vue-components/pagination>`_组件的分页元素。
 
-        :param min: minimum page number
-        :param max: maximum page number
-        :param direction_links: whether to show first/last page links
-        :param value: initial page (defaults to `min` if no value is provided)
-        :param on_change: callback to be invoked when the value changes
+        :param min: 最小页码
+        :param max: 最大页码
+        :param direction_links: 是否显示首页/末页链接
+        :param value: 初始页码（如果未提供值，默认为`min`）
+        :param on_change: 值变化时要调用的回调函数
         """
         if value is ...:
             value = min
@@ -31,7 +31,7 @@ class Pagination(ValueElement, DisableableElement):
 
     @property
     def min(self) -> int:
-        """Minimum page number"""
+        """最小页码"""
         return self._props['min']
 
     @min.setter
@@ -41,7 +41,7 @@ class Pagination(ValueElement, DisableableElement):
 
     @property
     def max(self) -> int:
-        """Maximum page number"""
+        """最大页码"""
         return self._props['max']
 
     @max.setter
@@ -51,7 +51,7 @@ class Pagination(ValueElement, DisableableElement):
 
     @property
     def direction_links(self) -> bool:
-        """Whether to show first/last page links"""
+        """是否显示首页/末页链接"""
         return self._props['direction-links']
 
     @direction_links.setter

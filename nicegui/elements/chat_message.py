@@ -16,17 +16,17 @@ class ChatMessage(LabelElement):
                  sent: bool = False,
                  text_html: bool = False,
                  ) -> None:
-        """Chat Message
+        """聊天消息
 
-        Based on Quasar's `Chat Message <https://quasar.dev/vue-components/chat/>`_ component.
+        基于Quasar的`聊天消息 <https://quasar.dev/vue-components/chat/>`_组件。
 
-        :param text: the message body (can be a list of strings for multiple message parts)
-        :param name: the name of the message author
-        :param label: renders a label header/section only
-        :param stamp: timestamp of the message
-        :param avatar: URL to an avatar
-        :param sent: render as a sent message (so from current user) (default: False)
-        :param text_html: render text as HTML (default: False)
+        :param text: 消息正文（可以是字符串列表，用于多个消息部分）
+        :param name: 消息作者的名字
+        :param label: 仅渲染标签标题/部分
+        :param stamp: 消息的时间戳
+        :param avatar: 头像的URL
+        :param sent: 渲染为已发送消息（即来自当前用户）（默认：False）
+        :param text_html: 将文本渲染为HTML（默认：False）
         """
         super().__init__(tag='q-chat-message', label=label)
 

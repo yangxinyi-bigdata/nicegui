@@ -9,12 +9,12 @@ class Column(Element, default_classes='nicegui-column'):
                  wrap: bool = False,
                  align_items: Optional[Literal['start', 'end', 'center', 'baseline', 'stretch']] = None,
                  ) -> None:
-        """Column Element
+        """列元素
 
-        Provides a container which arranges its child in a column.
+        提供一个将其子元素排列在列中的容器。
 
-        :param wrap: whether to wrap the content (default: `False`)
-        :param align_items: alignment of the items in the column ("start", "end", "center", "baseline", or "stretch"; default: `None`)
+        :param wrap: 是否换行内容（默认：`False`）
+        :param align_items: 列中项目的对齐方式（"start"、"end"、"center"、"baseline"或"stretch"；默认：`None`）
         """
         super().__init__('div')
         if align_items:

@@ -13,17 +13,17 @@ class Toggle(ChoiceElement, DisableableElement):
                  on_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  clearable: bool = False,
                  ) -> None:
-        """Toggle
+        """切换按钮
 
-        This element is based on Quasar's `QBtnToggle <https://quasar.dev/vue-components/button-toggle>`_ component.
+        此元素基于Quasar的`QBtnToggle <https://quasar.dev/vue-components/button-toggle>`_组件。
 
-        The options can be specified as a list of values, or as a dictionary mapping values to labels.
-        After manipulating the options, call `update()` to update the options in the UI.
+        选项可以指定为值列表，或映射值到标签的字典。
+        操作选项后，调用`update()`来更新UI中的选项。
 
-        :param options: a list ['value1', ...] or dictionary `{'value1':'label1', ...}` specifying the options
-        :param value: the initial value
-        :param on_change: callback to execute when selection changes
-        :param clearable: whether the toggle can be cleared by clicking the selected option
+        :param options: 指定选项的列表['value1', ...]或字典`{'value1':'label1', ...}`
+        :param value: 初始值
+        :param on_change: 选择变化时要执行的回调函数
+        :param clearable: 是否可以通过点击选中的选项来清除切换按钮
         """
         super().__init__(tag='q-btn-toggle', options=options, value=value, on_change=on_change)
         self._props['clearable'] = clearable

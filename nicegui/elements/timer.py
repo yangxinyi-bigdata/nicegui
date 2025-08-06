@@ -13,10 +13,10 @@ class Timer(BaseTimer, Element, component='timer.js'):
         return self.parent_slot or nullcontext()
 
     async def _can_start(self) -> bool:
-        """Wait for the client connection before the timer callback can be allowed to manipulate the state.
+        """在允许计时器回调操作状态之前等待客户端连接。
 
-        See https://github.com/zauberzeug/nicegui/issues/206 for details.
-        Returns True if the client is connected, False if the client is not connected and the timer should be cancelled.
+        详情请参见 https://github.com/zauberzeug/nicegui/issues/206。
+        如果客户端已连接则返回True，如果客户端未连接且计时器应该被取消则返回False。
         """
         if self.client.shared:
             return True

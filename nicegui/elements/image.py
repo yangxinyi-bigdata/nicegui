@@ -19,12 +19,12 @@ class Image(SourceElement, component='image.js'):
     PIL_CONVERT_FORMAT = 'PNG'
 
     def __init__(self, source: Union[str, Path, 'PIL_Image'] = '') -> None:
-        """Image
+        """图像
 
-        Displays an image.
-        This element is based on Quasar's `QImg <https://quasar.dev/vue-components/img>`_ component.
+        显示图像。
+        此元素基于Quasar的`QImg <https://quasar.dev/vue-components/img>`_组件。
 
-        :param source: the source of the image; can be a URL, local file path, a base64 string or a PIL image
+        :param source: 图像的源；可以是URL、本地文件路径、base64字符串或PIL图像
         """
         super().__init__(source=source)
 
@@ -37,7 +37,7 @@ class Image(SourceElement, component='image.js'):
         super()._set_props(source)
 
     def force_reload(self) -> None:
-        """Force the image to reload from the source."""
+        """强制图像从源重新加载。"""
         if self._props['src'].startswith('data:'):
             log.warning('ui.image: force_reload() only works with network sources (not base64)')
             return
@@ -46,11 +46,11 @@ class Image(SourceElement, component='image.js'):
 
 
 def pil_to_base64(pil_image: 'PIL_Image', image_format: str) -> str:
-    """Convert a PIL image to a base64 string which can be used as image source.
+    """将PIL图像转换为可用作图像源的base64字符串。
 
-    :param pil_image: the PIL image
-    :param image_format: the image format
-    :return: the base64 string
+    :param pil_image: PIL图像
+    :param image_format: 图像格式
+    :return: base64字符串
     """
     buffer = io.BytesIO()
     pil_image.save(buffer, image_format)

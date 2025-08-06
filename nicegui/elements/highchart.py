@@ -9,15 +9,15 @@ try:
 except ImportError:
     class highchart(Element):  # type: ignore
         def __init__(self, *args, **kwargs) -> None:  # pylint: disable=unused-argument
-            """Highcharts chart
+            """Highcharts图表
 
-            An element to create a chart using `Highcharts <https://www.highcharts.com/>`_.
-            Updates can be pushed to the chart by changing the `options` property.
-            After data has changed, call the `update` method to refresh the chart.
+            使用`Highcharts <https://www.highcharts.com/>`_创建图表的元素。
+            可以通过更改`options`属性将更新推送到图表。
+            数据更改后，调用`update`方法刷新图表。
 
-            Due to Highcharts' restrictive license, this element is not part of the standard NiceGUI package.
-            It is maintained in a `separate repository <https://github.com/zauberzeug/nicegui-highcharts/>`_
-            and can be installed with `pip install nicegui[highcharts]`.
+            由于Highcharts的限制性许可证，此元素不是标准NiceGUI包的一部分。
+            它在`单独的仓库 <https://github.com/zauberzeug/nicegui-highcharts/>`_中维护，
+            可以使用`pip install nicegui[highcharts]`安装。
             """
             super().__init__()
             Markdown('Highcharts is not installed. Please run `pip install nicegui[highcharts]`.')

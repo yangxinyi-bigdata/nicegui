@@ -30,14 +30,14 @@ class FakeArguments:
         self.query_parameters = kwargs
 
 
-@doc.demo('Sub Pages', '''
-    Sub pages provide URL-based navigation between different views.
-    This allows you to easily build a single page application (SPA).
-    The `ui.sub_pages` element itself functions as the container for the currently active sub page.
-    You only need to provide the routes for each view builder function.
-    NiceGUI takes care of replacing the content without triggering a full page reload when the URL changes.
+@doc.demo('子页面', '''
+    子页面提供基于 URL 的不同视图之间的导航。
+    这允许您轻松构建单页面应用程序（SPA）。
+    `ui.sub_pages` 元素本身充当当前活动子页面的容器。
+    您只需要为每个视图构建器函数提供路由。
+    当 URL 更改时，NiceGUI 负责替换内容而不会触发完整的页面重新加载。
 
-    **NOTE: This is an experimental feature, and the API is subject to change.**
+    **注意：这是一个实验性功能，API 可能会发生变化。**
 ''')
 def main_demo() -> None:
     from uuid import uuid4
@@ -66,9 +66,9 @@ def main_demo() -> None:
     sub_pages.init()
 
 
-@doc.demo('Passing Parameters to Sub Page', '''
-    If a sub page needs data from its parent, a `data` dictionary can be passed to the `ui.sub_pages` element.
-    The data will be available as keyword arguments in the sub page function or as `PageArguments.data` object.
+@doc.demo('向子页面传递参数', '''
+    如果子页面需要来自其父页面的数据，可以将 `data` 字典传递给 `ui.sub_pages` 元素。
+    数据将作为子页面函数中的关键字参数或作为 `PageArguments.data` 对象可用。
 ''')
 def parameters_demo():
     # @ui.page('/')
@@ -102,8 +102,8 @@ def parameters_demo():
     sub_pages.init()
 
 
-@doc.demo('Async Sub Pages', '''
-    Sub pages also work with async builder functions.
+@doc.demo('异步子页面', '''
+    子页面也适用于异步构建器函数。
 ''')
 def async_demo():
     import asyncio
@@ -134,10 +134,10 @@ def async_demo():
     sub_pages.init()
 
 
-@doc.demo('Adding Sub Pages', '''
-    Sometimes not all routes are known when creating the `ui.sub_pages` element.
-    In such cases, the `add` method can be used to add routes after the element has been created.
-    This can also be used to pass elements which should be placed below the `ui.sub_pages` container.
+@doc.demo('添加子页面', '''
+    有时在创建 `ui.sub_pages` 元素时并不知道所有路由。
+    在这种情况下，可以使用 `add` 方法在元素创建后添加路由。
+    这也可以用于传递应该放置在 `ui.sub_pages` 容器下方的元素。
 ''')
 def adding_sub_pages_demo() -> None:
     # @ui.page('/')
@@ -166,9 +166,9 @@ def adding_sub_pages_demo() -> None:
     footer = ui.label()
 
 
-@doc.demo('Using PageArguments', '''
-    By type-hinting a parameter as `PageArguments`,
-    the sub page builder function gets unified access to query parameters, path parameters, and more.
+@doc.demo('使用 PageArguments', '''
+    通过将参数类型提示为 `PageArguments`，
+    子页面构建器函数可以获得对查询参数、路径参数等的统一访问。
 ''')
 def page_arguments_demo():
     from nicegui import PageArguments
@@ -194,14 +194,14 @@ def page_arguments_demo():
     sub_pages.init()
 
 
-@doc.demo('Nested Sub Pages', '''
-    Sub pages elements can be nested to create a hierarchical page structure.
-    Each of these elements determines which part of the path they should handle by:
+@doc.demo('嵌套子页面', '''
+    子页面元素可以嵌套以创建分层的页面结构。
+    这些元素中的每一个通过以下方式确定它们应该处理路径的哪一部分：
 
-    1. getting the full URL path from `ui.context.client.sub_pages_router`,
-    2. removing the leading part which was handled by the parent element,
-    3. matching the route with the most specific path, and
-    4. leaving the remaining part of the path for the next element (or if there is none, show a 404 error).
+    1. 从 `ui.context.client.sub_pages_router` 获取完整的 URL 路径，
+    2. 移除由父元素处理的前导部分，
+    3. 匹配具有最特定路径的路由，以及
+    4. 将路径的剩余部分留给下一个元素（如果没有，则显示 404 错误）。
 ''')
 def nested_sub_pages_demo():
     # @ui.page('/')
@@ -248,6 +248,6 @@ def nested_sub_pages_demo():
     sub_pages.init()
 
 
-doc.reference(ui.sub_pages, title='Reference for ui.sub_pages')
+doc.reference(ui.sub_pages, title='ui.sub_pages 参考')
 
-doc.reference(PageArguments, title='Reference for PageArguments')
+doc.reference(PageArguments, title='PageArguments 参考')

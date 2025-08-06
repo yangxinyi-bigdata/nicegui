@@ -83,23 +83,23 @@ class Scene(Element,
                  drag_constraints: str = '',
                  background_color: str = '#eee',
                  ) -> None:
-        """3D Scene
+        """3D场景
 
-        Display a 3D scene using `three.js <https://threejs.org/>`_.
-        Currently NiceGUI supports boxes, spheres, cylinders/cones, extrusions, straight lines, curves and textured meshes.
-        Objects can be translated, rotated and displayed with different color, opacity or as wireframes.
-        They can also be grouped to apply joint movements.
+        使用`three.js <https://threejs.org/>`_显示3D场景。
+        目前NiceGUI支持立方体、球体、圆柱体/圆锥体、拉伸体、直线、曲线和纹理网格。
+        对象可以被平移、旋转，并以不同的颜色、不透明度或线框模式显示。
+        它们也可以被分组以应用联合运动。
 
-        :param width: width of the canvas
-        :param height: height of the canvas
-        :param grid: whether to display a grid (boolean or tuple of ``size`` and ``divisions`` for `Three.js' GridHelper <https://threejs.org/docs/#api/en/helpers/GridHelper>`_, default: 100x100)
-        :param camera: camera definition, either instance of ``ui.scene.perspective_camera`` (default) or ``ui.scene.orthographic_camera``
-        :param on_click: callback to execute when a 3D object is clicked (use ``click_events`` to specify which events to subscribe to)
-        :param click_events: list of JavaScript click events to subscribe to (default: ``['click', 'dblclick']``)
-        :param on_drag_start: callback to execute when a 3D object is dragged
-        :param on_drag_end: callback to execute when a 3D object is dropped
-        :param drag_constraints: comma-separated JavaScript expression for constraining positions of dragged objects (e.g. ``'x = 0, z = y / 2'``)
-        :param background_color: background color of the scene (default: "#eee")
+        :param width: 画布宽度
+        :param height: 画布高度
+        :param grid: 是否显示网格（布尔值或`Three.js的GridHelper <https://threejs.org/docs/#api/en/helpers/GridHelper>`_的``size``和``divisions``元组，默认：100x100）
+        :param camera: 相机定义，``ui.scene.perspective_camera``（默认）或``ui.scene.orthographic_camera``的实例
+        :param on_click: 点击3D对象时执行的回调函数（使用``click_events``指定要订阅的事件）
+        :param click_events: 要订阅的JavaScript点击事件列表（默认：``['click', 'dblclick']``）
+        :param on_drag_start: 拖动3D对象时执行的回调函数
+        :param on_drag_end: 放置3D对象时执行的回调函数
+        :param drag_constraints: 用于约束拖动对象位置的逗号分隔JavaScript表达式（例如``'x = 0, z = y / 2'``）
+        :param background_color: 场景背景颜色（默认："#eee"）
         """
         super().__init__()
         self._props['width'] = width
@@ -122,40 +122,40 @@ class Scene(Element,
         self._props['drag_constraints'] = drag_constraints
 
     def on_click(self, callback: Handler[SceneClickEventArguments]) -> Self:
-        """Add a callback to be invoked when a 3D object is clicked."""
+        """添加点击3D对象时要调用的回调函数。"""
         self._click_handlers.append(callback)
         return self
 
     def on_drag_start(self, callback: Handler[SceneDragEventArguments]) -> Self:
-        """Add a callback to be invoked when a 3D object is dragged."""
+        """添加拖动3D对象时要调用的回调函数。"""
         self._drag_start_handlers.append(callback)
         return self
 
     def on_drag_end(self, callback: Handler[SceneDragEventArguments]) -> Self:
-        """Add a callback to be invoked when a 3D object is dropped."""
+        """添加放置3D对象时要调用的回调函数。"""
         self._drag_end_handlers.append(callback)
         return self
 
     @staticmethod
     def perspective_camera(*, fov: float = 75, near: float = 0.1, far: float = 1000) -> SceneCamera:
-        """Create a perspective camera.
+        """创建透视相机。
 
-        :param fov: vertical field of view in degrees
-        :param near: near clipping plane
-        :param far: far clipping plane
+        :param fov: 垂直视野角度（度）
+        :param near: 近裁剪平面
+        :param far: 远裁剪平面
         """
         return SceneCamera(type='perspective', params={'fov': fov, 'near': near, 'far': far})
 
     @staticmethod
     def orthographic_camera(*, size: float = 10, near: float = 0.1, far: float = 1000) -> SceneCamera:
-        """Create a orthographic camera.
+        """创建正交相机。
 
-        The size defines the vertical size of the view volume, i.e. the distance between the top and bottom clipping planes.
-        The left and right clipping planes are set such that the aspect ratio matches the viewport.
+        尺寸定义了视锥体的垂直尺寸，即顶部和底部裁剪平面之间的距离。
+        左右裁剪平面设置为使纵横比匹配视口。
 
-        :param size: vertical size of the view volume
-        :param near: near clipping plane
-        :param far: far clipping plane
+        :param size: 视锥体的垂直尺寸
+        :param near: 近裁剪平面
+        :param far: 远裁剪平面
         """
         return SceneCamera(type='orthographic', params={'size': size, 'near': near, 'far': far})
 
@@ -176,7 +176,7 @@ class Scene(Element,
             self.run_method('init_objects', [obj.data for obj in self.objects.values()])
 
     async def initialized(self) -> None:
-        """Wait until the scene is initialized."""
+        """等待场景初始化完成。"""
         event = asyncio.Event()
         self.on('init', event.set, [])
         await self.client.connected()
@@ -234,18 +234,18 @@ class Scene(Element,
                     up_y: Optional[float] = None,
                     up_z: Optional[float] = None,
                     duration: float = 0.5) -> None:
-        """Move the camera to a new position.
+        """将相机移动到新位置。
 
-        :param x: camera x position
-        :param y: camera y position
-        :param z: camera z position
-        :param look_at_x: camera look-at x position
-        :param look_at_y: camera look-at y position
-        :param look_at_z: camera look-at z position
-        :param up_x: x component of the camera up vector
-        :param up_y: y component of the camera up vector
-        :param up_z: z component of the camera up vector
-        :param duration: duration of the movement in seconds (default: `0.5`)
+        :param x: 相机x位置
+        :param y: 相机y位置
+        :param z: 相机z位置
+        :param look_at_x: 相机观察点x位置
+        :param look_at_y: 相机观察点y位置
+        :param look_at_z: 相机观察点z位置
+        :param up_x: 相机上向量的x分量
+        :param up_y: 相机上向量的y分量
+        :param up_z: 相机上向量的z分量
+        :param duration: 移动持续时间（秒）（默认：`0.5`）
         """
         self.camera.x = self.camera.x if x is None else x
         self.camera.y = self.camera.y if y is None else y
@@ -262,10 +262,10 @@ class Scene(Element,
                         self.camera.up_x, self.camera.up_y, self.camera.up_z, duration)
 
     async def get_camera(self) -> Dict[str, Any]:
-        """Get the current camera parameters.
+        """获取当前相机参数。
 
-        In contrast to the `camera` property,
-        the result of this method includes the current camera pose caused by the user navigating the scene in the browser.
+        与`camera`属性不同，
+        此方法的结果包括用户在浏览器中导航场景导致的当前相机姿态。
         """
         return await self.run_method('get_camera')
 
@@ -274,15 +274,15 @@ class Scene(Element,
         super()._handle_delete()
 
     def delete_objects(self, predicate: Callable[[Object3D], bool] = lambda _: True) -> None:
-        """Remove objects from the scene.
+        """从场景中移除对象。
 
-        :param predicate: function which returns `True` for objects which should be deleted
+        :param predicate: 对于应该删除的对象返回`True`的函数
         """
         for obj in list(self.objects.values()):
             if predicate(obj) and obj.id in self.objects:  # NOTE: object might have been deleted already by its parent
                 obj.delete()
 
     def clear(self) -> None:
-        """Remove all objects from the scene."""
+        """从场景中移除所有对象。"""
         super().clear()
         self.delete_objects()

@@ -4,10 +4,10 @@ from ..element import Element
 class Separator(Element, default_classes='nicegui-separator'):
 
     def __init__(self) -> None:
-        """Separator
+        """分隔符
 
-        This element is based on Quasar's `QSeparator <https://quasar.dev/vue-components/separator>`_ component.
+        此元素基于Quasar的`QSeparator <https://quasar.dev/vue-components/separator>`_组件。
 
-        It serves as a separator for cards, menus and other component containers and is similar to HTML's <hr> tag.
+        它用作卡片、菜单和其他组件容器的分隔符，类似于HTML的<hr>标签。
         """
         super().__init__('q-separator')

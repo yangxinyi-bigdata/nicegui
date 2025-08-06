@@ -17,20 +17,20 @@ class Rating(ValueElement, DisableableElement):
                  size: Optional[str] = None,
                  on_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  ) -> None:
-        """Rating
+        """评分
 
-        This element is based on Quasar's `QRating <https://quasar.dev/vue-components/rating>`_ component.
+        此元素基于Quasar的`QRating <https://quasar.dev/vue-components/rating>`_组件。
 
-        *Added in version 2.12.0*
+        *在版本2.12.0中添加*
 
-        :param value: initial value (default: ``None``)
-        :param max: maximum rating, number of icons (default: 5)
-        :param icon: name of icons to be displayed (default: star)
-        :param icon_selected: name of an icon to be displayed when selected (default: same as ``icon``)
-        :param icon_half: name of an icon to be displayed when half-selected (default: same as ``icon``)
-        :param color: color(s) of the icons (Quasar, Tailwind, or CSS colors or ``None``, default: "primary")
-        :param size: size in CSS units, including unit name or standard size name (xs|sm|md|lg|xl), examples: 16px, 2rem
-        :param on_change: callback to execute when selection changes
+        :param value: 初始值（默认：``None``）
+        :param max: 最大评分，图标数量（默认：5）
+        :param icon: 要显示的图标名称（默认：star）
+        :param icon_selected: 选中时要显示的图标名称（默认：与``icon``相同）
+        :param icon_half: 半选时要显示的图标名称（默认：与``icon``相同）
+        :param color: 图标的颜色（Quasar、Tailwind或CSS颜色或``None``，默认："primary"）
+        :param size: CSS单位的大小，包括单位名称或标准尺寸名称（xs|sm|md|lg|xl），例如：16px, 2rem
+        :param on_change: 选择变化时要执行的回调函数
         """
         super().__init__(tag='q-rating', value=value, on_value_change=on_change)
 

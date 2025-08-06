@@ -18,22 +18,22 @@ class Tree(FilterElement):
                  on_tick: Optional[Handler[ValueChangeEventArguments]] = None,
                  tick_strategy: Optional[Literal['leaf', 'leaf-filtered', 'strict']] = None,
                  ) -> None:
-        """Tree
+        """树形结构
 
-        Display hierarchical data using Quasar's `QTree <https://quasar.dev/vue-components/tree>`_ component.
+        使用Quasar的`QTree <https://quasar.dev/vue-components/tree>`_组件显示分层数据。
 
-        If using IDs, make sure they are unique within the whole tree.
+        如果使用ID，请确保它们在整个树中是唯一的。
 
-        To use checkboxes and ``on_tick``, set the ``tick_strategy`` parameter to "leaf", "leaf-filtered" or "strict".
+        要使用复选框和``on_tick``，请将``tick_strategy``参数设置为"leaf"、"leaf-filtered"或"strict"。
 
-        :param nodes: hierarchical list of node objects
-        :param node_key: property name of each node object that holds its unique id (default: "id")
-        :param label_key: property name of each node object that holds its label (default: "label")
-        :param children_key: property name of each node object that holds its list of children (default: "children")
-        :param on_select: callback which is invoked when the node selection changes
-        :param on_expand: callback which is invoked when the node expansion changes
-        :param on_tick: callback which is invoked when a node is ticked or unticked
-        :param tick_strategy: whether and how to use checkboxes ("leaf", "leaf-filtered" or "strict"; default: ``None``)
+        :param nodes: 节点对象的分层次列表
+        :param node_key: 每个节点对象中保存其唯一ID的属性名称（默认："id"）
+        :param label_key: 每个节点对象中保存其标签的属性名称（默认："label"）
+        :param children_key: 每个节点对象中保存其子节点列表的属性名称（默认："children"）
+        :param on_select: 节点选择更改时调用的回调函数
+        :param on_expand: 节点展开更改时调用的回调函数
+        :param on_tick: 节点被勾选或取消勾选时调用的回调函数
+        :param tick_strategy: 是否以及如何使用复选框（"leaf"、"leaf-filtered"或"strict"；默认：``None``）
         """
         super().__init__(tag='q-tree', filter=None)
         self._props['nodes'] = nodes
@@ -80,15 +80,15 @@ class Tree(FilterElement):
         self.on('update:ticked', handle_ticked)
 
     def on_select(self, callback: Handler[ValueChangeEventArguments]) -> Self:
-        """Add a callback to be invoked when the selection changes."""
+        """添加选择更改时调用的回调函数。"""
         self._props.setdefault('selected', None)
         self._select_handlers.append(callback)
         return self
 
     def select(self, node_key: Optional[str]) -> Self:
-        """Select the given node.
+        """选择给定的节点。
 
-        :param node_key: node key to select
+        :param node_key: 要选择的节点键
         """
         self._props.setdefault('selected', None)
         if self._props['selected'] != node_key:
@@ -97,26 +97,26 @@ class Tree(FilterElement):
         return self
 
     def deselect(self) -> Self:
-        """Remove node selection."""
+        """移除节点选择。"""
         return self.select(None)
 
     def on_expand(self, callback: Handler[ValueChangeEventArguments]) -> Self:
-        """Add a callback to be invoked when the expansion changes."""
+        """添加展开更改时调用的回调函数。"""
         self._props.setdefault('expanded', [])
         self._expand_handlers.append(callback)
         return self
 
     def on_tick(self, callback: Handler[ValueChangeEventArguments]) -> Self:
-        """Add a callback to be invoked when a node is ticked or unticked."""
+        """添加节点被勾选或取消勾选时调用的回调函数。"""
         self._props.setdefault('ticked', [])
         self._props.setdefault('tick-strategy', 'leaf')
         self._tick_handlers.append(callback)
         return self
 
     def tick(self, node_keys: Optional[List[str]] = None) -> Self:
-        """Tick the given nodes.
+        """勾选给定的节点。
 
-        :param node_keys: list of node keys to tick or ``None`` to tick all nodes (default: ``None``)
+        :param node_keys: 要勾选的节点键列表，或``None``以勾选所有节点（默认：``None``）
         """
         self._props.setdefault('ticked', [])
         self._props['ticked'][:] = self._find_node_keys(node_keys).union(self._props['ticked'])
@@ -124,9 +124,9 @@ class Tree(FilterElement):
         return self
 
     def untick(self, node_keys: Optional[List[str]] = None) -> Self:
-        """Remove tick from the given nodes.
+        """移除给定节点的勾选。
 
-        :param node_keys: list of node keys to untick or ``None`` to untick all nodes (default: ``None``)
+        :param node_keys: 要取消勾选的节点键列表，或``None``以取消勾选所有节点（默认：``None``）
         """
         self._props.setdefault('ticked', [])
         self._props['ticked'][:] = set(self._props['ticked']).difference(self._find_node_keys(node_keys))
@@ -134,9 +134,9 @@ class Tree(FilterElement):
         return self
 
     def expand(self, node_keys: Optional[List[str]] = None) -> Self:
-        """Expand the given nodes.
+        """展开给定的节点。
 
-        :param node_keys: list of node keys to expand (default: all nodes)
+        :param node_keys: 要展开的节点键列表（默认：所有节点）
         """
         self._props.setdefault('expanded', [])
         self._props['expanded'][:] = self._find_node_keys(node_keys).union(self._props['expanded'])
@@ -144,9 +144,9 @@ class Tree(FilterElement):
         return self
 
     def collapse(self, node_keys: Optional[List[str]] = None) -> Self:
-        """Collapse the given nodes.
+        """折叠给定的节点。
 
-        :param node_keys: list of node keys to collapse (default: all nodes)
+        :param node_keys: 要折叠的节点键列表（默认：所有节点）
         """
         self._props.setdefault('expanded', [])
         self._props['expanded'][:] = set(self._props['expanded']).difference(self._find_node_keys(node_keys))

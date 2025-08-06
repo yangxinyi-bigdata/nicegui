@@ -21,34 +21,34 @@ class Input(LabelElement, ValidationElement, DisableableElement, component='inpu
                  autocomplete: Optional[List[str]] = None,
                  validation: Optional[Union[ValidationFunction, ValidationDict]] = None,
                  ) -> None:
-        """Text Input
+        """文本输入框
 
-        This element is based on Quasar's `QInput <https://quasar.dev/vue-components/input>`_ component.
+        此元素基于Quasar的`QInput <https://quasar.dev/vue-components/input>`_组件。
 
-        The `on_change` event is called on every keystroke and the value updates accordingly.
-        If you want to wait until the user confirms the input, you can register a custom event callback, e.g.
-        `ui.input(...).on('keydown.enter', ...)` or `ui.input(...).on('blur', ...)`.
+        `on_change`事件在每次按键时调用，值会相应更新。
+        如果您想等待用户确认输入，可以注册自定义事件回调，例如
+        `ui.input(...).on('keydown.enter', ...)` 或 `ui.input(...).on('blur', ...)`。
 
-        You can use the `validation` parameter to define a dictionary of validation rules,
-        e.g. ``{'Too long!': lambda value: len(value) < 3}``.
-        The key of the first rule that fails will be displayed as an error message.
-        Alternatively, you can pass a callable that returns an optional error message.
-        To disable the automatic validation on every value change, you can use the `without_auto_validation` method.
+        您可以使用`validation`参数来定义验证规则字典，
+        例如 ``{'太长了！': lambda value: len(value) < 3}``。
+        第一个失败的规则的键将显示为错误消息。
+        或者，您可以传递一个返回可选错误消息的可调用对象。
+        要禁用每次值更改时的自动验证，可以使用`without_auto_validation`方法。
 
-        Note about styling the input:
-        Quasar's `QInput` component is a wrapper around a native `input` element.
-        This means that you cannot style the input directly,
-        but you can use the `input-class` and `input-style` props to style the native input element.
-        See the "Style" props section on the `QInput <https://quasar.dev/vue-components/input>`_ documentation for more details.
+        关于输入框样式的说明：
+        Quasar的`QInput`组件是原生`input`元素的包装器。
+        这意味着您不能直接样式化输入框，
+        但可以使用`input-class`和`input-style`属性来样式化原生输入元素。
+        有关更多详情，请参阅`QInput <https://quasar.dev/vue-components/input>`_文档中的"Style"属性部分。
 
-        :param label: displayed label for the text input
-        :param placeholder: text to show if no value is entered
-        :param value: the current value of the text input
-        :param password: whether to hide the input (default: False)
-        :param password_toggle_button: whether to show a button to toggle the password visibility (default: False)
-        :param on_change: callback to execute when the value changes
-        :param autocomplete: optional list of strings for autocompletion
-        :param validation: dictionary of validation rules or a callable that returns an optional error message (default: None for no validation)
+        :param label: 文本输入框的显示标签
+        :param placeholder: 如果没有输入值时显示的文本
+        :param value: 文本输入框的当前值
+        :param password: 是否隐藏输入内容（默认：False）
+        :param password_toggle_button: 是否显示切换密码可见性的按钮（默认：False）
+        :param on_change: 值更改时执行的回调函数
+        :param autocomplete: 用于自动完成的可选字符串列表
+        :param validation: 验证规则字典或返回可选错误消息的可调用对象（默认：None表示不验证）
         """
         super().__init__(label=label, value=value, on_value_change=on_change, validation=validation)
         if placeholder is not None:
@@ -66,7 +66,7 @@ class Input(LabelElement, ValidationElement, DisableableElement, component='inpu
         self._props['_autocomplete'] = autocomplete or []
 
     def set_autocomplete(self, autocomplete: Optional[List[str]]) -> None:
-        """Set the autocomplete list."""
+        """设置自动完成列表。"""
         self._props['_autocomplete'] = autocomplete
         self.update()
 

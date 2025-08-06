@@ -44,25 +44,25 @@ class Notification(Element, component='notification.js'):
                  options: Optional[Dict] = None,
                  **kwargs: Any,
                  ) -> None:
-        """Notification element
+        """通知元素
 
-        Displays a notification on the screen.
-        In contrast to `ui.notify`, this element allows to update the notification message and other properties once the notification is displayed.
-        The notification can be removed with `dismiss()`.
+        在屏幕上显示通知。
+        与`ui.notify`不同，此元素允许在通知显示后更新通知消息和其他属性。
+        通知可以使用`dismiss()`移除。
 
-        :param message: content of the notification
-        :param position: position on the screen ("top-left", "top-right", "bottom-left", "bottom-right", "top", "bottom", "left", "right" or "center", default: "bottom")
-        :param close_button: optional label of a button to dismiss the notification (default: `False`)
-        :param type: optional type ("positive", "negative", "warning", "info" or "ongoing")
-        :param color: optional color name
-        :param multi_line: enable multi-line notifications
-        :param icon: optional name of an icon to be displayed in the notification (default: `None`)
-        :param spinner: display a spinner in the notification (default: False)
-        :param timeout: optional timeout in seconds after which the notification is dismissed (default: 5.0)
-        :param on_dismiss: optional callback to be invoked when the notification is dismissed
-        :param options: optional dictionary with all options (overrides all other arguments)
+        :param message: 通知的内容
+        :param position: 屏幕上的位置（"top-left"、"top-right"、"bottom-left"、"bottom-right"、"top"、"bottom"、"left"、"right"或"center"，默认："bottom"）
+        :param close_button: 用于解除通知的按钮的可选标签（默认：`False`）
+        :param type: 可选类型（"positive"、"negative"、"warning"、"info"或"ongoing"）
+        :param color: 可选颜色名称
+        :param multi_line: 启用多行通知
+        :param icon: 要在通知中显示的图标的可选名称（默认：`None`）
+        :param spinner: 在通知中显示旋转器（默认：False）
+        :param timeout: 通知被解除的可选超时时间（秒）（默认：5.0）
+        :param on_dismiss: 通知被解除时调用的可选回调函数
+        :param options: 包含所有选项的可选字典（覆盖所有其他参数）
 
-        Note: You can pass additional keyword arguments according to `Quasar's Notify API <https://quasar.dev/quasar-plugins/notify#notify-api>`_.
+        注意：您可以根据`Quasar的Notify API <https://quasar.dev/quasar-plugins/notify#notify-api>`_传递其他关键字参数。
         """
         with context.client.layout:
             super().__init__()
@@ -101,7 +101,7 @@ class Notification(Element, component='notification.js'):
 
     @property
     def message(self) -> str:
-        """Message text."""
+        """通知消息文本。"""
         return self._props['options']['message']
 
     @message.setter
@@ -111,7 +111,7 @@ class Notification(Element, component='notification.js'):
 
     @property
     def position(self) -> NotificationPosition:
-        """Position on the screen."""
+        """屏幕上的位置。"""
         return self._props['options']['position']
 
     @position.setter
@@ -121,7 +121,7 @@ class Notification(Element, component='notification.js'):
 
     @property
     def type(self) -> NotificationType:
-        """Type of the notification."""
+        """通知的类型。"""
         return self._props['options'].get('type')
 
     @type.setter
@@ -134,7 +134,7 @@ class Notification(Element, component='notification.js'):
 
     @property
     def color(self) -> Optional[str]:
-        """Color of the notification."""
+        """通知的颜色。"""
         return self._props['options'].get('color')
 
     @color.setter
@@ -147,7 +147,7 @@ class Notification(Element, component='notification.js'):
 
     @property
     def multi_line(self) -> bool:
-        """Whether the notification is multi-line."""
+        """通知是否为多行。"""
         return self._props['options']['multiLine']
 
     @multi_line.setter
@@ -157,7 +157,7 @@ class Notification(Element, component='notification.js'):
 
     @property
     def icon(self) -> Optional[str]:
-        """Icon of the notification."""
+        """通知的图标。"""
         return self._props['options'].get('icon')
 
     @icon.setter
@@ -170,7 +170,7 @@ class Notification(Element, component='notification.js'):
 
     @property
     def spinner(self) -> bool:
-        """Whether the notification is a spinner."""
+        """通知是否为旋转器。"""
         return self._props['options']['spinner']
 
     @spinner.setter
@@ -180,9 +180,9 @@ class Notification(Element, component='notification.js'):
 
     @property
     def timeout(self) -> float:
-        """Timeout of the notification in seconds.
+        """通知的超时时间（秒）。
 
-        *Added in version 2.13.0*
+        *在版本2.13.0中添加*
         """
         return self._props['options']['timeout'] / 1000
 
@@ -193,7 +193,7 @@ class Notification(Element, component='notification.js'):
 
     @property
     def close_button(self) -> Union[bool, str]:
-        """Whether the notification has a close button."""
+        """通知是否有关闭按钮。"""
         return self._props['options']['closeBtn']
 
     @close_button.setter
@@ -202,12 +202,12 @@ class Notification(Element, component='notification.js'):
         self.update()
 
     def on_dismiss(self, callback: Handler[UiEventArguments]) -> Self:
-        """Add a callback to be invoked when the notification is dismissed."""
+        """添加通知被解除时调用的回调函数。"""
         self.on('dismiss', lambda _: handle_event(callback, UiEventArguments(sender=self, client=self.client)), [])
         return self
 
     def dismiss(self) -> None:
-        """Dismiss the notification."""
+        """解除通知。"""
         self.run_method('dismiss')
 
     def set_visibility(self, visible: bool) -> None:

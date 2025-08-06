@@ -37,14 +37,14 @@ class Object3D:
         self._create()
 
     def with_name(self, name: str) -> Self:
-        """Set the name of the object."""
+        """设置对象的名称。"""
         self.name = name
         self._name()
         return self
 
     @property
     def data(self) -> List[Any]:
-        """Data to be sent to the frontend."""
+        """要发送到前端的数据。"""
         return [
             self.type, self.id, self.parent.id, self.args,
             self.name,
@@ -95,11 +95,11 @@ class Object3D:
                  opacity: float = 1.0,
                  side: Literal['front', 'back', 'both'] = 'front',
                  ) -> Self:
-        """Set the color and opacity of the object.
+        """设置对象的颜色和不透明度。
 
-        :param color: CSS color string (default: '#ffffff')
-        :param opacity: opacity between 0.0 and 1.0 (default: 1.0)
-        :param side: 'front', 'back', or 'double' (default: 'front')
+        :param color: CSS颜色字符串（默认：'#ffffff'）
+        :param opacity: 0.0到1.0之间的不透明度（默认：1.0）
+        :param side: 'front'、'back'或'double'（默认：'front'）
         """
         if self.color != color or self.opacity != opacity or self.side_ != side:
             self.color = color
@@ -109,11 +109,11 @@ class Object3D:
         return self
 
     def move(self, x: float = 0.0, y: float = 0.0, z: float = 0.0) -> Self:
-        """Move the object.
+        """移动对象。
 
-        :param x: x coordinate
-        :param y: y coordinate
-        :param z: z coordinate
+        :param x: x坐标
+        :param y: y坐标
+        :param z: z坐标
         """
         if self.x != x or self.y != y or self.z != z:
             self.x = x
@@ -124,11 +124,11 @@ class Object3D:
 
     @staticmethod
     def rotation_matrix_from_euler(r_x: float, r_y: float, r_z: float) -> List[List[float]]:
-        """Create a rotation matrix from Euler angles.
+        """从欧拉角创建旋转矩阵。
 
-        :param r_x: rotation around the x axis in radians
-        :param r_y: rotation around the y axis in radians
-        :param r_z: rotation around the z axis in radians
+        :param r_x: 绕x轴的旋转（弧度）
+        :param r_y: 绕y轴的旋转（弧度）
+        :param r_z: 绕z轴的旋转（弧度）
         """
         sx, cx = math.sin(r_x), math.cos(r_x)
         sy, cy = math.sin(r_y), math.cos(r_y)
@@ -140,18 +140,18 @@ class Object3D:
         ]
 
     def rotate(self, r_x: float, r_y: float, r_z: float) -> Self:
-        """Rotate the object.
+        """旋转对象。
 
-        :param r_x: rotation around the x axis in radians
-        :param r_y: rotation around the y axis in radians
-        :param r_z: rotation around the z axis in radians
+        :param r_x: 绕x轴的旋转（弧度）
+        :param r_y: 绕y轴的旋转（弧度）
+        :param r_z: 绕z轴的旋转（弧度）
         """
         return self.rotate_R(self.rotation_matrix_from_euler(r_x, r_y, r_z))
 
     def rotate_R(self, R: List[List[float]]) -> Self:
-        """Rotate the object.
+        """旋转对象。
 
-        :param R: 3x3 rotation matrix
+        :param R: 3x3旋转矩阵
         """
         if self.R != R:
             self.R = R
@@ -159,11 +159,11 @@ class Object3D:
         return self
 
     def scale(self, sx: float = 1.0, sy: Optional[float] = None, sz: Optional[float] = None) -> Self:
-        """Scale the object.
+        """缩放对象。
 
-        :param sx: scale factor for the x axis
-        :param sy: scale factor for the y axis (default: `sx`)
-        :param sz: scale factor for the z axis (default: `sx`)
+        :param sx: x轴的缩放因子
+        :param sy: y轴的缩放因子（默认：`sx`）
+        :param sz: z轴的缩放因子（默认：`sx`）
         """
         if sy is None:
             sy = sx
@@ -177,9 +177,9 @@ class Object3D:
         return self
 
     def visible(self, value: bool = True) -> Self:
-        """Set the visibility of the object.
+        """设置对象的可见性。
 
-        :param value: whether the object should be visible (default: `True`)
+        :param value: 对象是否应该可见（默认：`True`）
         """
         if self.visible_ != value:
             self.visible_ = value
@@ -187,9 +187,9 @@ class Object3D:
         return self
 
     def draggable(self, value: bool = True) -> Self:
-        """Set whether the object should be draggable.
+        """设置对象是否应该可拖动。
 
-        :param value: whether the object should be draggable (default: `True`)
+        :param value: 对象是否应该可拖动（默认：`True`）
         """
         if self.draggable_ != value:
             self.draggable_ = value
@@ -197,14 +197,14 @@ class Object3D:
         return self
 
     def attach(self, parent: Object3D) -> None:
-        """Attach the object to a parent object.
+        """将对象附加到父对象。
 
-        The position and rotation of the object are preserved so that the object does not move in space.
+        对象的位置和旋转被保留，以便对象不在空间中移动。
 
-        But note that scaling is not preserved.
-        If either the parent or the object itself is scaled, the object shape and position can change.
+        但请注意，缩放不会被保留。
+        如果父对象或对象本身被缩放，对象的形状和位置可能会改变。
 
-        *Added in version 2.7.0*
+        *在版本2.7.0中添加*
         """
         self.detach()
         self.parent = parent
@@ -270,14 +270,14 @@ class Object3D:
         ]
 
     def detach(self) -> None:
-        """Remove the object from its parent group object.
+        """从其父组对象中移除对象。
 
-        The position and rotation of the object are preserved so that the object does not move in space.
+        对象的位置和旋转被保留，以便对象不在空间中移动。
 
-        But note that scaling is not preserved.
-        If either the parent or the object itself is scaled, the object shape and position can change.
+        但请注意，缩放不会被保留。
+        如果父对象或对象本身被缩放，对象的形状和位置可能会改变。
 
-        *Added in version 2.7.0*
+        *在版本2.7.0中添加*
         """
         self._move_out_of_parent(self.parent)
         self.parent = self.scene.stack[0]
@@ -334,14 +334,14 @@ class Object3D:
 
     @property
     def children(self) -> List[Object3D]:
-        """List of children of the object.
+        """对象的子对象列表。
 
-        *Added in version 2.4.0*
+        *在版本2.4.0中添加*
         """
         return [object for object in self.scene.objects.values() if object.parent == self]
 
     def delete(self) -> None:
-        """Delete the object."""
+        """删除对象。"""
         for child in self.children:
             child.delete()
         del self.scene.objects[self.id]

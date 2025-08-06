@@ -14,15 +14,15 @@ class LinearProgress(ValueElement, TextColorElement):
                  show_value: bool = True,
                  color: Optional[str] = 'primary',
                  ) -> None:
-        """Linear Progress
+        """线性进度条
 
-        A linear progress bar wrapping Quasar's
-        `QLinearProgress <https://quasar.dev/vue-components/linear-progress>`_ component.
+        一个封装Quasar的
+        `QLinearProgress <https://quasar.dev/vue-components/linear-progress>`_组件的线性进度条。
 
-        :param value: the initial value of the field (from 0.0 to 1.0)
-        :param size: the height of the progress bar (default: "20px" with value label and "4px" without)
-        :param show_value: whether to show a value label in the center (default: `True`)
-        :param color: color (either a Quasar, Tailwind, or CSS color or `None`, default: "primary")
+        :param value: 字段的初始值（从0.0到1.0）
+        :param size: 进度条的高度（带值标签时默认为"20px"，不带时为"4px"）
+        :param show_value: 是否在中心显示值标签（默认：`True`）
+        :param color: 颜色（Quasar、Tailwind或CSS颜色，或`None`，默认："primary"）
         """
         super().__init__(tag='q-linear-progress', value=value, on_value_change=None, text_color=color)
         self._props['size'] = size if size is not None else '20px' if show_value else '4px'
@@ -43,17 +43,17 @@ class CircularProgress(ValueElement, TextColorElement):
                  show_value: bool = True,
                  color: Optional[str] = 'primary',
                  ) -> None:
-        """Circular Progress
+        """圆形进度条
 
-        A circular progress bar wrapping Quasar's
-        `QCircularProgress <https://quasar.dev/vue-components/circular-progress>`_.
+        一个封装Quasar的
+        `QCircularProgress <https://quasar.dev/vue-components/circular-progress>`_的圆形进度条。
 
-        :param value: the initial value of the field
-        :param min: the minimum value (default: 0.0)
-        :param max: the maximum value (default: 1.0)
-        :param size: the size of the progress circle (default: "xl")
-        :param show_value: whether to show a value label in the center (default: `True`)
-        :param color: color (either a Quasar, Tailwind, or CSS color or `None`, default: "primary")
+        :param value: 字段的初始值
+        :param min: 最小值（默认：0.0）
+        :param max: 最大值（默认：1.0）
+        :param size: 进度圆的大小（默认："xl"）
+        :param show_value: 是否在中心显示值标签（默认：`True`）
+        :param color: 颜色（Quasar、Tailwind或CSS颜色，或`None`，默认："primary"）
         """
         super().__init__(tag='q-circular-progress', value=value, on_value_change=None, text_color=color)
         self._props['min'] = min

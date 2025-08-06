@@ -11,10 +11,10 @@ def main_demo() -> None:
     ui.button('Log time', on_click=lambda: log.push(datetime.now().strftime('%X.%f')[:-5]))
 
 
-@doc.demo('Attach to a logger', '''
-    You can attach a `ui.log` element to a Python logger object so that log messages are pushed to the log element.
-    When used inside a page function, it is important to remove the handler when the client disconnects.
-    Otherwise, the handler will keep a reference to the log element and the latter will not be garbage collected.
+@doc.demo('附加到日志记录器', '''
+    您可以将 `ui.log` 元素附加到 Python 日志记录器对象，以便将日志消息推送到日志元素。
+    在页面函数中使用时，当客户端断开连接时移除处理器很重要。
+    否则，处理器将保持对日志元素的引用，后者将不会被垃圾回收。
 ''')
 def logger_handler():
     import logging
@@ -23,7 +23,7 @@ def logger_handler():
     logger = logging.getLogger()
 
     class LogElementHandler(logging.Handler):
-        """A logging handler that emits messages to a log element."""
+        """将消息发送到日志元素的日志记录处理器。"""
 
         def __init__(self, element: ui.log, level: int = logging.NOTSET) -> None:
             self.element = element
@@ -46,18 +46,17 @@ def logger_handler():
     page()  # HIDE
 
 
-@doc.demo('Styling lines', '''
-    On the basis that individual lines in `ui.log` are `ui.label` instances,
-    it is possible to style the inserted lines via `classes`, `style` and `props`.
-    One notable use would be colored logs.
+@doc.demo('样式化行', '''
+    基于 `ui.log` 中的单行是 `ui.label` 实例这一事实，
+    可以通过 `classes`、`style` 和 `props` 为插入的行设置样式。
+    一个值得注意的用途是彩色日志。
 
-    Note that if applied, this would clear any existing
-    [classes](element#default_classes),
-    [style](element#default_style), and
-    [props](element#default_props)
-    currently set as default on `ui.label`.
+    请注意，如果应用，这将清除当前在 `ui.label` 上设置为默认的任何现有的
+    [类](element#default_classes)、
+    [样式](element#default_style) 和
+    [属性](element#default_props)。
 
-    *Added in version 2.18.0*
+    *在版本 2.18.0 中添加*
 ''')
 def styling_lines_demo():
     log = ui.log(max_lines=10).classes('w-full h-40')

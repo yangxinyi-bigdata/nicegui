@@ -18,15 +18,15 @@ class ColorInput(LabelElement, ValueElement, DisableableElement):
                  on_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  preview: bool = False,
                  ) -> None:
-        """Color Input
+        """颜色输入框
 
-        This element extends Quasar's `QInput <https://quasar.dev/vue-components/input>`_ component with a color picker.
+        此元素扩展了Quasar的`QInput <https://quasar.dev/vue-components/input>`_组件，增加了颜色选择器功能。
 
-        :param label: displayed label for the color input
-        :param placeholder: text to show if no color is selected
-        :param value: the current color value
-        :param on_change: callback to execute when the value changes
-        :param preview: change button background to selected color (default: False)
+        :param label: 颜色输入框的显示标签
+        :param placeholder: 如果没有选择颜色时显示的文本
+        :param value: 当前的颜色值
+        :param on_change: 值更改时要执行的回调函数
+        :param preview: 将按钮背景更改为选定的颜色（默认：False）
         """
         super().__init__(tag='q-input', label=label, value=value, on_value_change=on_change)
         if placeholder is not None:
@@ -41,7 +41,7 @@ class ColorInput(LabelElement, ValueElement, DisableableElement):
         self._update_preview()
 
     def open_picker(self) -> None:
-        """Open the color picker"""
+        """打开颜色选择器"""
         if self.value:
             self.picker.set_color(self.value)
         self.picker.open()

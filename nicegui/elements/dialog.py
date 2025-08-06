@@ -7,17 +7,17 @@ from .mixins.value_element import ValueElement
 class Dialog(ValueElement):
 
     def __init__(self, *, value: bool = False) -> None:
-        """Dialog
+        """对话框
 
-        Creates a dialog based on Quasar's `QDialog <https://quasar.dev/vue-components/dialog>`_ component.
-        By default it is dismissible by clicking or pressing ESC.
-        To make it persistent, set `.props('persistent')` on the dialog element.
+        基于Quasar的`QDialog <https://quasar.dev/vue-components/dialog>`_组件创建对话框。
+        默认情况下，可以通过点击或按ESC键来关闭。
+        要使其持久化，请在对话框元素上设置`.props('persistent')`。
 
-        NOTE: The dialog is an element.
-        That means it is not removed when closed, but only hidden.
-        You should either create it only once and then reuse it, or remove it with `.clear()` after dismissal.
+        注意：对话框是一个元素。
+        这意味着它在关闭时不会被删除，只是被隐藏。
+        您应该只创建一次然后重用它，或者在关闭后用`.clear()`删除它。
 
-        :param value: whether the dialog should be opened on creation (default: `False`)
+        :param value: 对话框在创建时是否应该打开（默认：`False`）
         """
         super().__init__(tag='q-dialog', value=value, on_value_change=None)
         self._result: Any = None
@@ -25,17 +25,17 @@ class Dialog(ValueElement):
 
     @property
     def submitted(self) -> asyncio.Event:
-        """An event that is set when the dialog is submitted."""
+        """当对话框被提交时设置的事件。"""
         if self._submitted is None:
             self._submitted = asyncio.Event()
         return self._submitted
 
     def open(self) -> None:
-        """Open the dialog."""
+        """打开对话框。"""
         self.value = True
 
     def close(self) -> None:
-        """Close the dialog."""
+        """关闭对话框。"""
         self.value = False
 
     def __await__(self):
@@ -48,7 +48,7 @@ class Dialog(ValueElement):
         return result
 
     def submit(self, result: Any) -> None:
-        """Submit the dialog with the given result."""
+        """使用给定的结果提交对话框。"""
         self._result = result
         self.submitted.set()
 

@@ -18,9 +18,9 @@ def main_demo() -> None:
     ElementFilter(kind=ui.label).within(marker='important').classes('text-xl')
 
 
-@doc.demo('Find all elements with text property', '''
-    The `text` property is provided by a mixin called `TextElement`.
-    If we filter by such a mixin, the ElementFilter itself will provide a typed iterable.
+@doc.demo('查找具有文本属性的所有元素', '''
+    `text` 属性由名为 `TextElement` 的混入类提供。
+    如果我们按这样的混入类过滤，ElementFilter 本身将提供一个类型化的可迭代对象。
 ''')
 def text_element() -> None:
     from nicegui import ElementFilter
@@ -38,8 +38,8 @@ def text_element() -> None:
     ui.label(', '.join(b.text for b in ElementFilter(kind=TextElement, local_scope=True)))
 
 
-@doc.demo('Markers', '''
-    Markers are a simple way to tag elements with a string which can be queried by an `ElementFilter`.
+@doc.demo('标记', '''
+    标记是用字符串标记元素的简单方法，该字符串可以被 `ElementFilter` 查询。
 ''')
 def marker_demo() -> None:
     from nicegui import ElementFilter
@@ -61,8 +61,8 @@ def marker_demo() -> None:
 
 
 @doc.auto_execute
-@doc.demo('Find elements on other pages', '''
-    You can use the `app.clients` iterator to apply the element filter to all clients of a specific page.
+@doc.demo('在其他页面上查找元素', '''
+    您可以使用 `app.clients` 迭代器将元素过滤器应用于特定页面的所有客户端。
 ''')
 def multicasting():
     from nicegui import app

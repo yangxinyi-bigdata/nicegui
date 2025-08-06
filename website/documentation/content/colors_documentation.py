@@ -12,11 +12,11 @@ def main_demo() -> None:
     b2 = ui.button('Gray', on_click=lambda: [b.classes(replace='!bg-[#555]') for b in [b1, b2]])
 
 
-@doc.demo('Custom colors', '''
-    You can add custom color definitions for branding.
-    In this case, `ui.colors` must be called before the custom color is ever used.
+@doc.demo('自定义颜色', '''
+    您可以添加自定义颜色定义用于品牌。
+    在这种情况下，必须在自定义颜色被使用之前调用 `ui.colors`。
 
-    *Added in version 2.2.0*
+    *在版本 2.2.0 中添加*
 ''')
 def custom_color_demo() -> None:
     from random import randint

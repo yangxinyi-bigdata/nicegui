@@ -13,9 +13,9 @@ except ImportError:
 
 
 async def read() -> str:
-    """Read text from the clipboard.
+    """从剪贴板读取文本。
 
-    Note: This function only works in secure contexts (HTTPS or localhost).
+    注意：此函数仅在安全上下文（HTTPS 或 localhost）中工作。
     """
     result = await run_javascript('''
         if (navigator.clipboard) {
@@ -31,11 +31,11 @@ async def read() -> str:
 
 
 def write(text: str) -> None:
-    """Write text to the clipboard.
+    """向剪贴板写入文本。
 
-    Note: This function only works in secure contexts (HTTPS or localhost).
+    注意：此函数仅在安全上下文（HTTPS 或 localhost）中工作。
 
-    :param text: text to write
+    :param text: 要写入的文本
     """
     run_javascript(f'''
         if (navigator.clipboard) {{
@@ -48,11 +48,11 @@ def write(text: str) -> None:
 
 
 async def read_image() -> Union['PIL_Image.Image', None]:
-    """Read PIL images from the clipboard.
+    """从剪贴板读取 PIL 图像。
 
-    Note: This function only works in secure contexts (HTTPS or localhost) and requires Pillow to be installed.
+    注意：此函数仅在安全上下文（HTTPS 或 localhost）中工作，并且需要安装 Pillow。
 
-    *Added in version 2.10.0*
+    *在版本 2.10.0 中添加*
     """
     if not optional_features.has('pillow'):
         log.warning('Pillow is not installed, so we cannot read images from the clipboard.')

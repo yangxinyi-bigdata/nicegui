@@ -11,9 +11,9 @@ class ReStructuredText(Markdown):
     def __init__(self, content: str = '') -> None:
         """ReStructuredText
 
-        Renders ReStructuredText onto the page.
+        在页面上渲染ReStructuredText。
 
-        :param content: the ReStructuredText content to be displayed
+        :param content: 要显示的ReStructuredText内容
         """
         super().__init__(content=content)
 
@@ -26,7 +26,7 @@ class ReStructuredText(Markdown):
 
 @lru_cache(maxsize=int(os.environ.get('RST_CONTENT_CACHE_SIZE', '1000')))
 def prepare_content(content: str) -> str:
-    """Render ReStructuredText content to HTML."""
+    """将ReStructuredText内容渲染为HTML。"""
     html = publish_parts(
         remove_indentation(content),
         writer_name='html4',

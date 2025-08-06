@@ -14,15 +14,15 @@ class Slider(ValueElement, DisableableElement):
                  value: Optional[float] = None,
                  on_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  ) -> None:
-        """Slider
+        """滑块
 
-        This element is based on Quasar's `QSlider <https://quasar.dev/vue-components/slider>`_ component.
+        此元素基于Quasar的`QSlider <https://quasar.dev/vue-components/slider>`_组件。
 
-        :param min: lower bound of the slider
-        :param max: upper bound of the slider
-        :param step: step size
-        :param value: initial value to set position of the slider
-        :param on_change: callback which is invoked when the user releases the slider
+        :param min: 滑块的下限
+        :param max: 滑块的上限
+        :param step: 步长
+        :param value: 设置滑块位置的初始值
+        :param on_change: 当用户释放滑块时调用的回调函数
         """
         super().__init__(tag='q-slider', value=value, on_value_change=on_change, throttle=0.05)
         self._props['min'] = min

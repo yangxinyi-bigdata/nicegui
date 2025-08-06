@@ -9,15 +9,15 @@ class DarkMode(ValueElement, component='dark_mode.js'):
     VALUE_PROP = 'value'
 
     def __init__(self, value: Optional[bool] = False, *, on_change: Optional[Handler[ValueChangeEventArguments]] = None) -> None:
-        """Dark mode
+        """深色模式
 
-        You can use this element to enable, disable or toggle dark mode on the page.
-        The value `None` represents auto mode, which uses the client's system preference.
+        您可以使用此元素在页面上启用、禁用或切换深色模式。
+        值`None`表示自动模式，使用客户端的系统偏好设置。
 
-        Note that this element overrides the `dark` parameter of the `ui.run` function and page decorators.
+        请注意，此元素会覆盖`ui.run`函数和页面装饰器的`dark`参数。
 
-        :param value: Whether dark mode is enabled. If None, dark mode is set to auto.
-        :param on_change: Callback that is invoked when the value changes.
+        :param value: 是否启用深色模式。如果为None，则将深色模式设置为自动。
+        :param on_change: 值变化时调用的回调函数。
         """
         super().__init__(value=value, on_value_change=on_change)
 
@@ -35,25 +35,25 @@ class DarkMode(ValueElement, component='dark_mode.js'):
             )
 
     def enable(self) -> None:
-        """Enable dark mode."""
+        """启用深色模式。"""
         self.value = True
 
     def disable(self) -> None:
-        """Disable dark mode."""
+        """禁用深色模式。"""
         self.value = False
 
     def toggle(self) -> None:
-        """Toggle dark mode.
+        """切换深色模式。
 
-        This method will raise a ValueError if dark mode is set to auto.
+        如果深色模式设置为自动，此方法将引发ValueError。
         """
         if self.value is None:
             raise ValueError('Cannot toggle dark mode when it is set to auto.')
         self.value = not self.value
 
     def auto(self) -> None:
-        """Set dark mode to auto.
+        """将深色模式设置为自动。
 
-        This will use the client's system preference.
+        这将使用客户端的系统偏好设置。
         """
         self.value = None

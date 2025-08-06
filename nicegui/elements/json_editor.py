@@ -21,16 +21,16 @@ class JsonEditor(Element, component='json_editor.js', dependencies=['lib/vanilla
                  on_change: Optional[Handler[JsonEditorChangeEventArguments]] = None,
                  schema: Optional[Dict] = None,
                  ) -> None:
-        """JSONEditor
+        """JSON编辑器
 
-        An element to create a JSON editor using `JSONEditor <https://github.com/josdejong/svelte-jsoneditor>`_.
-        Updates can be pushed to the editor by changing the `properties` property.
-        After data has changed, call the `update` method to refresh the editor.
+        使用`JSONEditor <https://github.com/josdejong/svelte-jsoneditor>`_创建JSON编辑器的元素。
+        可以通过更改`properties`属性将更新推送到编辑器。
+        数据更改后，调用`update`方法刷新编辑器。
 
-        :param properties: dictionary of JSONEditor properties
-        :param on_select: callback which is invoked when some of the content has been selected
-        :param on_change: callback which is invoked when the content has changed
-        :param schema: optional `JSON schema <https://json-schema.org/>`_ for validating the data being edited (*added in version 2.8.0*)
+        :param properties: JSONEditor属性字典
+        :param on_select: 当部分内容被选中时调用的回调函数
+        :param on_change: 当内容更改时调用的回调函数
+        :param schema: 用于验证正在编辑的数据的可选`JSON schema <https://json-schema.org/>`_（*在版本2.8.0中添加*）
         """
         super().__init__()
         self._props['properties'] = properties
@@ -46,14 +46,14 @@ class JsonEditor(Element, component='json_editor.js', dependencies=['lib/vanilla
             self.on_change(on_change)
 
     def on_change(self, callback: Handler[JsonEditorChangeEventArguments]) -> Self:
-        """Add a callback to be invoked when the content changes."""
+        """添加内容更改时要调用的回调函数。"""
         def handle_on_change(e: GenericEventArguments) -> None:
             handle_event(callback, JsonEditorChangeEventArguments(sender=self, client=self.client, **e.args))
         self.on('content_change', handle_on_change, ['content', 'errors'])
         return self
 
     def on_select(self, callback: Handler[JsonEditorSelectEventArguments]) -> Self:
-        """Add a callback to be invoked when some of the content has been selected."""
+        """添加部分内容被选中时要调用的回调函数。"""
         def handle_on_select(e: GenericEventArguments) -> None:
             handle_event(callback, JsonEditorSelectEventArguments(sender=self, client=self.client, **e.args))
         self.on('content_select', handle_on_select, ['selection'])
@@ -61,21 +61,21 @@ class JsonEditor(Element, component='json_editor.js', dependencies=['lib/vanilla
 
     @property
     def properties(self) -> Dict:
-        """The property dictionary."""
+        """属性字典。"""
         return self._props['properties']
 
     def run_editor_method(self, name: str, *args, timeout: float = 1) -> AwaitableResponse:
-        """Run a method of the JSONEditor instance.
+        """运行JSONEditor实例的方法。
 
-        See the `JSONEditor README <https://github.com/josdejong/svelte-jsoneditor/>`_ for a list of methods.
+        有关方法列表，请参见`JSONEditor README <https://github.com/josdejong/svelte-jsoneditor/>`_。
 
-        If the function is awaited, the result of the method call is returned.
-        Otherwise, the method is executed without waiting for a response.
+        如果函数被等待，则返回方法调用的结果。
+        否则，方法会在不等待响应的情况下执行。
 
-        :param name: name of the method (a prefix ":" indicates that the arguments are JavaScript expressions)
-        :param args: arguments to pass to the method (Python objects or JavaScript expressions)
-        :param timeout: timeout in seconds (default: 1 second)
+        :param name: 方法名称（前缀":"表示参数是JavaScript表达式）
+        :param args: 传递给方法的参数（Python对象或JavaScript表达式）
+        :param timeout: 超时时间（秒）（默认：1秒）
 
-        :return: AwaitableResponse that can be awaited to get the result of the method call
+        :return: 可以等待以获取方法调用结果的AwaitableResponse
         """
         return self.run_method('run_editor_method', name, *args, timeout=timeout)

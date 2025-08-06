@@ -4,10 +4,10 @@ from ..element import Element
 class Space(Element):
 
     def __init__(self) -> None:
-        """Space
+        """空间
 
-        This element is based on Quasar's `QSpace <https://quasar.dev/vue-components/space>`_ component.
+        此元素基于Quasar的`QSpace <https://quasar.dev/vue-components/space>`_组件。
 
-        Its purpose is to simply fill all available space inside of a flexbox element.
+        其目的是简单地填充flexbox元素内的所有可用空间。
         """
         super().__init__('q-space')

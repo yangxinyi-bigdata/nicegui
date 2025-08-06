@@ -40,21 +40,21 @@ class Table(FilterElement, component='table.js'):
                  on_select: Optional[Handler[TableSelectionEventArguments]] = None,
                  on_pagination_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  ) -> None:
-        """Table
+        """表格
 
-        A table based on Quasar's `QTable <https://quasar.dev/vue-components/table>`_ component.
+        基于Quasar的`QTable <https://quasar.dev/vue-components/table>`_组件的表格。
 
-        :param rows: list of row objects
-        :param columns: list of column objects (defaults to the columns of the first row *since version 2.0.0*)
-        :param column_defaults: optional default column properties, *added in version 2.0.0*
-        :param row_key: name of the column containing unique data identifying the row (default: "id")
-        :param title: title of the table
-        :param selection: selection type ("single" or "multiple"; default: `None`)
-        :param pagination: a dictionary correlating to a pagination object or number of rows per page (`None` hides the pagination, 0 means "infinite"; default: `None`).
-        :param on_select: callback which is invoked when the selection changes
-        :param on_pagination_change: callback which is invoked when the pagination changes
+        :param rows: 行对象列表
+        :param columns: 列对象列表（默认为第一行的列 *自2.0.0版本起*）
+        :param column_defaults: 可选的默认列属性，*2.0.0版本添加*
+        :param row_key: 包含标识行的唯一数据的列名（默认："id"）
+        :param title: 表格标题
+        :param selection: 选择类型（"single"或"multiple"；默认：`None`）
+        :param pagination: 对应分页对象的字典或每页行数（`None`隐藏分页，0表示"无限"；默认：`None`）
+        :param on_select: 选择更改时调用的回调函数
+        :param on_pagination_change: 分页更改时调用的回调函数
 
-        If selection is 'single' or 'multiple', then a `selected` property is accessible containing the selected rows.
+        如果选择为'single'或'multiple'，则可以访问包含选定行的`selected`属性。
         """
         super().__init__()
 
@@ -98,12 +98,12 @@ class Table(FilterElement, component='table.js'):
         self.on('update:pagination', handle_pagination_change)
 
     def on_select(self, callback: Handler[TableSelectionEventArguments]) -> Self:
-        """Add a callback to be invoked when the selection changes."""
+        """添加一个在选择更改时调用的回调函数。"""
         self._selection_handlers.append(callback)
         return self
 
     def on_pagination_change(self, callback: Handler[ValueChangeEventArguments]) -> Self:
-        """Add a callback to be invoked when the pagination changes."""
+        """添加一个在分页更改时调用的回调函数。"""
         self._pagination_change_handlers.append(callback)
         return self
 
@@ -120,25 +120,25 @@ class Table(FilterElement, component='table.js'):
                     selection: Optional[Literal['single', 'multiple']] = None,
                     pagination: Optional[Union[int, dict]] = None,
                     on_select: Optional[Handler[TableSelectionEventArguments]] = None) -> Self:
-        """Create a table from a Pandas DataFrame.
+        """从Pandas DataFrame创建表格。
 
-        Note:
-        If the DataFrame contains non-serializable columns of type `datetime64[ns]`, `timedelta64[ns]`, `complex128` or `period[M]`,
-        they will be converted to strings.
-        To use a different conversion, convert the DataFrame manually before passing it to this method.
-        See `issue 1698 <https://github.com/zauberzeug/nicegui/issues/1698>`_ for more information.
+        注意：
+        如果DataFrame包含`datetime64[ns]`、`timedelta64[ns]`、`complex128`或`period[M]`类型的不可序列化列，
+        它们将被转换为字符串。
+        要使用不同的转换，请在将DataFrame传递给此方法之前手动转换。
+        有关更多信息，请参阅`issue 1698 <https://github.com/zauberzeug/nicegui/issues/1698>`_。
 
-        *Added in version 2.0.0*
+        *2.0.0版本添加*
 
         :param df: Pandas DataFrame
-        :param columns: list of column objects (defaults to the columns of the dataframe)
-        :param column_defaults: optional default column properties
-        :param row_key: name of the column containing unique data identifying the row (default: "id")
-        :param title: title of the table
-        :param selection: selection type ("single" or "multiple"; default: `None`)
-        :param pagination: a dictionary correlating to a pagination object or number of rows per page (`None` hides the pagination, 0 means "infinite"; default: `None`).
-        :param on_select: callback which is invoked when the selection changes
-        :return: table element
+        :param columns: 列对象列表（默认为dataframe的列）
+        :param column_defaults: 可选的默认列属性
+        :param row_key: 包含标识行的唯一数据的列名（默认："id"）
+        :param title: 表格标题
+        :param selection: 选择类型（"single"或"multiple"；默认：`None`）
+        :param pagination: 对应分页对象的字典或每页行数（`None`隐藏分页，0表示"无限"；默认：`None`）
+        :param on_select: 选择更改时调用的回调函数
+        :return: 表格元素
         """
         rows, columns_from_df = cls._pandas_df_to_rows_and_columns(df)
         table = cls(
@@ -164,23 +164,23 @@ class Table(FilterElement, component='table.js'):
                     selection: Optional[Literal['single', 'multiple']] = None,
                     pagination: Optional[Union[int, dict]] = None,
                     on_select: Optional[Handler[TableSelectionEventArguments]] = None) -> Self:
-        """Create a table from a Polars DataFrame.
+        """从Polars DataFrame创建表格。
 
-        Note:
-        If the DataFrame contains non-UTF-8 datatypes, they will be converted to strings.
-        To use a different conversion, convert the DataFrame manually before passing it to this method.
+        注意：
+        如果DataFrame包含非UTF-8数据类型，它们将被转换为字符串。
+        要使用不同的转换，请在将DataFrame传递给此方法之前手动转换。
 
-        *Added in version 2.7.0*
+        *2.7.0版本添加*
 
         :param df: Polars DataFrame
-        :param columns: list of column objects (defaults to the columns of the dataframe)
-        :param column_defaults: optional default column properties
-        :param row_key: name of the column containing unique data identifying the row (default: "id")
-        :param title: title of the table
-        :param selection: selection type ("single" or "multiple"; default: `None`)
-        :param pagination: a dictionary correlating to a pagination object or number of rows per page (`None` hides the pagination, 0 means "infinite"; default: `None`).
-        :param on_select: callback which is invoked when the selection changes
-        :return: table element
+        :param columns: 列对象列表（默认为dataframe的列）
+        :param column_defaults: 可选的默认列属性
+        :param row_key: 包含标识行的唯一数据的列名（默认："id"）
+        :param title: 表格标题
+        :param selection: 选择类型（"single"或"multiple"；默认：`None`）
+        :param pagination: 对应分页对象的字典或每页行数（`None`隐藏分页，0表示"无限"；默认：`None`）
+        :param on_select: 选择更改时调用的回调函数
+        :return: 表格元素
         """
         rows, columns_from_df = cls._polars_df_to_rows_and_columns(df)
         table = cls(
@@ -201,17 +201,17 @@ class Table(FilterElement, component='table.js'):
                            clear_selection: bool = True,
                            columns: Optional[List[Dict]] = None,
                            column_defaults: Optional[Dict] = None) -> None:
-        """Update the table from a Pandas DataFrame.
+        """从Pandas DataFrame更新表格。
 
-        See `from_pandas()` for more information about the conversion of non-serializable columns.
+        有关不可序列化列转换的更多信息，请参阅`from_pandas()`。
 
-        If `columns` is not provided and the columns had been inferred from a DataFrame,
-        the columns will be updated to match the new DataFrame.
+        如果未提供`columns`且列是从DataFrame推断的，
+        则列将更新以匹配新的DataFrame。
 
         :param df: Pandas DataFrame
-        :param clear_selection: whether to clear the selection (default: True)
-        :param columns: list of column objects (defaults to the columns of the dataframe)
-        :param column_defaults: optional default column properties
+        :param clear_selection: 是否清除选择（默认：True）
+        :param columns: 列对象列表（默认为dataframe的列）
+        :param column_defaults: 可选的默认列属性
         """
         rows, columns_from_df = self._pandas_df_to_rows_and_columns(df)
         self._update_table(rows, columns_from_df, clear_selection, columns, column_defaults)
@@ -221,12 +221,12 @@ class Table(FilterElement, component='table.js'):
                            clear_selection: bool = True,
                            columns: Optional[List[Dict]] = None,
                            column_defaults: Optional[Dict] = None) -> None:
-        """Update the table from a Polars DataFrame.
+        """从Polars DataFrame更新表格。
 
         :param df: Polars DataFrame
-        :param clear_selection: whether to clear the selection (default: True)
-        :param columns: list of column objects (defaults to the columns of the dataframe)
-        :param column_defaults: optional default column properties
+        :param clear_selection: 是否清除选择（默认：True）
+        :param columns: 列对象列表（默认为dataframe的列）
+        :param column_defaults: 可选的默认列属性
         """
         rows, columns_from_df = self._polars_df_to_rows_and_columns(df)
         self._update_table(rows, columns_from_df, clear_selection, columns, column_defaults)
@@ -237,7 +237,7 @@ class Table(FilterElement, component='table.js'):
                       clear_selection: bool,
                       columns: Optional[List[Dict]],
                       column_defaults: Optional[Dict]) -> None:
-        """Helper function to update the table."""
+        """更新表格的辅助函数。"""
         self.rows[:] = rows
         if column_defaults is not None:
             self._column_defaults = column_defaults
@@ -275,7 +275,7 @@ class Table(FilterElement, component='table.js'):
 
     @property
     def rows(self) -> List[Dict]:
-        """List of rows."""
+        """行列表。"""
         return self._props['rows']
 
     @rows.setter
@@ -285,7 +285,7 @@ class Table(FilterElement, component='table.js'):
 
     @property
     def columns(self) -> List[Dict]:
-        """List of columns."""
+        """列列表。"""
         return self._props['columns']
 
     @columns.setter
@@ -295,7 +295,7 @@ class Table(FilterElement, component='table.js'):
 
     @property
     def column_defaults(self) -> Optional[Dict]:
-        """Default column properties."""
+        """默认列属性。"""
         return self._column_defaults
 
     @column_defaults.setter
@@ -305,7 +305,7 @@ class Table(FilterElement, component='table.js'):
 
     @property
     def row_key(self) -> str:
-        """Name of the column containing unique data identifying the row."""
+        """包含标识行的唯一数据的列名。"""
         return self._props['row-key']
 
     @row_key.setter
@@ -315,7 +315,7 @@ class Table(FilterElement, component='table.js'):
 
     @property
     def selected(self) -> List[Dict]:
-        """List of selected rows."""
+        """选中的行列表。"""
         return self._props['selected']
 
     @selected.setter
@@ -325,9 +325,9 @@ class Table(FilterElement, component='table.js'):
 
     @property
     def selection(self) -> Literal[None, 'single', 'multiple']:
-        """Selection type.
+        """选择类型。
 
-        *Added in version 2.11.0*
+        *2.11.0版本添加*
         """
         return None if self._props['selection'] == 'none' else self._props['selection']
 
@@ -337,15 +337,15 @@ class Table(FilterElement, component='table.js'):
         self.update()
 
     def set_selection(self, value: Literal[None, 'single', 'multiple']) -> None:
-        """Set the selection type.
+        """设置选择类型。
 
-        *Added in version 2.11.0*
+        *2.11.0版本添加*
         """
         self.selection = value
 
     @property
     def pagination(self) -> dict:
-        """Pagination object."""
+        """分页对象。"""
         return self._props['pagination']
 
     @pagination.setter
@@ -355,12 +355,12 @@ class Table(FilterElement, component='table.js'):
 
     @property
     def is_fullscreen(self) -> bool:
-        """Whether the table is in fullscreen mode."""
+        """表格是否处于全屏模式。"""
         return self._props['fullscreen']
 
     @is_fullscreen.setter
     def is_fullscreen(self, value: bool) -> None:
-        """Set fullscreen mode."""
+        """设置全屏模式。"""
         self._props['fullscreen'] = value
         self.update()
 
@@ -369,11 +369,11 @@ class Table(FilterElement, component='table.js'):
         self.is_fullscreen = value
 
     def toggle_fullscreen(self) -> None:
-        """Toggle fullscreen mode."""
+        """切换全屏模式。"""
         self.is_fullscreen = not self.is_fullscreen
 
     def add_rows(self, rows: List[Dict], *args: Any) -> None:
-        """Add rows to the table."""
+        """向表格添加行。"""
         if isinstance(rows, dict):  # DEPRECATED
             warn_once('Calling add_rows() with variable-length arguments is deprecated. '
                       'This option will be removed in NiceGUI 3.0. '
@@ -383,11 +383,11 @@ class Table(FilterElement, component='table.js'):
         self.update()
 
     def add_row(self, row: Dict) -> None:
-        """Add a single row to the table."""
+        """向表格添加单行。"""
         self.add_rows([row])
 
     def remove_rows(self, rows: List[Dict], *args: Any) -> None:
-        """Remove rows from the table."""
+        """从表格中移除行。"""
         if isinstance(rows, dict):  # DEPRECATED
             warn_once('Calling remove_rows() with variable-length arguments is deprecated. '
                       'This option will be removed in NiceGUI 3.0. '
@@ -399,14 +399,14 @@ class Table(FilterElement, component='table.js'):
         self.update()
 
     def remove_row(self, row: Dict) -> None:
-        """Remove a single row from the table."""
+        """从表格中移除单行。"""
         self.remove_rows([row])
 
     def update_rows(self, rows: List[Dict], *, clear_selection: bool = True) -> None:
-        """Update rows in the table.
+        """更新表格中的行。
 
-        :param rows: list of rows to update
-        :param clear_selection: whether to clear the selection (default: True)
+        :param rows: 要更新的行列表
+        :param clear_selection: 是否清除选择（默认：True）
         """
         self.rows[:] = rows
         if clear_selection:
@@ -414,40 +414,40 @@ class Table(FilterElement, component='table.js'):
         self.update()
 
     async def get_filtered_sorted_rows(self, *, timeout: float = 1) -> List[Dict]:
-        """Asynchronously return the filtered and sorted rows of the table."""
+        """异步返回表格的过滤和排序后的行。"""
         return await self.get_computed_prop('filteredSortedRows', timeout=timeout)
 
     async def get_computed_rows(self, *, timeout: float = 1) -> List[Dict]:
-        """Asynchronously return the computed rows of the table."""
+        """异步返回表格的计算行。"""
         return await self.get_computed_prop('computedRows', timeout=timeout)
 
     async def get_computed_rows_number(self, *, timeout: float = 1) -> int:
-        """Asynchronously return the number of computed rows of the table."""
+        """异步返回表格的计算行数。"""
         return await self.get_computed_prop('computedRowsNumber', timeout=timeout)
 
     class row(Element):
 
         def __init__(self) -> None:
-            """Row Element
+            """行元素
 
-            This element is based on Quasar's `QTr <https://quasar.dev/vue-components/table#qtr-api>`_ component.
+            此元素基于Quasar的`QTr <https://quasar.dev/vue-components/table#qtr-api>`_组件。
             """
             super().__init__('q-tr')
 
     class header(Element):
 
         def __init__(self) -> None:
-            """Header Element
+            """表头元素
 
-            This element is based on Quasar's `QTh <https://quasar.dev/vue-components/table#qth-api>`_ component.
+            此元素基于Quasar的`QTh <https://quasar.dev/vue-components/table#qth-api>`_组件。
             """
             super().__init__('q-th')
 
     class cell(Element):
 
         def __init__(self) -> None:
-            """Cell Element
+            """单元格元素
 
-            This element is based on Quasar's `QTd <https://quasar.dev/vue-components/table#qtd-api>`_ component.
+            此元素基于Quasar的`QTd <https://quasar.dev/vue-components/table#qtd-api>`_组件。
             """
             super().__init__('q-td')

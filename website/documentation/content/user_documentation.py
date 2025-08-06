@@ -5,19 +5,18 @@ from ..windows import python_window
 from . import doc
 
 
-@doc.part('User Fixture')
+@doc.part('用户夹具')
 def user_fixture():
     ui.markdown('''
-        We recommend utilizing the `user` fixture instead of the [`screen` fixture](/documentation/screen) wherever possible
-        because execution is as fast as unit tests and it does not need Selenium as a dependency
-        when loaded via `pytest_plugins = ['nicegui.testing.user_plugin']`.
-        The `user` fixture cuts away the browser and replaces it by a lightweight simulation entirely in Python.
-        See [project structure](/documentation/project_structure) for a description of the setup.
+        我们建议尽可能使用 `user` 夹具而不是 [`screen` 夹具](/documentation/screen)，
+        因为执行速度与单元测试一样快，并且当通过 `pytest_plugins = ['nicegui.testing.user_plugin']` 加载时不需要 Selenium 作为依赖。
+        `user` 夹具去掉浏览器，并用完全在 Python 中的轻量级模拟替换它。
+        有关设置的描述，请参见 [项目结构](/documentation/project_structure)。
 
-        You can assert to "see" specific elements or content, click buttons, type into inputs and trigger events.
-        We aimed for a nice API to write acceptance tests which read like a story and are easy to understand.
-        Due to the fast execution, the classical [test pyramid](https://martinfowler.com/bliki/TestPyramid.html),
-        where UI tests are considered slow and expensive, does not apply anymore.
+        您可以断言"看到"特定的元素或内容，点击按钮，在输入中输入并触发事件。
+        我们的目标是提供一个良好的 API 来编写像故事一样易于理解的验收测试。
+        由于执行速度快，经典的 [测试金字塔](https://martinfowler.com/bliki/TestPyramid.html)，
+        其中 UI 测试被认为是缓慢和昂贵的，不再适用。
     ''').classes('bold-links arrow-links')
 
     with python_window(classes='w-[600px]', title='example'):
@@ -33,21 +32,20 @@ def user_fixture():
         ''')
 
     ui.markdown('''
-        **NOTE:** The `user` fixture is quite new and still misses some features.
-        Please let us know in separate feature requests
-        [over on GitHub](https://github.com/zauberzeug/nicegui/discussions/new?category=ideas-feature-requests).
+        **注意：** `user` 夹具相当新，仍然缺少一些功能。
+        请在单独的功能请求中告诉我们
+        [在 GitHub 上](https://github.com/zauberzeug/nicegui/discussions/new?category=ideas-feature-requests)。
     ''').classes('bold-links arrow-links')
 
 
-@doc.part('Async execution')
+@doc.part('异步执行')
 def async_execution():
     ui.markdown('''
-        The user simulation runs in the same async context as your app
-        to make querying and interaction as easy as possible.
-        But that also means that your tests must be `async`.
-        We suggest to activate the [pytest-asyncio auto-mode](https://pytest-asyncio.readthedocs.io/en/latest/concepts.html#auto-mode)
-        by either creating a `pytest.ini` file in your project root
-        or adding the activation directly to your `pyproject.toml`.
+        用户模拟在与您的应用程序相同的异步上下文中运行，
+        以使查询和交互尽可能简单。
+        但这也意味着您的测试必须是 `async` 的。
+        我们建议通过在项目根目录中创建 `pytest.ini` 文件
+        或将激活直接添加到您的 `pyproject.toml` 来激活 [pytest-asyncio 自动模式](https://pytest-asyncio.readthedocs.io/en/latest/concepts.html#auto-mode)。
     ''').classes('bold-links arrow-links')
 
     with ui.row(wrap=False).classes('gap-4 items-center'):
@@ -68,11 +66,11 @@ def async_execution():
             ''')
 
 
-doc.text('Querying', '''
-    The querying capabilities of the `User` are built upon the [ElementFilter](/documentation/element_filter).
-    The `user.should_see(...)` method and `user.find(...)` method
-    provide parameters to filter for content, [markers](/documentation/element_filter#markers), types, etc.
-    If you do not provide a named property, the string will match against the text content and markers.
+doc.text('查询', '''
+    `User` 的查询功能建立在 [ElementFilter](/documentation/element_filter) 之上。
+    `user.should_see(...)` 方法和 `user.find(...)` 方法
+    提供参数来过滤内容、[标记](/documentation/element_filter#markers)、类型等。
+    如果您不提供命名属性，字符串将与文本内容和标记匹配。
 ''')
 
 
@@ -105,12 +103,12 @@ def querying():
             ''')
 
 
-doc.text('User Interaction', '''
-    `user.find(...)` returns a `UserInteraction` object which provides methods to type text,
-    clear inputs, click buttons and trigger events on the found elements.
-    This demo shows how to trigger a "keydown.tab" event to autocomplete an input field after typing the first letter.
+doc.text('用户交互', '''
+    `user.find(...)` 返回一个 `UserInteraction` 对象，该对象提供输入文本、
+    清除输入、点击按钮和在找到的元素上触发事件的方法。
+    此演示展示如何在输入第一个字母后触发 "keydown.tab" 事件来自动完成输入字段。
 
-    *Added in version 2.7.0: triggering events*
+    *在版本 2.7.0 中添加：触发事件*
 ''')
 
 
@@ -134,15 +132,15 @@ def trigger_events():
             ''')
 
 
-doc.text('Selecting options', '''
-    To choose items in a `ui.select` simply
+doc.text('选择选项', '''
+    要在 `ui.select` 中选择项目，只需
 
-    - locate the `ui.select` element using `user.find()`,
-    - use `click()` to open the dropdown,
-    - locate the specific _option_ you want to select, again using `user.find()`, and
-    - use `click()` a second time to select the desired option.
+    - 使用 `user.find()` 定位 `ui.select` 元素，
+    - 使用 `click()` 打开下拉菜单，
+    - 再次使用 `user.find()` 定位您要选择的特定_选项_，以及
+    - 第二次使用 `click()` 选择所需的选项。
 
-    For a multi-select element, repeat the click-and-choose steps for each item.
+    对于多选元素，为每个项目重复点击和选择步骤。
 ''')
 
 
@@ -172,14 +170,14 @@ def selecting_options_in_a_select():
             ''')
 
 
-doc.text('Using an ElementFilter', '''
-    It may be desirable to use an [`ElementFilter`](/documentation/element_filter) to
+doc.text('使用 ElementFilter', '''
+    使用 [`ElementFilter`](/documentation/element_filter) 可能是可取的，以便
 
-    - preserve the order of elements to check their order on the page, and
-    - more granular filtering options, such as `ElementFilter(...).within(...)`.
+    - 保持元素的顺序以检查它们在页面上的顺序，以及
+    - 更细粒度的过滤选项，例如 `ElementFilter(...).within(...)`。
 
-    By entering the `user` context and iterating over `ElementFilter`,
-    you can preserve the natural document order of matching elements:
+    通过进入 `user` 上下文并迭代 `ElementFilter`，
+    您可以保持匹配元素的自然文档顺序：
 ''')
 
 
@@ -208,10 +206,10 @@ def using_an_elementfilter():
             ''')
 
 
-doc.text('Complex elements', '''
-    There are some elements with complex visualization and interaction behaviors (`ui.upload`, `ui.table`, ...).
-    Not every aspect of these elements can be tested with `should_see` and `UserInteraction`.
-    Still, you can grab them with `user.find(...)` and do the testing on the elements themselves.
+doc.text('复杂元素', '''
+    有些元素具有复杂的可视化和交互行为（`ui.upload`、`ui.table`、...）。
+    这些元素的每个方面都不能用 `should_see` 和 `UserInteraction` 测试。
+    尽管如此，您可以用 `user.find(...)` 抓取它们并在元素本身上进行测试。
 ''')
 
 
@@ -259,11 +257,11 @@ def upload_table():
             ''')
 
 
-doc.text('Test Downloads', '''
-    You can verify that a download was triggered by checking `user.downloads.http_responses`.
-    By awaiting `user.downloads.next()` you can get the next download response.
+doc.text('测试下载', '''
+    您可以通过检查 `user.downloads.http_responses` 来验证是否触发了下载。
+    通过等待 `user.downloads.next()`，您可以获得下一个下载响应。
 
-    *Added in version 2.1.0*
+    *在版本 2.1.0 中添加*
 ''')
 
 
@@ -294,12 +292,12 @@ def check_outbox():
             ''')
 
 
-doc.text('Multiple Users', '''
-    Sometimes it is not enough to just interact with the UI as a single user.
-    Besides the `user` fixture, we also provide the `create_user` fixture which is a factory function to create users.
-    The `User` instances are independent from each other and can interact with the UI in parallel.
-    See our [Chat App example](https://github.com/zauberzeug/nicegui/blob/main/examples/chat_app/test_chat_app.py)
-    for a full demonstration.
+doc.text('多个用户', '''
+    有时仅作为单个用户与 UI 交互是不够的。
+    除了 `user` 夹具外，我们还提供 `create_user` 夹具，它是一个用于创建用户的工厂函数。
+    `User` 实例彼此独立，可以并行与 UI 交互。
+    请参阅我们的 [聊天应用示例](https://github.com/zauberzeug/nicegui/blob/main/examples/chat_app/test_chat_app.py)
+    了解完整演示。
 ''')
 
 
@@ -323,12 +321,12 @@ def multiple_users():
         ''')
 
 
-doc.text('Simulate JavasScript', '''
-    The `User` class has a `javascript_rules` dictionary to simulate JavaScript execution.
-    The key is a compiled regular expression and the value is a function that returns the JavaScript response.
-    The function will be called with the match object of the regular expression on the JavaScript command.
+doc.text('模拟 JavaScript', '''
+    `User` 类有一个 `javascript_rules` 字典来模拟 JavaScript 执行。
+    键是编译的正则表达式，值是返回 JavaScript 响应的函数。
+    该函数将使用 JavaScript 命令上正则表达式的匹配对象调用。
 
-    *Added in version 2.14.0*
+    *在版本 2.14.0 中添加*
 ''')
 
 
@@ -357,13 +355,13 @@ def simulate_javascript():
             ''')
 
 
-doc.text('Comparison with the screen fixture', '''
-    By cutting out the browser, test execution becomes much faster than the [`screen` fixture](/documentation/screen).
-    See our [pytests example](https://github.com/zauberzeug/nicegui/tree/main/examples/pytests)
-    which implements the same tests with both fixtures.
-    Of course, some features like screenshots or browser-specific behavior are not available,
-    but in most cases the speed of the `user` fixture makes it the first choice.
+doc.text('与 screen 夹具的比较', '''
+    通过去掉浏览器，测试执行变得比 [`screen` 夹具](/documentation/screen) 快得多。
+    请参阅我们的 [pytests 示例](https://github.com/zauberzeug/nicegui/tree/main/examples/pytests)，
+    它使用两个夹具实现相同的测试。
+    当然，某些功能（如屏幕截图或浏览器特定行为）不可用，
+    但在大多数情况下，`user` 夹具的速度使其成为首选。
 ''')
 
-doc.reference(User, title='User Reference')
-doc.reference(UserInteraction, title='UserInteraction Reference')
+doc.reference(User, title='User 参考')
+doc.reference(UserInteraction, title='UserInteraction 参考')

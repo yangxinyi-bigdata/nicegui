@@ -23,28 +23,28 @@ class Number(LabelElement, ValidationElement, DisableableElement):
                  on_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  validation: Optional[Union[ValidationFunction, ValidationDict]] = None,
                  ) -> None:
-        """Number Input
+        """数字输入框
 
-        This element is based on Quasar's `QInput <https://quasar.dev/vue-components/input>`_ component.
+        此元素基于Quasar的`QInput <https://quasar.dev/vue-components/input>`_组件。
 
-        You can use the `validation` parameter to define a dictionary of validation rules,
-        e.g. ``{'Too small!': lambda value: value > 3}``.
-        The key of the first rule that fails will be displayed as an error message.
-        Alternatively, you can pass a callable that returns an optional error message.
-        To disable the automatic validation on every value change, you can use the `without_auto_validation` method.
+        您可以使用`validation`参数来定义验证规则字典，
+        例如``{'太小了！': lambda value: value > 3}``。
+        第一个失败的规则的键将显示为错误消息。
+        或者，您可以传递一个返回可选错误消息的可调用对象。
+        要禁用每次值更改时的自动验证，可以使用`without_auto_validation`方法。
 
-        :param label: displayed name for the number input
-        :param placeholder: text to show if no value is entered
-        :param value: the initial value of the field
-        :param min: the minimum value allowed
-        :param max: the maximum value allowed
-        :param precision: the number of decimal places allowed (default: no limit, negative: decimal places before the dot)
-        :param step: the step size for the stepper buttons
-        :param prefix: a prefix to prepend to the displayed value
-        :param suffix: a suffix to append to the displayed value
-        :param format: a string like "%.2f" to format the displayed value
-        :param on_change: callback to execute when the value changes
-        :param validation: dictionary of validation rules or a callable that returns an optional error message (default: None for no validation)
+        :param label: 数字输入框的显示名称
+        :param placeholder: 如果没有输入值时显示的文本
+        :param value: 字段的初始值
+        :param min: 允许的最小值
+        :param max: 允许的最大值
+        :param precision: 允许的小数位数（默认：无限制，负数：小数点前的位数）
+        :param step: 步进按钮的步长
+        :param prefix: 添加到显示值前的前缀
+        :param suffix: 添加到显示值后的后缀
+        :param format: 格式化显示值的字符串，如"%.2f"
+        :param on_change: 值更改时执行的回调函数
+        :param validation: 验证规则字典或返回可选错误消息的可调用对象（默认：None表示不验证）
         """
         self.format = format
         super().__init__(tag='q-input', label=label, value=value, on_value_change=on_change, validation=validation)
@@ -66,7 +66,7 @@ class Number(LabelElement, ValidationElement, DisableableElement):
 
     @property
     def min(self) -> float:
-        """The minimum value allowed."""
+        """允许的最小值。"""
         return self._props.get('min', -float('inf'))
 
     @min.setter
@@ -79,7 +79,7 @@ class Number(LabelElement, ValidationElement, DisableableElement):
 
     @property
     def max(self) -> float:
-        """The maximum value allowed."""
+        """允许的最大值。"""
         return self._props.get('max', float('inf'))
 
     @max.setter
@@ -92,7 +92,7 @@ class Number(LabelElement, ValidationElement, DisableableElement):
 
     @property
     def precision(self) -> Optional[int]:
-        """The number of decimal places allowed (default: no limit, negative: decimal places before the dot)."""
+        """允许的小数位数（默认：无限制，负数：小数点前的位数）。"""
         return self._precision
 
     @precision.setter
@@ -102,11 +102,11 @@ class Number(LabelElement, ValidationElement, DisableableElement):
 
     @property
     def out_of_limits(self) -> bool:
-        """Whether the current value is out of the allowed limits."""
+        """当前值是否超出允许的限制。"""
         return not self.min <= self.value <= self.max
 
     def sanitize(self) -> None:
-        """Sanitize the current value to be within the allowed limits."""
+        """将当前值清理为在允许的限制范围内。"""
         if self.value is None:
             return
         value = float(self.value)

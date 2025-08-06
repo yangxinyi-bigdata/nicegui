@@ -29,17 +29,17 @@ class EChart(Element,
                  renderer: Literal['canvas', 'svg'] = 'canvas',
                  theme: Optional[Union[str, Dict]] = None,
                  ) -> None:
-        """Apache EChart
+        """Apache EChart图表
 
-        An element to create a chart using `ECharts <https://echarts.apache.org/>`_.
-        Updates can be pushed to the chart by changing the `options` property.
-        After data has changed, call the `update` method to refresh the chart.
+        使用`ECharts <https://echarts.apache.org/>`_创建图表的元素。
+        可以通过更改`options`属性将更新推送到图表。
+        数据更改后，调用`update`方法刷新图表。
 
-        :param options: dictionary of EChart options
-        :param on_click_point: callback that is invoked when a point is clicked
-        :param enable_3d: enforce importing the echarts-gl library
-        :param renderer: renderer to use ("canvas" or "svg", *added in version 2.7.0*)
-        :param theme: an EChart theme configuration (dictionary or a URL returning a JSON object, *added in version 2.15.0*)
+        :param options: EChart选项字典
+        :param on_click_point: 当点击点时调用的回调函数
+        :param enable_3d: 强制导入echarts-gl库
+        :param renderer: 使用的渲染器（"canvas"或"svg"，*在版本2.7.0中添加*）
+        :param theme: EChart主题配置（字典或返回JSON对象的URL，*在版本2.15.0中添加*）
         """
         super().__init__()
         self._props['options'] = options
@@ -52,7 +52,7 @@ class EChart(Element,
             self.on_point_click(on_point_click)
 
     def on_point_click(self, callback: Handler[EChartPointClickEventArguments]) -> Self:
-        """Add a callback to be invoked when a point is clicked."""
+        """添加点击点时要调用的回调函数。"""
         def handle_point_click(e: GenericEventArguments) -> None:
             handle_event(callback, EChartPointClickEventArguments(
                 sender=self,
@@ -82,12 +82,12 @@ class EChart(Element,
 
     @classmethod
     def from_pyecharts(cls, chart: 'Chart', on_point_click: Optional[Callable] = None) -> Self:
-        """Create an echart element from a pyecharts object.
+        """从pyecharts对象创建echart元素。
 
-        :param chart: pyecharts chart object
-        :param on_click_point: callback which is invoked when a point is clicked
+        :param chart: pyecharts图表对象
+        :param on_click_point: 点击点时调用的回调函数
 
-        :return: echart element
+        :return: echart元素
         """
         options = json.loads(json.dumps(chart.get_options(), default=default, ignore_nan=True))
         stack = [options]
@@ -105,21 +105,21 @@ class EChart(Element,
 
     @property
     def options(self) -> Dict:
-        """The options dictionary."""
+        """选项字典。"""
         return self._props['options']
 
     def run_chart_method(self, name: str, *args, timeout: float = 1) -> AwaitableResponse:
-        """Run a method of the EChart instance.
+        """运行EChart实例的方法。
 
-        See the `ECharts documentation <https://echarts.apache.org/en/api.html#echartsInstance>`_ for a list of methods.
+        有关方法列表，请参见`ECharts文档 <https://echarts.apache.org/en/api.html#echartsInstance>`_。
 
-        If the function is awaited, the result of the method call is returned.
-        Otherwise, the method is executed without waiting for a response.
+        如果函数被等待，则返回方法调用的结果。
+        否则，方法会在不等待响应的情况下执行。
 
-        :param name: name of the method (a prefix ":" indicates that the arguments are JavaScript expressions)
-        :param args: arguments to pass to the method (Python objects or JavaScript expressions)
-        :param timeout: timeout in seconds (default: 1 second)
+        :param name: 方法名称（前缀":"表示参数是JavaScript表达式）
+        :param args: 传递给方法的参数（Python对象或JavaScript表达式）
+        :param timeout: 超时时间（秒）（默认：1秒）
 
-        :return: AwaitableResponse that can be awaited to get the result of the method call
+        :return: 可以等待以获取方法调用结果的AwaitableResponse
         """
         return self.run_method('run_chart_method', name, *args, timeout=timeout)

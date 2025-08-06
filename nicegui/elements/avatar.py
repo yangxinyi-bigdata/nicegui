@@ -16,18 +16,17 @@ class Avatar(IconElement, BackgroundColorElement, TextColorElement):
                  square: bool = False,
                  rounded: bool = False,
                  ) -> None:
-        """Avatar
+        """头像
 
-        A avatar element wrapping Quasar's
-        `QAvatar <https://quasar.dev/vue-components/avatar>`_ component.
+        封装Quasar的`QAvatar <https://quasar.dev/vue-components/avatar>`_组件的头像元素。
 
-        :param icon: name of the icon or image path with "img:" prefix (e.g. "map", "img:path/to/image.png")
-        :param color: background color (either a Quasar, Tailwind, or CSS color or `None`, default: "primary")
-        :param text_color: color name from the Quasar Color Palette (e.g. "primary", "teal-10")
-        :param size: size in CSS units, including unit name or standard size name (xs|sm|md|lg|xl) (e.g. "16px", "2rem")
-        :param font_size: size in CSS units, including unit name, of the content (icon, text) (e.g. "18px", "2rem")
-        :param square: removes border-radius so borders are squared (default: False)
-        :param rounded: applies a small standard border-radius for a squared shape of the component (default: False)
+        :param icon: 图标名称或带有"img:"前缀的图像路径（例如"map", "img:path/to/image.png"）
+        :param color: 背景颜色（Quasar、Tailwind或CSS颜色，或`None`，默认："primary"）
+        :param text_color: Quasar调色板中的颜色名称（例如"primary", "teal-10"）
+        :param size: CSS单位的大小，包括单位名称或标准尺寸名称（xs|sm|md|lg|xl）（例如"16px", "2rem"）
+        :param font_size: 内容（图标、文本）的CSS单位大小，包括单位名称（例如"18px", "2rem"）
+        :param square: 移除border-radius使边框为方形（默认：False）
+        :param rounded: 为组件的方形形状应用小的标准border-radius（默认：False）
         """
         super().__init__(tag='q-avatar', background_color=color, text_color=text_color, icon=icon)
 

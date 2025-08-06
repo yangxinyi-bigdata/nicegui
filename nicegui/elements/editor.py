@@ -15,13 +15,13 @@ class Editor(ValueElement, DisableableElement, component='editor.js', default_cl
                  value: str = '',
                  on_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  ) -> None:
-        """Editor
+        """富文本编辑器
 
-        A WYSIWYG editor based on `Quasar's QEditor <https://quasar.dev/vue-components/editor>`_.
-        The value is a string containing the formatted text as HTML code.
+        基于`Quasar的QEditor <https://quasar.dev/vue-components/editor>`_的所见即所得编辑器。
+        值是包含格式化文本作为HTML代码的字符串。
 
-        :param value: initial value
-        :param on_change: callback to be invoked when the value changes
+        :param value: 初始值
+        :param on_change: 值更改时要调用的回调函数
         """
         super().__init__(value=value, on_value_change=on_change)
         if placeholder is not None:

@@ -16,125 +16,125 @@ from . import (
 )
 from ...style import subheading
 
-doc.title('*NiceGUI* Documentation', 'Reference, Demos and more')
+doc.title('*NiceGUI* 文档', '参考、演示和更多')
 
-doc.text('Overview', '''
-    NiceGUI is an open-source Python library to write graphical user interfaces which run in the browser.
-    It has a very gentle learning curve while still offering the option for advanced customizations.
-    NiceGUI follows a backend-first philosophy:
-    It handles all the web development details.
-    You can focus on writing Python code.
-    This makes it ideal for a wide range of projects including short
-    scripts, dashboards, robotics projects, IoT solutions, smart home automation, and machine learning.
+doc.text('概览', '''
+    NiceGUI 是一个开源的 Python 库，用于编写在浏览器中运行的图形用户界面。
+    它的学习曲线非常平缓，同时仍提供高级自定义选项。
+    NiceGUI 遵循后端优先的理念：
+    它处理所有 Web 开发细节。
+    您可以专注于编写 Python 代码。
+    这使其成为各种项目的理想选择，包括短脚本、仪表板、机器人项目、
+    IoT 解决方案、智能家居自动化和机器学习。
 ''')
 
-doc.text('How to use this guide', '''
-    This documentation explains how to use NiceGUI.
-    Each of the tiles covers a NiceGUI topic in detail.
-    It is recommended to start by reading this entire introduction page, then refer to other sections as needed.
+doc.text('如何使用本指南', '''
+    本文档解释了如何使用 NiceGUI。
+    每个瓦片都详细涵盖了一个 NiceGUI 主题。
+    建议先阅读整个介绍页面，然后根据需要参考其他部分。
 ''')
 
-doc.text('Basic concepts', '''
-    NiceGUI provides UI _elements_ such as buttons, sliders, text, images, charts, and more.
-    Your app assembles these components into _pages_.
-    When the user interacts with an item on a page, NiceGUI triggers an _event_ (or _action_).
-    You define code to _handle_ each event, such as what to do when a user clicks a button, modifies a value or operates a slider.
-    Elements can also be bound to a _model_ (data object), which automatically updates the user interface when the model value changes.
+doc.text('基本概念', '''
+    NiceGUI 提供 UI _元素_，如按钮、滑块、文本、图像、图表等。
+    您的应用程序将这些组件组装成 _页面_。
+    当用户与页面上的项目交互时，NiceGUI 会触发一个 _事件_（或 _动作_）。
+    您定义代码来 _处理_ 每个事件，例如当用户单击按钮、修改值或操作滑块时要做什么。
+    元素也可以绑定到 _模型_（数据对象），当模型值变化时自动更新用户界面。
 
-    Elements are arranged on a page using a "declarative UI" or "code-based UI".
-    That means that you also write structures like grids, cards, tabs, carousels, expansions, menus, and other layout elements directly in code.
-    This concept has been made popular with Flutter and SwiftUI.
-    For readability, NiceGUI utilizes Python's `with ...` statement.
-    This context manager provides a nice way to indent the code to resemble the layout of the UI.
+    元素使用"声明式 UI"或"基于代码的 UI"在页面上排列。
+    这意味着您也可以直接在代码中编写网格、卡片、选项卡、轮播、展开区域、菜单等布局结构。
+    这个概念在 Flutter 和 SwiftUI 中已经流行起来。
+    为了提高可读性，NiceGUI 利用 Python 的 `with ...` 语句。
+    这个上下文管理器提供了一种很好的方式来缩进代码，使其类似于 UI 的布局。
 
-    Styling and appearance can be controlled in several ways.
-    Most elements accept optional arguments for common styling and behavior changes, such as button icons or text color.
-    Because NiceGUI is a web framework, you can change almost any appearance of an element with CSS.
-    But elements also provide `.classes` and `.props` methods to apply Tailwind CSS and Quasar properties
-    which are more high-level and simpler to use day-to-day after you get the hang of it.
+    样式和外观可以通过多种方式控制。
+    大多数元素接受可选参数来更改常见的样式和行为，例如按钮图标或文本颜色。
+    因为 NiceGUI 是一个 Web 框架，您可以用 CSS 更改元素的几乎所有外观。
+    但元素也提供 `.classes` 和 `.props` 方法来应用 Tailwind CSS 和 Quasar 属性，
+    这些属性更高级，在您掌握后日常使用起来更简单。
 ''')
 
-doc.text('Actions, Events and Tasks', '''
-    NiceGUI uses an async/await event loop for concurrency which is resource-efficient and has the great benefit of not having to worry about thread safety.
-    This section shows how to handle user input and other events like timers and keyboard bindings.
-    It also describes helper functions to wrap long-running tasks in asynchronous functions to keep the UI responsive.
-    Keep in mind that all UI updates must happen on the main thread with its event loop.
+doc.text('动作、事件和任务', '''
+    NiceGUI 使用 async/await 事件循环来实现并发，这既节省资源，又具有不必担心线程安全性的巨大优势。
+    本节展示了如何处理用户输入和其他事件，如计时器和键盘绑定。
+    它还描述了将长时间运行的任务包装在异步函数中的辅助函数，以保持 UI 响应性。
+    请记住，所有 UI 更新都必须在主线程及其事件循环上进行。
 ''')
 
-doc.text('Implementation', '''
-    NiceGUI is implemented with HTML components served by an HTTP server (FastAPI), even for native windows.
-    If you already know HTML, everything will feel very familiar.
-    If you don't know HTML, that's fine too!
-    NiceGUI abstracts away the details, so you can focus on creating beautiful interfaces without worrying about how they are implemented.
+doc.text('实现', '''
+    NiceGUI 是用由 HTTP 服务器（FastAPI）提供的 HTML 组件实现的，即使是原生窗口也是如此。
+    如果您已经了解 HTML，一切都会感到非常熟悉。
+    如果您不了解 HTML，那也没关系！
+    NiceGUI 抽象了细节，因此您可以专注于创建美观的界面，而不必担心它们是如何实现的。
 ''')
 
-doc.text('Running NiceGUI Apps', '''
-    There are several options for deploying NiceGUI.
-    By default, NiceGUI runs a server on localhost and runs your app as a private web page on the local machine.
-    When run this way, your app appears in a web browser window.
-    You can also run NiceGUI in a native window separate from a web browser.
-    Or you can run NiceGUI on a server that handles many clients - the website you're reading right now is served from NiceGUI.
+doc.text('运行 NiceGUI 应用程序', '''
+    部署 NiceGUI 有几种选项。
+    默认情况下，NiceGUI 在 localhost 上运行服务器，并将您的应用程序作为本地机器上的私人网页运行。
+    以这种方式运行时，您的应用程序出现在 Web 浏览器窗口中。
+    您也可以在与 Web 浏览器分离的原生窗口中运行 NiceGUI。
+    或者您可以在处理许多客户端的服务器上运行 NiceGUI - 您正在阅读的这个网站就是由 NiceGUI 提供的。
 
-    After creating your app pages with components, you call `ui.run()` to start the NiceGUI server.
-    Optional parameters to `ui.run` set things like the network address and port the server binds to,
-    whether the app runs in native mode, initial window size, and many other options.
-    The section _Configuration and Deployment_ covers the options to the `ui.run()` function and the FastAPI framework it is based on.
+    使用组件创建应用程序页面后，您调用 `ui.run()` 来启动 NiceGUI 服务器。
+    `ui.run` 的可选参数设置服务器绑定的网络地址和端口、
+    应用程序是否以原生模式运行、初始窗口大小和许多其他选项。
+    _配置和部署_ 部分涵盖了 `ui.run()` 函数及其基于的 FastAPI 框架的选项。
 ''')
 
-doc.text('Customization', '''
-    If you want more customization in your app, you can use the underlying Tailwind classes and Quasar components
-    to control the style or behavior of your components.
-    You can also extend the available components by subclassing existing NiceGUI components or importing new ones from Quasar.
-    All of this is optional.
-    Out of the box, NiceGUI provides everything you need to make modern, stylish, responsive user interfaces.
+doc.text('自定义', '''
+    如果您想在应用程序中进行更多自定义，可以使用底层的 Tailwind 类和 Quasar 组件
+    来控制组件的样式或行为。
+    您也可以通过子类化现有的 NiceGUI 组件或从 Quasar 导入新组件来扩展可用组件。
+    所有这些都是可选的。
+    开箱即用，NiceGUI 提供了制作现代、时尚、响应式用户界面所需的一切。
 ''')
 
-doc.text('Testing', '''
-    NiceGUI provides a comprehensive testing framework based on [pytest](https://docs.pytest.org/)
-    which allows you to automate the testing of your user interface.
-    You can utilize the `screen` fixture which starts a real (headless) browser to interact with your application.
-    This is great if you have browser-specific behavior to test.
+doc.text('测试', '''
+    NiceGUI 提供了一个基于 [pytest](https://docs.pytest.org/) 的全面测试框架，
+    它允许您自动化用户界面的测试。
+    您可以利用 `screen` 夹具，它启动一个真实的（无头）浏览器来与您的应用程序交互。
+    如果您有特定于浏览器的行为需要测试，这非常有用。
 
-    But most of the time, NiceGUI's newly introduced `user` fixture is more suited:
-    It only simulates the user interaction on a Python level and, hence, is blazing fast.
-    That way the classical [test pyramid](https://martinfowler.com/bliki/TestPyramid.html),
-    where UI tests are considered slow and expensive, does not apply anymore.
-    This can have a huge impact on your development speed, quality and confidence.
+    但大多数情况下，NiceGUI 新引入的 `user` 夹具更适合：
+    它只在 Python 级别上模拟用户交互，因此速度极快。
+    这样，经典的[测试金字塔](https://martinfowler.com/bliki/TestPyramid.html)不再适用，
+    其中 UI 测试被认为是缓慢和昂贵的。
+    这可以对您的开发速度、质量和信心产生巨大影响。
 ''')
 
 tiles = [
     (section_text_elements, '''
-        Elements like `ui.label`, `ui.markdown`, `ui.restructured_text` and `ui.html` can be used to display text and other content.
+        像 `ui.label`、`ui.markdown`、`ui.restructured_text` 和 `ui.html` 这样的元素可用于显示文本和其他内容。
     '''),
     (section_controls, '''
-        NiceGUI provides a variety of elements for user interaction, e.g. `ui.button`, `ui.slider`, `ui.inputs`, etc.
+        NiceGUI 提供了多种用户交互元素，例如 `ui.button`、`ui.slider`、`ui.inputs` 等。
     '''),
     (section_audiovisual_elements, '''
-        You can use elements like `ui.image`, `ui.audio`, `ui.video`, etc. to display audiovisual content.
+        您可以使用 `ui.image`、`ui.audio`、`ui.video` 等元素来显示视听内容。
     '''),
     (section_data_elements, '''
-        There are several elements for displaying data, e.g. `ui.table`, `ui.aggrid`, `ui.highchart`, `ui.echart`, etc.
+        有几种用于显示数据的元素，例如 `ui.table`、`ui.aggrid`、`ui.highchart`、`ui.echart` 等。
     '''),
     (section_binding_properties, '''
-        To update UI elements automatically, you can bind them to each other or to your data model.
+        要自动更新 UI 元素，您可以将它们相互绑定或绑定到您的数据模型。
     '''),
     (section_page_layout, '''
-        This section covers fundamental techniques as well as several elements to structure your UI.
+        本节涵盖了基础技术以及构建 UI 的几种元素。
     '''),
     (section_styling_appearance, '''
-        NiceGUI allows to customize the appearance of UI elements in various ways, including CSS, Tailwind CSS and Quasar properties.
+        NiceGUI 允许通过各种方式自定义 UI 元素的外观，包括 CSS、Tailwind CSS 和 Quasar 属性。
     '''),
     (section_action_events, '''
-        This section covers timers, UI events, and the lifecycle of NiceGUI apps.
+        本节涵盖了计时器、UI 事件和 NiceGUI 应用程序的生命周期。
     '''),
     (section_pages_routing, '''
-        A NiceGUI app can consist of multiple pages and other FastAPI endpoints.
+        NiceGUI 应用程序可以由多个页面和其他 FastAPI 端点组成。
     '''),
     (section_configuration_deployment, '''
-        Whether you want to run your app locally or on a server, native or in a browser, we got you covered.
+        无论您想在本地还是服务器上运行应用程序，原生还是在浏览器中，我们都为您提供了支持。
     '''),
     (section_testing, '''
-        Write automated UI tests which run in a headless browser (slow) or fully simulated in Python (fast).
+        编写自动化 UI 测试，在无头浏览器（慢速）中运行或在 Python 中完全模拟（快速）。
      '''),
 ]
 
@@ -142,7 +142,7 @@ tiles = [
 @doc.extra_column
 def create_tiles():
     with ui.row().classes('items-center content-between'):
-        ui.label('If you like NiceGUI, go and become a')
+        ui.label('如果您喜欢 NiceGUI，请成为')
         ui.html('<iframe src="https://github.com/sponsors/zauberzeug/button" title="Sponsor zauberzeug" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>')
     for documentation, description in tiles:
         page = doc.get_page(documentation)
@@ -157,48 +157,48 @@ def create_tiles():
 @doc.ui
 def map_of_nicegui():
     ui.separator().classes('mt-6')
-    subheading('Map of NiceGUI', anchor_name='map-of-nicegui')
+    subheading('NiceGUI 地图', anchor_name='map-of-nicegui')
     ui.add_css('''
         .map-of-nicegui a code {
             font-weight: bold;
         }
     ''')
     ui.markdown('''
-        This overview shows the structure of NiceGUI.
-        It is a map of the NiceGUI namespace and its contents.
-        It is not exhaustive, but it gives you a good idea of what is available.
-        An ongoing goal is to make this map more complete and to add missing links to the documentation.
+        此概览显示了 NiceGUI 的结构。
+        它是 NiceGUI 命名空间及其内容的地图。
+        它并不详尽，但能让您很好地了解可用的功能。
+        一个持续的目标是使这张地图更完整，并添加缺失的文档链接。
 
         #### `ui`
 
-        UI elements and other essentials to run a NiceGUI app.
+        UI 元素和运行 NiceGUI 应用程序的其他基本要素。
 
-        - [`ui.element`](/documentation/element): base class for all UI elements
-            - customization:
-                - `.props()` and [`.default_props()`](/documentation/element#default_props): add Quasar props and regular HTML attributes
-                - `.classes()` and [`.default_classes()`](/documentation/element#default_classes): add Quasar, Tailwind and custom HTML classes
-                - [`.tailwind`](/documentation/section_styling_appearance#tailwind_css): convenience API for adding Tailwind classes
-                - `.style()` and [`.default_style()`](/documentation/element#default_style): add CSS style definitions
-                - [`.tooltip()`](/documentation/tooltip): add a tooltip to an element
-                - [`.mark()`](/documentation/element_filter#markers): mark an element for querying with an [ElementFilter](/documentation/element_filter)
-            - interaction:
-                - [`.on()`](/documentation/generic_events): add Python and JavaScript event handlers
-                - `.update()`: send an update to the client (mostly done automatically)
-                - `.run_method()`: run a method on the client side
-                - `.get_computed_prop()`: get the value of a property that is computed on the client side
-            - hierarchy:
-                - `with ...:` nesting elements in a declarative way
-                - `__iter__`: an iterator over all child elements
-                - `ancestors`: an iterator over the element's parent, grandparent, etc.
-                - `descendants`: an iterator over all child elements, grandchildren, etc.
-                - `slots`: a dictionary of named slots
-                - `add_slot`: fill a new slot with NiceGUI elements or a scoped slot with template strings
-                - [`clear`](/documentation/section_page_layout#clear_containers): remove all child elements
-                - [`move`](/documentation/element#move_elements): move an element to a new parent
-                - `remove`: remove a child element
-                - `delete`: delete an element and all its children
-                - `is_deleted`: whether an element has been deleted
-        - elements:
+        - [`ui.element`](/documentation/element): 所有 UI 元素的基类
+            - 自定义：
+                - `.props()` 和 [`.default_props()`](/documentation/element#default_props): 添加 Quasar 属性和常规 HTML 属性
+                - `.classes()` 和 [`.default_classes()`](/documentation/element#default_classes): 添加 Quasar、Tailwind 和自定义 HTML 类
+                - [`.tailwind`](/documentation/section_styling_appearance#tailwind_css): 添加 Tailwind 类的便捷 API
+                - `.style()` 和 [`.default_style()`](/documentation/element#default_style): 添加 CSS 样式定义
+                - [`.tooltip()`](/documentation/tooltip): 为元素添加工具提示
+                - [`.mark()`](/documentation/element_filter#markers): 标记元素以便使用 [ElementFilter](/documentation/element_filter) 查询
+            - 交互：
+                - [`.on()`](/documentation/generic_events): 添加 Python 和 JavaScript 事件处理器
+                - `.update()`: 向客户端发送更新（大多数情况下自动完成）
+                - `.run_method()`: 在客户端运行方法
+                - `.get_computed_prop()`: 获取在客户端计算的属性值
+            - 层次结构：
+                - `with ...:` 以声明方式嵌套元素
+                - `__iter__`: 所有子元素的迭代器
+                - `ancestors`: 元素的父元素、祖父元素等的迭代器
+                - `descendants`: 所有子元素、孙元素等的迭代器
+                - `slots`: 命名插槽的字典
+                - `add_slot`: 用 NiceGUI 元素填充新插槽或用模板字符串填充作用域插槽
+                - [`clear`](/documentation/section_page_layout#clear_containers): 删除所有子元素
+                - [`move`](/documentation/element#move_elements): 将元素移动到新的父元素
+                - `remove`: 删除子元素
+                - `delete`: 删除元素及其所有子元素
+                - `is_deleted`: 元素是否已被删除
+        - 元素：
             - [`ui.aggrid`](/documentation/aggrid)
             - [`ui.audio`](/documentation/audio)
             - [`ui.avatar`](/documentation/avatar)
@@ -280,67 +280,67 @@ def map_of_nicegui():
             - [`ui.tree`](/documentation/tree)
             - [`ui.upload`](/documentation/upload)
             - [`ui.video`](/documentation/video)
-        - special layout [elements](/documentation/page_layout):
+        - 特殊布局 [元素](/documentation/page_layout)：
             - `ui.header`
             - `ui.footer`
             - `ui.drawer`, `ui.left_drawer`, `ui.right_drawer`
             - `ui.page_sticky`
-        - special functions and objects:
-            - [`ui.add_body_html`](/documentation/section_pages_routing#add_html_to_the_page) and
-                [`ui.add_head_html`](/documentation/section_pages_routing#add_html_to_the_page): add HTML to the body and head of the page
+        - 特殊函数和对象：
+            - [`ui.add_body_html`](/documentation/section_pages_routing#add_html_to_the_page) 和
+                [`ui.add_head_html`](/documentation/section_pages_routing#add_html_to_the_page): 向页面主体和头部添加 HTML
             - [`ui.add_css`](/documentation/add_style#add_css_style_definitions_to_the_page),
-                [`ui.add_sass`](/documentation/add_style#add_sass_style_definitions_to_the_page) and
-                [`ui.add_scss`](/documentation/add_style#add_scss_style_definitions_to_the_page): add CSS, SASS and SCSS to the page
-            - [`ui.clipboard`](/documentation/clipboard): interact with the browser's clipboard
-            - [`ui.colors`](/documentation/colors): define the main color theme for a page
-            - `ui.context`: get the current UI context including the `client` and `request` objects
-            - [`ui.dark_mode`](/documentation/dark_mode): get and set the dark mode on a page
-            - [`ui.download`](/documentation/download): download a file to the client
-            - [`ui.fullscreen`](/documentation/fullscreen): enter, exit and toggle fullscreen mode
-            - [`ui.keyboard`](/documentation/keyboard): define keyboard event handlers
-            - [`ui.navigate`](/documentation/navigate): let the browser navigate to another location
-            - [`ui.notify`](/documentation/notification): show a notification
-            - [`ui.on`](/documentation/generic_events#custom_events): register an event handler
-            - [`ui.page_title`](/documentation/page_title): change the current page title
-            - [`ui.query`](/documentation/query): query HTML elements on the client side to modify props, classes and style definitions
-            - [`ui.run`](/documentation/run) and `ui.run_with`: run the app (standalone or attached to a FastAPI app)
-            - [`ui.run_javascript`](/documentation/run#run_custom_javascript_on_the_client_side): run custom JavaScript on the client side (can use `getElement()`, `getHtmlElement()`, and `emitEvent()`)
-            - [`ui.teleport`](/documentation/teleport): teleport an element to a different location in the HTML DOM
-            - [`ui.timer`](/documentation/timer): run a function periodically or once after a delay
-            - `ui.update`: send updates of multiple elements to the client
-        - decorators:
-            - [`ui.page`](/documentation/page): define a page (in contrast to the automatically generated "auto-index page")
-            - [`ui.refreshable`](/documentation/refreshable), `ui.refreshable_method`: define refreshable UI containers
-                (can use [`ui.state`](/documentation/refreshable#refreshable_ui_with_reactive_state))
+                [`ui.add_sass`](/documentation/add_style#add_sass_style_definitions_to_the_page) 和
+                [`ui.add_scss`](/documentation/add_style#add_scss_style_definitions_to_the_page): 向页面添加 CSS、SASS 和 SCSS
+            - [`ui.clipboard`](/documentation/clipboard): 与浏览器剪贴板交互
+            - [`ui.colors`](/documentation/colors): 为页面定义主色主题
+            - `ui.context`: 获取当前 UI 上下文，包括 `client` 和 `request` 对象
+            - [`ui.dark_mode`](/documentation/dark_mode): 获取和设置页面上的深色模式
+            - [`ui.download`](/documentation/download): 向客户端下载文件
+            - [`ui.fullscreen`](/documentation/fullscreen): 进入、退出和切换全屏模式
+            - [`ui.keyboard`](/documentation/keyboard): 定义键盘事件处理器
+            - [`ui.navigate`](/documentation/navigate): 让浏览器导航到另一个位置
+            - [`ui.notify`](/documentation/notification): 显示通知
+            - [`ui.on`](/documentation/generic_events#custom_events): 注册事件处理器
+            - [`ui.page_title`](/documentation/page_title): 更改当前页面标题
+            - [`ui.query`](/documentation/query): 查询客户端上的 HTML 元素以修改属性、类和样式定义
+            - [`ui.run`](/documentation/run) 和 `ui.run_with`: 运行应用程序（独立或附加到 FastAPI 应用程序）
+            - [`ui.run_javascript`](/documentation/run#run_custom_javascript_on_the_client_side): 在客户端运行自定义 JavaScript（可以使用 `getElement()`、`getHtmlElement()` 和 `emitEvent()`）
+            - [`ui.teleport`](/documentation/teleport): 将元素传送到 HTML DOM 中的不同位置
+            - [`ui.timer`](/documentation/timer): 定期运行函数或在延迟后运行一次
+            - `ui.update`: 向客户端发送多个元素的更新
+        - 装饰器：
+            - [`ui.page`](/documentation/page): 定义页面（与自动生成的"自动索引页面"相对）
+            - [`ui.refreshable`](/documentation/refreshable), `ui.refreshable_method`: 定义可刷新的 UI 容器
+                （可以使用 [`ui.state`](/documentation/refreshable#refreshable_ui_with_reactive_state)）
 
         #### `app`
 
-        App-wide storage, mount points and lifecycle hooks.
+        应用程序范围的存储、挂载点和生命周期钩子。
 
         - [`app.storage`](/documentation/storage):
-            - `app.storage.tab`: stored in memory on the server, unique per tab
-            - `app.storage.client`: stored in memory on the server, unique per client connected to a page
-            - `app.storage.user`: stored in a file on the server, unique per browser
-            - `app.storage.general`: stored in a file on the server, shared across the entire app
-            - `app.storage.browser`: stored in the browser's local storage, unique per browser
-        - [lifecycle hooks](/documentation/section_action_events#events):
-            - `app.on_connect()`: called when a client connects
-            - `app.on_disconnect()`: called when a client disconnects
-            - `app.on_startup()`: called when the app starts
-            - `app.on_shutdown()`: called when the app shuts down
-            - `app.on_exception()`: called when an exception occurs
-            - `app.on_page_exception()`: called when an exception occurs while building a page
-        - [`app.shutdown()`](/documentation/section_action_events#shut_down_nicegui): shut down the app
-        - static files:
+            - `app.storage.tab`: 存储在服务器的内存中，每个标签页唯一
+            - `app.storage.client`: 存储在服务器的内存中，每个连接到页面的客户端唯一
+            - `app.storage.user`: 存储在服务器的文件中，每个浏览器唯一
+            - `app.storage.general`: 存储在服务器的文件中，在整个应用程序中共享
+            - `app.storage.browser`: 存储在浏览器的本地存储中，每个浏览器唯一
+        - [生命周期钩子](/documentation/section_action_events#events):
+            - `app.on_connect()`: 客户端连接时调用
+            - `app.on_disconnect()`: 客户端断开连接时调用
+            - `app.on_startup()`: 应用程序启动时调用
+            - `app.on_shutdown()`: 应用程序关闭时调用
+            - `app.on_exception()`: 发生异常时调用
+            - `app.on_page_exception()`: 构建页面时发生异常时调用
+        - [`app.shutdown()`](/documentation/section_action_events#shut_down_nicegui): 关闭应用程序
+        - 静态文件：
             - [`app.add_static_files()`](/documentation/section_pages_routing#add_a_directory_of_static_files),
-                `app.add_static_file()`: serve static files
+                `app.add_static_file()`: 提供静态文件
             - [`app.add_media_files()`](/documentation/section_pages_routing#add_directory_of_media_files),
-                `app.add_media_file()`: serve media files (supports streaming)
-        - [`app.native`](/documentation/section_configuration_deployment#native_mode): configure the app when running in native mode
+                `app.add_media_file()`: 提供媒体文件（支持流式传输）
+        - [`app.native`](/documentation/section_configuration_deployment#native_mode): 在原生模式下运行时配置应用程序
 
         #### `html`
 
-        [Pure HTML elements](/documentation/html#other_html_elements):
+        [纯 HTML 元素](/documentation/html#other_html_elements)：
 
         `a`,
         `abbr`,
@@ -446,40 +446,40 @@ def map_of_nicegui():
 
         #### `background_tasks`
 
-        Run async functions in the background.
+        在后台运行异步函数。
 
-        - `create()`: create a background task
-        - `create_lazy()`: prevent two tasks with the same name from running at the same time
-        - `await_on_shutdown`: mark a coroutine function to be awaited during shutdown (by default all background tasks are cancelled)
+        - `create()`: 创建后台任务
+        - `create_lazy()`: 防止两个同名任务同时运行
+        - `await_on_shutdown`: 标记一个协程函数在关闭时等待（默认情况下所有后台任务都被取消）
 
         #### `run`
 
-        Run IO and CPU bound functions in separate threads and processes.
+        在单独的线程和进程中运行 IO 和 CPU 密集型函数。
 
-        - [`run.cpu_bound()`](/documentation/section_action_events#running_cpu-bound_tasks): run a CPU-bound function in a separate process
-        - [`run.io_bound()`](/documentation/section_action_events#running_i_o-bound_tasks): run an IO-bound function in a separate thread
+        - [`run.cpu_bound()`](/documentation/section_action_events#running_cpu-bound_tasks): 在单独的进程中运行 CPU 密集型函数
+        - [`run.io_bound()`](/documentation/section_action_events#running_i_o-bound_tasks): 在单独的线程中运行 IO 密集型函数
 
         #### `binding`
 
-        [Bind properties of objects to each other](/documentation/section_binding_properties).
+        [将对象的属性相互绑定](/documentation/section_binding_properties)。
 
-        - [`binding.BindableProperty`](/documentation/section_binding_properties#bindable_properties_for_maximum_performance): bindable properties for maximum performance
-        - [`binding.bindable_dataclass()`](/documentation/section_binding_properties#bindable_dataclass): create a dataclass with bindable properties
-        - `binding.bind()`, `binding.bind_from()`, `binding.bind_to()`: methods to bind two properties
+        - [`binding.BindableProperty`](/documentation/section_binding_properties#bindable_properties_for_maximum_performance): 用于最大性能的可绑定属性
+        - [`binding.bindable_dataclass()`](/documentation/section_binding_properties#bindable_dataclass): 创建具有可绑定属性的数据类
+        - `binding.bind()`, `binding.bind_from()`, `binding.bind_to()`: 绑定两个属性的方法
 
         #### `observables`
 
-        Observable collections that notify observers when their contents change.
+        可观察集合，当其内容变化时通知观察者。
 
-        - `ObservableCollection`: base class
-        - `ObservableDict`: an observable dictionary
-        - `ObservableList`: an observable list
-        - `ObservableSet`: an observable set
+        - `ObservableCollection`: 基类
+        - `ObservableDict`: 可观察字典
+        - `ObservableList`: 可观察列表
+        - `ObservableSet`: 可观察集合
 
         #### `testing`
 
-        Write automated UI tests which run in a headless browser (slow) or fully simulated in Python (fast).
+        编写自动化 UI 测试，在无头浏览器（慢速）中运行或在 Python 中完全模拟（快速）。
 
-        - [`Screen`](/documentation/section_testing#screen_fixture) fixture: start a real (headless) browser to interact with your application
-        - [`User`](/documentation/section_testing#user_fixture) fixture: simulate user interaction on a Python level (fast)
+        - [`Screen`](/documentation/section_testing#screen_fixture) 夹具：启动真实的（无头）浏览器来与您的应用程序交互
+        - [`User`](/documentation/section_testing#user_fixture) 夹具：在 Python 级别模拟用户交互（快速）
     ''').classes('map-of-nicegui arrow-links bold-links')

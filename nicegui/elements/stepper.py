@@ -17,18 +17,18 @@ class Stepper(ValueElement, default_classes='nicegui-stepper'):
                  on_value_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  keep_alive: bool = True,
                  ) -> None:
-        """Stepper
+        """步骤器
 
-        This element represents `Quasar's QStepper <https://quasar.dev/vue-components/stepper#qstepper-api>`_ component.
-        It contains individual steps.
+        此元素代表`Quasar的QStepper <https://quasar.dev/vue-components/stepper#qstepper-api>`_组件。
+        它包含单个步骤。
 
-        To avoid issues with dynamic elements when switching steps,
-        this element uses Vue's `keep-alive <https://vuejs.org/guide/built-ins/keep-alive.html>`_ component.
-        If client-side performance is an issue, you can disable this feature.
+        为避免切换步骤时动态元素出现问题，
+        此元素使用Vue的`keep-alive <https://vuejs.org/guide/built-ins/keep-alive.html>`_组件。
+        如果客户端性能有问题，您可以禁用此功能。
 
-        :param value: `ui.step` or name of the step to be initially selected (default: `None` meaning the first step)
-        :param on_value_change: callback to be executed when the selected step changes
-        :param keep_alive: whether to use Vue's keep-alive component on the content (default: `True`)
+        :param value: 初始选择的`ui.step`或步骤名称（默认：`None`，表示第一个步骤）
+        :param on_value_change: 所选步骤变化时要执行的回调函数
+        :param keep_alive: 是否在内容上使用Vue的keep-alive组件（默认：`True`）
         """
         super().__init__(tag='q-stepper', value=value, on_value_change=on_value_change)
         self._props['keep-alive'] = keep_alive
@@ -44,25 +44,25 @@ class Stepper(ValueElement, default_classes='nicegui-stepper'):
             step.props(f':done={done}')
 
     def next(self) -> None:
-        """Show the next step."""
+        """显示下一个步骤。"""
         self.run_method('next')
 
     def previous(self) -> None:
-        """Show the previous step."""
+        """显示上一个步骤。"""
         self.run_method('previous')
 
 
 class Step(IconElement, DisableableElement, default_classes='nicegui-step'):
 
     def __init__(self, name: str, title: Optional[str] = None, icon: Optional[str] = None) -> None:
-        """Step
+        """步骤
 
-        This element represents `Quasar's QStep <https://quasar.dev/vue-components/stepper#qstep-api>`_ component.
-        It is a child of a `ui.stepper` element.
+        此元素代表`Quasar的QStep <https://quasar.dev/vue-components/stepper#qstep-api>`_组件。
+        它是`ui.stepper`元素的子元素。
 
-        :param name: name of the step (will be the value of the `ui.stepper` element)
-        :param title: title of the step (default: `None`, meaning the same as `name`)
-        :param icon: icon of the step (default: `None`)
+        :param name: 步骤的名称（将是`ui.stepper`元素的值）
+        :param title: 步骤的标题（默认：`None`，表示与`name`相同）
+        :param icon: 步骤的图标（默认：`None`）
         """
         super().__init__(tag='q-step', icon=icon)
         self._props['name'] = name
@@ -75,11 +75,11 @@ class Step(IconElement, DisableableElement, default_classes='nicegui-step'):
 class StepperNavigation(Element):
 
     def __init__(self, *, wrap: bool = True) -> None:
-        """Stepper Navigation
+        """步骤器导航
 
-        This element represents `Quasar's QStepperNavigation https://quasar.dev/vue-components/stepper#qsteppernavigation-api>`_ component.
+        此元素代表`Quasar的QStepperNavigation https://quasar.dev/vue-components/stepper#qsteppernavigation-api>`_组件。
 
-        :param wrap: whether to wrap the content (default: `True`)
+        :param wrap: 是否换行内容（默认：`True`）
         """
         super().__init__('q-stepper-navigation')
 

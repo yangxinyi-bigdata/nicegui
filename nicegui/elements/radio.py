@@ -12,16 +12,16 @@ class Radio(ChoiceElement, DisableableElement):
                  value: Any = None,
                  on_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  ) -> None:
-        """Radio Selection
+        """单选按钮选择
 
-        This element is based on Quasar's `QRadio <https://quasar.dev/vue-components/radio>`_ component.
+        此元素基于Quasar的`QRadio <https://quasar.dev/vue-components/radio>`_组件。
 
-        The options can be specified as a list of values, or as a dictionary mapping values to labels.
-        After manipulating the options, call `update()` to update the options in the UI.
+        选项可以指定为值列表，或者映射值到标签的字典。
+        操作选项后，调用`update()`来更新UI中的选项。
 
-        :param options: a list ['value1', ...] or dictionary `{'value1':'label1', ...}` specifying the options
-        :param value: the initial value
-        :param on_change: callback to execute when selection changes
+        :param options: 指定选项的列表 ['value1', ...] 或字典 `{'value1':'label1', ...}`
+        :param value: 初始值
+        :param on_change: 选择更改时执行的回调函数
         """
         super().__init__(tag='q-option-group', options=options, value=value, on_change=on_change)
 

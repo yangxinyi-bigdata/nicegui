@@ -40,21 +40,21 @@ class Skeleton(Element):
                  width: Optional[str] = None,
                  height: Optional[str] = None,
                  ) -> None:
-        """Skeleton
+        """骨架屏
 
-        This element is based on Quasar's `QSkeleton <https://quasar.dev/vue-components/skeleton>`_ component.
-        It serves as a placeholder for loading content in cards, menus and other component containers.
-        See the `Quasar documentation <https://quasar.dev/vue-components/skeleton/#predefined-types>`_ for a list of available types.
+        此元素基于Quasar的`QSkeleton <https://quasar.dev/vue-components/skeleton>`_组件。
+        它用作卡片、菜单和其他组件容器中加载内容的占位符。
+        可用类型列表请参见`Quasar文档 <https://quasar.dev/vue-components/skeleton/#predefined-types>`_。
 
-        :param type: type of skeleton to display (default: "rect")
-        :param tag: HTML tag to use for this element (default: "div")
-        :param animation: animation effect of the skeleton placeholder (default: "wave")
-        :param animation_speed: animation speed in seconds (default: 1.5)
-        :param square: whether to remover border-radius so borders are squared (default: ``False``)
-        :param bordered: whether to apply a default border to the component (default: ``False``)
-        :param size: size in CSS units (overrides ``width`` and ``height``)
-        :param width: width in CSS units (overridden by ``size`` if set)
-        :param height: height in CSS units (overridden by ``size`` if set)
+        :param type: 要显示的骨架屏类型（默认："rect"）
+        :param tag: 用于此元素的HTML标签（默认："div"）
+        :param animation: 骨架屏占位符的动画效果（默认："wave"）
+        :param animation_speed: 动画速度，以秒为单位（默认：1.5）
+        :param square: 是否移除边框半径使边框成为方形（默认：``False``）
+        :param bordered: 是否向组件应用默认边框（默认：``False``）
+        :param size: CSS单位的大小（覆盖``width``和``height``）
+        :param width: CSS单位的宽度（如果设置了``size``则被覆盖）
+        :param height: CSS单位的高度（如果设置了``size``则被覆盖）
         """
         super().__init__('q-skeleton')
         if type != 'rect':

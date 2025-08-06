@@ -8,11 +8,11 @@ from .javascript import run_javascript
 
 
 class Navigate:
-    """Navigation functions
+    """导航函数
 
-    These functions allow you to navigate within the browser history and to external URLs.
+    这些函数允许您在浏览器历史记录中导航和访问外部 URL。
 
-    *Added in version 2.0.0*
+    *在版本 2.0.0 中添加*
     """
 
     def __init__(self) -> None:
@@ -21,43 +21,43 @@ class Navigate:
     def back(self) -> None:
         """ui.navigate.back
 
-        Navigates back in the browser history.
-        It is equivalent to clicking the back button in the browser.
+        在浏览器历史记录中向后导航。
+        这相当于在浏览器中点击后退按钮。
         """
         run_javascript('history.back()')
 
     def forward(self) -> None:
         """ui.navigate.forward
 
-        Navigates forward in the browser history.
-        It is equivalent to clicking the forward button in the browser.
+        在浏览器历史记录中向前导航。
+        这相当于在浏览器中点击前进按钮。
         """
         run_javascript('history.forward()')
 
     def reload(self) -> None:
         """ui.navigate.reload
 
-        Reload the current page.
-        It is equivalent to clicking the reload button in the browser.
+        重新加载当前页面。
+        这相当于在浏览器中点击重新加载按钮。
         """
         run_javascript('history.go(0)')
 
     def to(self, target: Union[Callable[..., Any], str, Element], new_tab: bool = False) -> None:
-        """ui.navigate.to (formerly ui.open)
+        """ui.navigate.to（以前是 ui.open）
 
-        Can be used to programmatically open a different page or URL.
+        可用于以编程方式打开不同的页面或 URL。
 
-        When using the `new_tab` parameter, the browser might block the new tab.
-        This is a browser setting and cannot be changed by the application.
-        You might want to use `ui.link` and its `new_tab` parameter instead.
+        使用 `new_tab` 参数时，浏览器可能会阻止新标签页。
+        这是浏览器设置，应用程序无法更改。
+        您可能想要使用 `ui.link` 及其 `new_tab` 参数代替。
 
-        This functionality was previously available as `ui.open` which is now deprecated.
+        此功能以前可用作 `ui.open`，现已弃用。
 
-        Note: When using an `auto-index page </documentation/section_pages_routing#auto-index_page>`_ (e.g. no `@page` decorator),
-        all clients (i.e. browsers) connected to the page will open the target URL unless a socket is specified.
+        注意：使用`自动索引页面 </documentation/section_pages_routing#auto-index_page>`_ 时（例如没有 `@page` 装饰器），
+        连接到页面的所有客户端（即浏览器）将打开目标 URL，除非指定了套接字。
 
-        :param target: page function, NiceGUI element on the same page or string that is a an absolute URL or relative path from base URL
-        :param new_tab: whether to open the target in a new tab (might be blocked by the browser)
+        :param target: 页面函数、同一页面上的 NiceGUI 元素或字符串，是绝对 URL 或来自基本 URL 的相对路径
+        :param new_tab: 是否在新标签页中打开目标（可能会被浏览器阻止）
         """
         if isinstance(target, str):
             path = target
@@ -78,24 +78,24 @@ class Navigate:
 class History:
 
     def push(self, url: str) -> None:
-        """Push a URL to the browser navigation history.
+        """将 URL 推送到浏览器导航历史记录。
 
-        See JavaScript's `pushState <https://developer.mozilla.org/en-US/docs/Web/API/History/pushState>`_ for more information.
+        请参阅 JavaScript 的 `pushState <https://developer.mozilla.org/en-US/docs/Web/API/History/pushState>`_ 了解更多信息。
 
-        *Added in version 2.13.0*
+        *在版本 2.13.0 中添加*
 
-        :param url: relative or absolute URL
+        :param url: 相对或绝对 URL
         """
         run_javascript(f'history.pushState({{}}, "", "{url}");')
 
     def replace(self, url: str) -> None:
-        """Replace the current URL in the browser history.
+        """替换浏览器历史记录中的当前 URL。
 
-        See JavaScript's `replaceState <https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState>`_ for more information.
+        请参阅 JavaScript 的 `replaceState <https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState>`_ 了解更多信息。
 
-        *Added in version 2.13.0*
+        *在版本 2.13.0 中添加*
 
-        :param url: relative or absolute URL
+        :param url: 相对或绝对 URL
         """
         run_javascript(f'history.replaceState({{}}, "", "{url}");')
 

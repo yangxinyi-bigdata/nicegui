@@ -3,13 +3,13 @@ from nicegui import ui
 from ..windows import bash_window, python_window
 from . import doc, run_documentation
 
-doc.title('Configuration & Deployment')
+doc.title('配置与部署')
 
 
-@doc.demo('URLs', '''
-    You can access the list of all URLs on which the NiceGUI app is available via `app.urls`.
-    The URLs are not available in `app.on_startup` because the server is not yet running.
-    Instead, you can access them in a page function or register a callback with `app.urls.on_change`.
+@doc.demo('URL', '''
+    您可以通过 `app.urls` 访问 NiceGUI 应用可用的所有 URL 列表。
+    URL 在 `app.on_startup` 中不可用，因为服务器尚未运行。
+    相反，您可以在页面函数中访问它们，或使用 `app.urls.on_change` 注册回调。
 ''')
 def urls_demo():
     from nicegui import app
@@ -25,18 +25,17 @@ def urls_demo():
 doc.intro(run_documentation)
 
 
-@doc.demo('Native Mode', '''
-    You can enable native mode for NiceGUI by specifying `native=True` in the `ui.run` function.
-    To customize the initial window size and display mode, use the `window_size` and `fullscreen` parameters respectively.
-    Additionally, you can provide extra keyword arguments via `app.native.window_args` and `app.native.start_args`.
-    Pick any parameter as it is defined by the internally used [pywebview module](https://pywebview.flowrl.com/api)
-    for the `webview.create_window` and `webview.start` functions.
-    Note that these keyword arguments will take precedence over the parameters defined in `ui.run`.
+@doc.demo('原生模式', '''
+    您可以通过在 `ui.run` 函数中指定 `native=True` 来为 NiceGUI 启用原生模式。
+    要自定义初始窗口大小和显示模式，请分别使用 `window_size` 和 `fullscreen` 参数。
+    此外，您可以通过 `app.native.window_args` 和 `app.native.start_args` 提供额外的关键字参数。
+    选择内部使用的 [pywebview 模块](https://pywebview.flowrl.com/api) 为 `webview.create_window` 和 `webview.start` 函数定义的任何参数。
+    请注意，这些关键字参数将优先于 `ui.run` 中定义的参数。
 
-    Additionally, you can change `webview.settings` via `app.native.settings`.
+    此外，您可以通过 `app.native.settings` 更改 `webview.settings`。
 
-    In native mode the `app.native.main_window` object allows you to access the underlying window.
-    It is an async version of [`Window` from pywebview](https://pywebview.flowrl.com/api/#webview-window).
+    在原生模式下，`app.native.main_window` 对象允许您访问底层窗口。
+    它是 [pywebview 的 Window](https://pywebview.flowrl.com/api/#webview-window) 的异步版本。
 ''', tab=lambda: ui.label('NiceGUI'))
 def native_mode_demo():
     from nicegui import app
@@ -56,11 +55,10 @@ def native_mode_demo():
 # Currently, options passed via app.native are not used if they are set behind a main guard
 # See discussion at: https://github.com/zauberzeug/nicegui/pull/4627
 doc.text('', '''
-    Note that the native app is run in a separate
-    [process](https://docs.python.org/3/library/multiprocessing.html#multiprocessing.Process).
-    Therefore any configuration changes from code run under a
-    [main guard](https://docs.python.org/3/library/__main__.html#idiomatic-usage) is ignored by the native app.
-    The following examples show the difference between a working and a non-working configuration.
+    请注意，原生应用在单独的
+    [进程](https://docs.python.org/3/library/multiprocessing.html#multiprocessing.Process)中运行。
+    因此，在[主保护](https://docs.python.org/3/library/__main__.html#idiomatic-usage)下运行的代码中的任何配置更改都会被原生应用忽略。
+    以下示例显示了工作配置和非工作配置之间的区别。
 ''')
 
 
@@ -94,24 +92,24 @@ def native_main_guard():
 # Show a helpful workaround until issue is fixed upstream.
 # For more info see: https://github.com/r0x0r/pywebview/issues/1078
 doc.text('', '''
-    If webview has trouble finding required libraries, you may get an error relating to "WebView2Loader.dll".
-    To work around this issue, try moving the DLL file up a directory, e.g.:
+    如果 webview 在查找所需库时遇到问题，您可能会收到与 "WebView2Loader.dll" 相关的错误。
+    要解决此问题，请尝试将 DLL 文件向上移动一个目录，例如：
 
-    * from `.venv/Lib/site-packages/webview/lib/x64/WebView2Loader.dll`
-    * to `.venv/Lib/site-packages/webview/lib/WebView2Loader.dll`
+    * 从 `.venv/Lib/site-packages/webview/lib/x64/WebView2Loader.dll`
+    * 到 `.venv/Lib/site-packages/webview/lib/WebView2Loader.dll`
 ''')
 
 
-@doc.demo('Environment Variables', '''
-    You can set the following environment variables to configure NiceGUI:
+@doc.demo('环境变量', '''
+    您可以设置以下环境变量来配置 NiceGUI：
 
-    - `MATPLOTLIB` (default: true) can be set to `false` to avoid the potentially costly import of Matplotlib.
-        This will make `ui.pyplot` and `ui.line_plot` unavailable.
-    - `NICEGUI_STORAGE_PATH` (default: local ".nicegui") can be set to change the location of the storage files.
-    - `MARKDOWN_CONTENT_CACHE_SIZE` (default: 1000): The maximum number of Markdown content snippets that are cached in memory.
-    - `RST_CONTENT_CACHE_SIZE` (default: 1000): The maximum number of ReStructuredText content snippets that are cached in memory.
-    - `NICEGUI_REDIS_URL` (default: None, means local file storage): The URL of the Redis server to use for shared persistent storage.
-    - `NICEGUI_REDIS_KEY_PREFIX` (default: "nicegui:"): The prefix for Redis keys.
+    - `MATPLOTLIB`（默认：true）可以设置为 `false` 以避免可能昂贵的 Matplotlib 导入。
+        这将使 `ui.pyplot` 和 `ui.line_plot` 不可用。
+    - `NICEGUI_STORAGE_PATH`（默认：本地 ".nicegui"）可以设置为更改存储文件的位置。
+    - `MARKDOWN_CONTENT_CACHE_SIZE`（默认：1000）：在内存中缓存的 Markdown 内容片段的最大数量。
+    - `RST_CONTENT_CACHE_SIZE`（默认：1000）：在内存中缓存的 ReStructuredText 内容片段的最大数量。
+    - `NICEGUI_REDIS_URL`（默认：None，表示本地文件存储）：用于共享持久存储的 Redis 服务器的 URL。
+    - `NICEGUI_REDIS_KEY_PREFIX`（默认："nicegui:"）：Redis 键的前缀。
 ''')
 def env_var_demo():
     from nicegui.elements import markdown
@@ -119,11 +117,11 @@ def env_var_demo():
     ui.label(f'Markdown content cache size is {markdown.prepare_content.cache_info().maxsize}')
 
 
-@doc.demo('Background Tasks', '''
-    `background_tasks.create()` allows you to run an async function in the background and return a task object.
-    By default the task will be automatically cancelled during shutdown.
-    You can prevent this by using the `@background_tasks.await_on_shutdown` decorator (added in version 2.16.0).
-    This is useful for tasks that need to be completed even when the app is shutting down.
+@doc.demo('后台任务', '''
+    `background_tasks.create()` 允许您在后台运行异步函数并返回任务对象。
+    默认情况下，任务将在关闭期间自动取消。
+    您可以使用 `@background_tasks.await_on_shutdown` 装饰器（在版本 2.16.0 中添加）来防止这种情况。
+    这对于即使应用关闭时也需要完成的任务很有用。
 ''')
 def background_tasks_demo():
     # import aiofiles
@@ -148,26 +146,26 @@ def background_tasks_demo():
     ui.button('Backup', on_click=lambda: background_tasks.create(backup()))
 
 
-doc.text('Custom Vue Components', '''
-    You can create custom components by subclassing `ui.element` and implementing a corresponding Vue component.
-    The ["Custom Vue components" example](https://github.com/zauberzeug/nicegui/tree/main/examples/custom_vue_component)
-    demonstrates how to create a custom counter component which emits events and receives updates from the server.
+doc.text('自定义 Vue 组件', '''
+    您可以通过子类化 `ui.element` 并实现相应的 Vue 组件来创建自定义组件。
+    ["自定义 Vue 组件"示例](https://github.com/zauberzeug/nicegui/tree/main/examples/custom_vue_component)
+    演示了如何创建发出事件并从服务器接收更新的自定义计数器组件。
 
-    The ["Signature pad" example](https://github.com/zauberzeug/nicegui/blob/main/examples/signature_pad)
-    shows how to define dependencies for a custom component using a `package.json` file.
-    This allows you to use third-party libraries via NPM in your component.
+    ["签名板"示例](https://github.com/zauberzeug/nicegui/blob/main/examples/signature_pad)
+    展示了如何使用 `package.json` 文件为自定义组件定义依赖项。
+    这允许您在组件中通过 NPM 使用第三方库。
 
-    Last but not least, the ["Node module integration" example](https://github.com/zauberzeug/nicegui/blob/main/examples/node_module_integration)
-    demonstrates how to create a package.json file and a webpack.config.js file to bundle a custom Vue component with its dependencies.
+    最后但同样重要的是，["Node 模块集成"示例](https://github.com/zauberzeug/nicegui/blob/main/examples/node_module_integration)
+    演示了如何创建 package.json 文件和 webpack.config.js 文件来将自定义 Vue 组件与其依赖项捆绑在一起。
 ''')
 
-doc.text('Server Hosting', '''
-    To deploy your NiceGUI app on a server, you will need to execute your `main.py` (or whichever file contains your `ui.run(...)`) on your cloud infrastructure.
-    You can, for example, just install the [NiceGUI python package via pip](https://pypi.org/project/nicegui/) and use systemd or similar service to start the main script.
-    In most cases, you will set the port to 80 (or 443 if you want to use HTTPS) with the `ui.run` command to make it easily accessible from the outside.
+doc.text('服务器托管', '''
+    要在服务器上部署您的 NiceGUI 应用，您需要在云基础设施上执行您的 `main.py`（或任何包含 `ui.run(...)` 的文件）。
+    例如，您可以通过 [pip 安装 NiceGUI python 包](https://pypi.org/project/nicegui/) 并使用 systemd 或类似服务来启动主脚本。
+    在大多数情况下，您将使用 `ui.run` 命令将端口设置为 80（如果要使用 HTTPS 则设置为 443），以便从外部轻松访问。
 
-    A convenient alternative is the use of our [pre-built multi-arch Docker image](https://hub.docker.com/r/zauberzeug/nicegui) which contains all necessary dependencies.
-    With this command you can launch the script `main.py` in the current directory on the public port 80:
+    一个方便的替代方案是使用我们的[预构建多架构 Docker 镜像](https://hub.docker.com/r/zauberzeug/nicegui)，其中包含所有必要的依赖项。
+    使用此命令，您可以在公共端口 80 上启动当前目录中的 `main.py` 脚本：
 ''')
 
 
@@ -187,9 +185,9 @@ def docker_run():
 
 
 doc.text('', '''
-    The demo assumes `main.py` uses the port 8080 in the `ui.run` command (which is the default).
-    The `-d` tells docker to run in background and `--restart always` makes sure the container is restarted if the app crashes or the server reboots.
-    Of course this can also be written in a Docker compose file:
+    演示假设 `main.py` 在 `ui.run` 命令中使用端口 8080（这是默认值）。
+    `-d` 告诉 docker 在后台运行，`--restart always` 确保容器在应用崩溃或服务器重启时重新启动。
+    当然，这也可以写在 Docker compose 文件中：
 ''')
 
 
@@ -213,13 +211,12 @@ def docker_compose():
 
 
 doc.text('', '''
-    There are other handy features in the Docker image like non-root user execution and signal pass-through.
-    For more details we recommend to have a look at our [Docker example](https://github.com/zauberzeug/nicegui/tree/main/examples/docker_image).
+    Docker 镜像中还有其他方便的功能，如非 root 用户执行和信号传递。
+    更多细节，我们建议查看我们的 [Docker 示例](https://github.com/zauberzeug/nicegui/tree/main/examples/docker_image)。
 
-    To serve your application with [HTTPS](https://fastapi.tiangolo.com/deployment/https/) encryption, you can provide SSL certificates in multiple ways.
-    For instance, you can directly provide your certificates to [Uvicorn](https://www.uvicorn.org/), which NiceGUI is based on, by passing the
-    relevant [options](https://www.uvicorn.org/#command-line-options) to `ui.run()`.
-    If both a certificate and key file are provided, the application will automatically be served over HTTPS:
+    要使用 [HTTPS](https://fastapi.tiangolo.com/deployment/https/) 加密为您的应用程序提供服务，您可以通过多种方式提供 SSL 证书。
+    例如，您可以直接将证书提供给 [Uvicorn](https://www.uvicorn.org/)（NiceGUI 基于它），方法是将相关的[选项](https://www.uvicorn.org/#command-line-options)传递给 `ui.run()`。
+    如果同时提供了证书和密钥文件，应用程序将自动通过 HTTPS 提供服务：
 ''')
 
 
@@ -240,22 +237,22 @@ def uvicorn_ssl():
 
 
 doc.text('', '''
-    In production we also like using reverse proxies like [Traefik](https://doc.traefik.io/traefik/) or [NGINX](https://www.nginx.com/) to handle these details for us.
-    See our development [docker-compose.yml](https://github.com/zauberzeug/nicegui/blob/main/docker-compose.yml) as an example based on traefik or
-    [this example nginx.conf file](https://github.com/zauberzeug/nicegui/blob/main/examples/nginx_https/nginx.conf) showing how NGINX can be used to handle the SSL certificates and
-    reverse proxy to your NiceGUI app.
+    在生产环境中，我们还喜欢使用像 [Traefik](https://doc.traefik.io/traefik/) 或 [NGINX](https://www.nginx.com/) 这样的反向代理来为我们处理这些细节。
+    查看我们的开发 [docker-compose.yml](https://github.com/zauberzeug/nicegui/blob/main/docker-compose.yml) 作为基于 traefik 的示例，或
+    [这个示例 nginx.conf 文件](https://github.com/zauberzeug/nicegui/blob/main/examples/nginx_https/nginx.conf) 展示了如何使用 NGINX 处理 SSL 证书并
+    反向代理到您的 NiceGUI 应用。
 
-    You may also have a look at [our demo for using a custom FastAPI app](https://github.com/zauberzeug/nicegui/tree/main/examples/fastapi).
-    This will allow you to do very flexible deployments as described in the [FastAPI documentation](https://fastapi.tiangolo.com/deployment/).
-    Note that there are additional steps required to allow multiple workers.
+    您也可以查看[我们使用自定义 FastAPI 应用的演示](https://github.com/zauberzeug/nicegui/tree/main/examples/fastapi)。
+    这将允许您进行非常灵活的部署，如 [FastAPI 文档](https://fastapi.tiangolo.com/deployment/) 中所述。
+    请注意，需要额外的步骤来允许多个工作进程。
 ''')
 
-doc.text('Package for Installation', '''
-    NiceGUI apps can also be bundled into an executable with `nicegui-pack` which is based on [PyInstaller](https://www.pyinstaller.org/).
-    This allows you to distribute your app as a single file that can be executed on any computer.
+doc.text('打包安装', '''
+    NiceGUI 应用也可以使用基于 [PyInstaller](https://www.pyinstaller.org/) 的 `nicegui-pack` 捆绑成可执行文件。
+    这允许您将应用作为可以在任何计算机上执行的单个文件分发。
 
-    Just make sure to call `ui.run` with `reload=False` in your main script to disable the auto-reload feature.
-    Running the `nicegui-pack` command below will create an executable `myapp` in the `dist` folder:
+    只需确保在主脚本中使用 `reload=False` 调用 `ui.run` 以禁用自动重新加载功能。
+    运行下面的 `nicegui-pack` 命令将在 `dist` 文件夹中创建一个可执行文件 `myapp`：
 ''')
 
 
@@ -281,44 +278,41 @@ def pyinstaller():
 
 
 doc.text('', '''
-    **Packaging Tips:**
+    **打包提示：**
 
-    - When building a PyInstaller app, your main script can use a native window (rather than a browser window) by
-    using `ui.run(reload=False, native=True)`.
-    The `native` parameter can be `True` or `False` depending on whether you want a native window or to launch a
-    page in the user's browser - either will work in the PyInstaller generated app.
+    - 构建 PyInstaller 应用时，您的主脚本可以通过使用 `ui.run(reload=False, native=True)` 使用原生窗口（而不是浏览器窗口）。
+    `native` 参数可以是 `True` 或 `False`，取决于您想要原生窗口还是在用户的浏览器中启动页面 - 两者都可以在 PyInstaller 生成的应用中工作。
 
-    - Specifying `--windowed` to `nicegui-pack` will prevent a terminal console from appearing.
-    However you should only use this option if you have also specified `native=True` in your `ui.run` command.
-    Without a terminal console the user won't be able to exit the app by pressing Ctrl-C.
-    With the `native=True` option, the app will automatically close when the window is closed, as expected.
+    - 为 `nicegui-pack` 指定 `--windowed` 将阻止终端控制台出现。
+    但是，只有当您在 `ui.run` 命令中也指定了 `native=True` 时才应使用此选项。
+    没有终端控制台，用户将无法通过按 Ctrl-C 退出应用。
+    使用 `native=True` 选项，应用将在窗口关闭时自动关闭，正如预期的那样。
 
-    - Specifying `--windowed` to `nicegui-pack` will create an `.app` file on Mac which may be more convenient to distribute.
-    When you double-click the app to run it, it will not show any console output.
-    You can also run the app from the command line with `./myapp.app/Contents/MacOS/myapp` to see the console output.
+    - 为 `nicegui-pack` 指定 `--windowed` 将在 Mac 上创建一个 `.app` 文件，这可能更方便分发。
+    当您双击应用运行它时，它不会显示任何控制台输出。
+    您也可以使用 `./myapp.app/Contents/MacOS/myapp` 从命令行运行应用以查看控制台输出。
 
-    - Specifying `--onefile` to `nicegui-pack` will create a single executable file.
-    Whilst convenient for distribution, it will be slower to start up.
-    This is not NiceGUI's fault but just the way Pyinstaller zips things into a single file, then unzips everything
-    into a temporary directory before running.
-    You can mitigate this by removing `--onefile` from the `nicegui-pack` command,
-    and zip up the generated `dist` directory yourself, distribute it,
-    and your end users can unzip once and be good to go,
-    without the constant expansion of files due to the `--onefile` flag.
+    - 为 `nicegui-pack` 指定 `--onefile` 将创建一个单一的可执行文件。
+    虽然便于分发，但启动速度会较慢。
+    这不是 NiceGUI 的错，而是 Pyinstaller 将内容压缩成单个文件，然后在运行前将所有内容解压缩到临时目录的方式。
+    您可以通过从 `nicegui-pack` 命令中删除 `--onefile` 来缓解这个问题，
+    并自己压缩生成的 `dist` 目录，分发它，
+    您的最终用户只需解压缩一次即可开始使用，
+    而不会由于 `--onefile` 标志而不断扩展文件。
 
-    - Summary of user experience for different options:
+    - 不同选项的用户体验总结：
 
-        | `nicegui-pack`           | `ui.run(...)`  | Explanation |
+        | `nicegui-pack`           | `ui.run(...)`  | 说明 |
         | :---                     | :---           | :---        |
-        | `onefile`                | `native=False` | Single executable generated in `dist/`, runs in browser |
-        | `onefile`                | `native=True`  | Single executable generated in `dist/`, runs in popup window |
-        | `onefile` and `windowed` | `native=True`  | Single executable generated in `dist/` (on Mac a proper `dist/myapp.app` generated incl. icon), runs in popup window, no console appears |
-        | `onefile` and `windowed` | `native=False` | Avoid (no way to exit the app) |
-        | Specify neither          |                | A `dist/myapp` directory created which can be zipped manually and distributed; run with `dist/myapp/myapp` |
+        | `onefile`                | `native=False` | 在 `dist/` 中生成单一可执行文件，在浏览器中运行 |
+        | `onefile`                | `native=True`  | 在 `dist/` 中生成单一可执行文件，在弹出窗口中运行 |
+        | `onefile` 和 `windowed` | `native=True`  | 在 `dist/` 中生成单一可执行文件（在 Mac 上生成适当的 `dist/myapp.app` 包含图标），在弹出窗口中运行，不出现控制台 |
+        | `onefile` 和 `windowed` | `native=False` | 避免（无法退出应用） |
+        | 都不指定                |                | 创建一个 `dist/myapp` 目录，可以手动压缩并分发；使用 `dist/myapp/myapp` 运行 |
 
-    - If you are using a Python virtual environment, ensure you `pip install pyinstaller` within your virtual environment
-    so that the correct PyInstaller is used, or you may get broken apps due to the wrong version of PyInstaller being picked up.
-    That is why the `nicegui-pack` invokes PyInstaller using `python -m PyInstaller` rather than just `pyinstaller`.
+    - 如果您使用 Python 虚拟环境，请确保在虚拟环境中 `pip install pyinstaller`，
+    以便使用正确的 PyInstaller，否则由于使用了错误版本的 PyInstaller，您可能会得到损坏的应用。
+    这就是为什么 `nicegui-pack` 使用 `python -m PyInstaller` 而不仅仅是 `pyinstaller` 来调用 PyInstaller。
 ''')
 
 
@@ -336,19 +330,19 @@ def install_pyinstaller():
 
 
 doc.text('', '''
-    Note:
-    If you're getting an error "TypeError: a bytes-like object is required, not 'str'", try adding the following lines to the top of your `main.py` file:
+    注意：
+    如果您收到错误 "TypeError: a bytes-like object is required, not 'str'"，请尝试在 `main.py` 文件顶部添加以下行：
     ```py
     import sys
     sys.stdout = open('logs.txt', 'w')
     ```
-    See <https://github.com/zauberzeug/nicegui/issues/681> for more information.
+    更多信息请参见 <https://github.com/zauberzeug/nicegui/issues/681>。
 ''')
 
 doc.text('', '''
-    **macOS Packaging**
+    **macOS 打包**
 
-    Add the following snippet before anything else in your main app's file, to prevent new processes from being spawned in an endless loop:
+    在主应用文件中的任何其他内容之前添加以下代码片段，以防止新进程在无限循环中生成：
 
     ```python
     # macOS packaging support
@@ -358,30 +352,30 @@ doc.text('', '''
     # all your other imports and code
     ```
 
-    The `# noqa` comment instructs Pylance or autopep8 to not apply any PEP rule on those two lines, guaranteeing they remain on top of anything else.
-    This is key to prevent process spawning.
+    `# noqa` 注释指示 Pylance 或 autopep8 不要在这两行上应用任何 PEP 规则，确保它们保持在所有其他内容之上。
+    这是防止进程生成的关键。
 ''')
 
 doc.text('NiceGUI On Air', '''
-    By using `ui.run(on_air=True)` you can share your local app with others over the internet 🧞.
+    通过使用 `ui.run(on_air=True)`，您可以通过互联网与他人共享您的本地应用 🧞。
 
-    When accessing the on-air URL, all libraries (like Vue, Quasar, ...) are loaded from our CDN.
-    Thereby only the raw content and events need to be transmitted by your local app.
-    This makes it blazing fast even if your app only has a poor internet connection (e.g. a mobile robot in the field).
+    访问 on-air URL 时，所有库（如 Vue、Quasar 等）都从我们的 CDN 加载。
+    因此，只有原始内容和事件需要由您的本地应用传输。
+    这使其即使您的应用只有很差的互联网连接（例如现场的移动机器人）也能极快地运行。
 
-    By setting `on_air=True` you will get a random URL which is valid for 1 hour.
-    If you sign-up at <https://on-air.nicegui.io>, you can setup an organization and device name to get a fixed URL:
-    `https://on-air.nicegui.io/<my-org>/<my_device_name>`.
-    The device is then identified by a unique, private token which you can use instead of a boolean flag: `ui.run(on_air='<your token>')`.
-    If you [sponsor us](https://github.com/sponsors/zauberzeug),
-    we will enable multi-device management and provide built-in passphrase protection for each device.
+    通过设置 `on_air=True`，您将获得一个有效期为 1 小时的随机 URL。
+    如果您在 <https://on-air.nicegui.io> 注册，您可以设置组织和设备名称以获得固定的 URL：
+    `https://on-air.nicegui.io/<my-org>/<my_device_name>`。
+    然后设备通过唯一的私有令牌识别，您可以使用它代替布尔标志：`ui.run(on_air='<your token>')`。
+    如果您[赞助我们](https://github.com/sponsors/zauberzeug)，
+    我们将启用多设备管理并为每个设备提供内置的密码保护。
 
-    Currently On Air is available as a tech preview and can be used free of charge.
-    We will gradually improve stability and extend the service with usage statistics, remote terminal access and more.
-    Please let us know your feedback on [GitHub](https://github.com/zauberzeug/nicegui/discussions),
-    [Reddit](https://www.reddit.com/r/nicegui/), or [Discord](https://discord.gg/TEpFeAaF4f).
+    目前 On Air 作为技术预览版提供，可以免费使用。
+    我们将逐步提高稳定性，并通过使用统计、远程终端访问等扩展服务。
+    请在 [GitHub](https://github.com/zauberzeug/nicegui/discussions)、
+    [Reddit](https://www.reddit.com/r/nicegui/) 或 [Discord](https://discord.gg/TEpFeAaF4f) 上告诉我们您的反馈。
 
-    **Data Privacy:**
-    We take your privacy very serious.
-    NiceGUI On Air does not log or store any content of the relayed data.
+    **数据隐私：**
+    我们非常重视您的隐私。
+    NiceGUI On Air 不记录或存储任何中继数据的内容。
 ''')

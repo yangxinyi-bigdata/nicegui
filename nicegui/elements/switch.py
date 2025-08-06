@@ -9,12 +9,12 @@ from .mixins.value_element import ValueElement
 class Switch(TextElement, ValueElement, DisableableElement):
 
     def __init__(self, text: str = '', *, value: bool = False, on_change: Optional[Handler[ValueChangeEventArguments]] = None) -> None:
-        """Switch
+        """开关
 
-        This element is based on Quasar's `QToggle <https://quasar.dev/vue-components/toggle>`_ component.
+        此元素基于Quasar的`QToggle <https://quasar.dev/vue-components/toggle>`_组件。
 
-        :param text: the label to display next to the switch
-        :param value: whether it should be active initially (default: `False`)
-        :param on_change: callback which is invoked when state is changed by the user
+        :param text: 显示在开关旁边的标签
+        :param value: 是否应该初始激活（默认：`False`）
+        :param on_change: 当用户更改状态时调用的回调函数
         """
         super().__init__(tag='q-toggle', text=text, value=value, on_value_change=on_change)

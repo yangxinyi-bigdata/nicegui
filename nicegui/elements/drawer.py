@@ -17,26 +17,26 @@ class Drawer(ValueElement, default_classes='nicegui-drawer'):
                  elevated: bool = False,
                  top_corner: bool = False,
                  bottom_corner: bool = False) -> None:
-        """Drawer
+        """抽屉
 
-        This element is based on Quasar's `QDrawer <https://quasar.dev/layout/drawer>`_ component.
+        此元素基于Quasar的`QDrawer <https://quasar.dev/layout/drawer>`_组件。
 
-        Like other layout elements, a drawer can not be nested inside other elements.
+        与其他布局元素一样，抽屉不能嵌套在其他元素内部。
 
-        Note: Depending on the side, the drawer is automatically placed above or below the main page container in the DOM to improve accessibility.
-        To change the order, use the `move` method.
+        注意：根据位置，抽屉会自动放置在主页面容器之上或之下的DOM中以提高可访问性。
+        要更改顺序，请使用`move`方法。
 
-        A value of ``None`` will automatically open or close the drawer depending on the current layout width (breakpoint: >=1024 px).
-        On the auto-index page, the value will remain ``None`` until the drawer is opened, closed or toggled.
-        On other pages, the value will be requested from the client when the websocket connection is established.
+        值为``None``时会根据当前布局宽度自动打开或关闭抽屉（断点：>=1024 px）。
+        在自动索引页面上，值将保持为``None``，直到抽屉被打开、关闭或切换。
+        在其他页面上，当websocket连接建立时，将从客户端请求该值。
 
-        :param side: side of the page where the drawer should be placed (`left` or `right`)
-        :param value: whether the drawer is already opened (default: `None`, i.e. if layout width is above threshold)
-        :param fixed: whether the drawer is fixed or scrolls with the content (default: `True`)
-        :param bordered: whether the drawer should have a border (default: `False`)
-        :param elevated: whether the drawer should have a shadow (default: `False`)
-        :param top_corner: whether the drawer expands into the top corner (default: `False`)
-        :param bottom_corner: whether the drawer expands into the bottom corner (default: `False`)
+        :param side: 抽屉应放置在页面的哪一侧（`left`或`right`）
+        :param value: 抽屉是否已打开（默认：`None`，即如果布局宽度超过阈值）
+        :param fixed: 抽屉是否固定或随内容滚动（默认：`True`）
+        :param bordered: 抽屉是否应有边框（默认：`False`）
+        :param elevated: 抽屉是否应有阴影（默认：`False`）
+        :param top_corner: 抽屉是否扩展到顶角（默认：`False`）
+        :param bottom_corner: 抽屉是否扩展到底角（默认：`False`）
         """
         require_top_level_layout(self)
         with context.client.layout:
@@ -62,18 +62,18 @@ class Drawer(ValueElement, default_classes='nicegui-drawer'):
             self.client.on_connect(_request_value)
 
     def toggle(self) -> None:
-        """Toggle the drawer"""
+        """切换抽屉"""
         if self.value is None:
             self.run_method('toggle')
         else:
             self.value = not self.value
 
     def show(self) -> None:
-        """Show the drawer"""
+        """显示抽屉"""
         self.value = True
 
     def hide(self) -> None:
-        """Hide the drawer"""
+        """隐藏抽屉"""
         self.value = False
 
     def _handle_value_change(self, value: bool) -> None:
@@ -90,25 +90,25 @@ class LeftDrawer(Drawer):
                  elevated: bool = False,
                  top_corner: bool = False,
                  bottom_corner: bool = False) -> None:
-        """Left drawer
+        """左侧抽屉
 
-        This element is based on Quasar's `QDrawer <https://quasar.dev/layout/drawer>`_ component.
+        此元素基于Quasar的`QDrawer <https://quasar.dev/layout/drawer>`_组件。
 
-        Like other layout elements, the left drawer can not be nested inside other elements.
+        与其他布局元素一样，左侧抽屉不能嵌套在其他元素内部。
 
-        Note: The left drawer is automatically placed above the main page container in the DOM to improve accessibility.
-        To change the order, use the `move` method.
+        注意：左侧抽屉会自动放置在主页面容器之上的DOM中以提高可访问性。
+        要更改顺序，请使用`move`方法。
 
-        A value of ``None`` will automatically open or close the drawer depending on the current layout width (breakpoint: >=1024 px).
-        On the auto-index page, the value will remain ``None`` until the drawer is opened, closed or toggled.
-        On other pages, the value will be requested from the client when the websocket connection is established.
+        值为``None``时会根据当前布局宽度自动打开或关闭抽屉（断点：>=1024 px）。
+        在自动索引页面上，值将保持为``None``，直到抽屉被打开、关闭或切换。
+        在其他页面上，当websocket连接建立时，将从客户端请求该值。
 
-        :param value: whether the drawer is already opened (default: `None`, i.e. if layout width is above threshold)
-        :param fixed: whether the drawer is fixed or scrolls with the content (default: `True`)
-        :param bordered: whether the drawer should have a border (default: `False`)
-        :param elevated: whether the drawer should have a shadow (default: `False`)
-        :param top_corner: whether the drawer expands into the top corner (default: `False`)
-        :param bottom_corner: whether the drawer expands into the bottom corner (default: `False`)
+        :param value: 抽屉是否已打开（默认：`None`，即如果布局宽度超过阈值）
+        :param fixed: 抽屉是否固定或随内容滚动（默认：`True`）
+        :param bordered: 抽屉是否应有边框（默认：`False`）
+        :param elevated: 抽屉是否应有阴影（默认：`False`）
+        :param top_corner: 抽屉是否扩展到顶角（默认：`False`）
+        :param bottom_corner: 抽屉是否扩展到底角（默认：`False`）
         """
         super().__init__('left',
                          value=value,
@@ -128,25 +128,25 @@ class RightDrawer(Drawer):
                  elevated: bool = False,
                  top_corner: bool = False,
                  bottom_corner: bool = False) -> None:
-        """Right drawer
+        """右侧抽屉
 
-        This element is based on Quasar's `QDrawer <https://quasar.dev/layout/drawer>`_ component.
+        此元素基于Quasar的`QDrawer <https://quasar.dev/layout/drawer>`_组件。
 
-        Like other layout elements, the right drawer can not be nested inside other elements.
+        与其他布局元素一样，右侧抽屉不能嵌套在其他元素内部。
 
-        Note: The right drawer is automatically placed below the main page container in the DOM to improve accessibility.
-        To change the order, use the `move` method.
+        注意：右侧抽屉会自动放置在主页面容器之下的DOM中以提高可访问性。
+        要更改顺序，请使用`move`方法。
 
-        A value of ``None`` will automatically open or close the drawer depending on the current layout width (breakpoint: >=1024 px).
-        On the auto-index page, the value will remain ``None`` until the drawer is opened, closed or toggled.
-        On other pages, the value will be requested from the client when the websocket connection is established.
+        值为``None``时会根据当前布局宽度自动打开或关闭抽屉（断点：>=1024 px）。
+        在自动索引页面上，值将保持为``None``，直到抽屉被打开、关闭或切换。
+        在其他页面上，当websocket连接建立时，将从客户端请求该值。
 
-        :param value: whether the drawer is already opened (default: `None`, i.e. if layout width is above threshold)
-        :param fixed: whether the drawer is fixed or scrolls with the content (default: `True`)
-        :param bordered: whether the drawer should have a border (default: `False`)
-        :param elevated: whether the drawer should have a shadow (default: `False`)
-        :param top_corner: whether the drawer expands into the top corner (default: `False`)
-        :param bottom_corner: whether the drawer expands into the bottom corner (default: `False`)
+        :param value: 抽屉是否已打开（默认：`None`，即如果布局宽度超过阈值）
+        :param fixed: 抽屉是否固定或随内容滚动（默认：`True`）
+        :param bordered: 抽屉是否应有边框（默认：`False`）
+        :param elevated: 抽屉是否应有阴影（默认：`False`）
+        :param top_corner: 抽屉是否扩展到顶角（默认：`False`）
+        :param bottom_corner: 抽屉是否扩展到底角（默认：`False`）
         """
         super().__init__('right',
                          value=value,

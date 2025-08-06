@@ -30,19 +30,19 @@ class SceneView(Element,
                  camera: Optional[SceneCamera] = None,
                  on_click: Optional[Handler[ClickEventArguments]] = None,
                  ) -> None:
-        """Scene View
+        """场景视图
 
-        Display an additional view of a 3D scene using `three.js <https://threejs.org/>`_.
-        This component can only show a scene and not modify it.
-        You can, however, independently move the camera.
+        使用`three.js <https://threejs.org/>`_显示3D场景的附加视图。
+        此组件只能显示场景而不能修改它。
+        但是，您可以独立移动相机。
 
-        Current limitation: 2D and 3D text objects are not supported and will not be displayed in the scene view.
+        当前限制：不支持2D和3D文本对象，不会在场景视图中显示。
 
-        :param scene: the scene which will be shown on the canvas
-        :param width: width of the canvas
-        :param height: height of the canvas
-        :param camera: camera definition, either instance of ``ui.scene.perspective_camera`` (default) or ``ui.scene.orthographic_camera``
-        :param on_click: callback to execute when a 3D object is clicked
+        :param scene: 将在画布上显示的场景
+        :param width: 画布的宽度
+        :param height: 画布的高度
+        :param camera: 相机定义，``ui.scene.perspective_camera``（默认）或``ui.scene.orthographic_camera``的实例
+        :param on_click: 点击3D对象时要执行的回调函数
         """
         super().__init__()
         self._props['width'] = width
@@ -56,7 +56,7 @@ class SceneView(Element,
         self.on('click3d', self._handle_click)
 
     def on_click(self, callback: Handler[ClickEventArguments]) -> Self:
-        """Add a callback to be invoked when a 3D object is clicked."""
+        """添加点击3D对象时要调用的回调函数。"""
         self._click_handlers.append(callback)
         return self
 
@@ -66,7 +66,7 @@ class SceneView(Element,
             self.run_method('init')
 
     async def initialized(self) -> None:
-        """Wait until the scene is initialized."""
+        """等待场景初始化完成。"""
         event = asyncio.Event()
         self.on('init', event.set, [])
         await self.client.connected()
@@ -104,18 +104,18 @@ class SceneView(Element,
                     up_y: Optional[float] = None,
                     up_z: Optional[float] = None,
                     duration: float = 0.5) -> None:
-        """Move the camera to a new position.
+        """将相机移动到新位置。
 
-        :param x: camera x position
-        :param y: camera y position
-        :param z: camera z position
-        :param look_at_x: camera look-at x position
-        :param look_at_y: camera look-at y position
-        :param look_at_z: camera look-at z position
-        :param up_x: x component of the camera up vector
-        :param up_y: y component of the camera up vector
-        :param up_z: z component of the camera up vector
-        :param duration: duration of the movement in seconds (default: `0.5`)
+        :param x: 相机x位置
+        :param y: 相机y位置
+        :param z: 相机z位置
+        :param look_at_x: 相机观察目标x位置
+        :param look_at_y: 相机观察目标y位置
+        :param look_at_z: 相机观察目标z位置
+        :param up_x: 相机上向量的x分量
+        :param up_y: 相机上向量的y分量
+        :param up_z: 相机上向量的z分量
+        :param duration: 移动持续时间，以秒为单位（默认：`0.5`）
         """
         self.camera.x = self.camera.x if x is None else x
         self.camera.y = self.camera.y if y is None else y

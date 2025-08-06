@@ -37,14 +37,14 @@ class Spinner(TextColorElement):
                  color: Optional[str] = 'primary',
                  thickness: float = 5.0,
                  ) -> None:
-        """Spinner
+        """旋转器
 
-        This element is based on Quasar's `QSpinner <https://quasar.dev/vue-components/spinners>`_ component.
+        此元素基于Quasar的`QSpinner <https://quasar.dev/vue-components/spinners>`_组件。
 
-        :param type: type of spinner (e.g. "audio", "ball", "bars", ..., default: "default")
-        :param size: size of the spinner (e.g. "3em", "10px", "xl", ..., default: "1em")
-        :param color: color of the spinner (either a Quasar, Tailwind, or CSS color or `None`, default: "primary")
-        :param thickness: thickness of the spinner (applies to the "default" spinner only, default: 5.0)
+        :param type: 旋转器类型（例如"audio"、"ball"、"bars"等，默认："default"）
+        :param size: 旋转器大小（例如"3em"、"10px"、"xl"等，默认："1em"）
+        :param color: 旋转器颜色（Quasar、Tailwind或CSS颜色，或`None`，默认："primary"）
+        :param thickness: 旋转器厚度（仅适用于"default"旋转器，默认：5.0）
         """
         super().__init__(tag='q-spinner' if type == 'default' else f'q-spinner-{type}', text_color=color)
         self._props['size'] = size

@@ -12,51 +12,51 @@ start = datetime.now().strftime(r'%H:%M, %d %B %Y')
 doc.title('Storage')
 
 
-@doc.demo('Storage', '''
-    NiceGUI offers a straightforward mechanism for data persistence within your application.
-    It features five built-in storage types:
+@doc.demo('存储', '''
+    NiceGUI 为应用程序内的数据持久化提供了简单的机制。
+    它具有五种内置的存储类型：
 
-    - `app.storage.tab`:
-        Stored server-side in memory, this dictionary is unique to each non-duplicated tab session and can hold arbitrary objects.
-        Data will be lost when restarting the server until <https://github.com/zauberzeug/nicegui/discussions/2841> is implemented.
-        This storage is only available within [page builder functions](/documentation/page)
-        and requires an established connection, obtainable via [`await client.connected()`](/documentation/page#wait_for_client_connection).
-    - `app.storage.client`:
-        Also stored server-side in memory, this dictionary is unique to each client connection and can hold arbitrary objects.
-        Data will be discarded when the page is reloaded or the user navigates to another page.
-        Unlike data stored in `app.storage.tab` which can be persisted on the server even for days,
-        `app.storage.client` helps caching resource-hungry objects such as a streaming or database connection you need to keep alive
-        for dynamic site updates but would like to discard as soon as the user leaves the page or closes the browser.
-        This storage is only available within [page builder functions](/documentation/page).
-    - `app.storage.user`:
-        Stored server-side, each dictionary is associated with a unique identifier held in a browser session cookie.
-        Unique to each user, this storage is accessible across all their browser tabs.
-        `app.storage.browser['id']` is used to identify the user.
-        This storage is only available within [page builder functions](/documentation/page)
-        and requires the `storage_secret` parameter in`ui.run()` to sign the browser session cookie.
-    - `app.storage.general`:
-        Also stored server-side, this dictionary provides a shared storage space accessible to all users.
-    - `app.storage.browser`:
-        Unlike the previous types, this dictionary is stored directly as the browser session cookie, shared among all browser tabs for the same user.
-        However, `app.storage.user` is generally preferred due to its advantages in reducing data payload, enhancing security, and offering larger storage capacity.
-        By default, NiceGUI holds a unique identifier for the browser session in `app.storage.browser['id']`.
-        This storage is only available within [page builder functions](/documentation/page)
-        and requires the `storage_secret` parameter in `ui.run()` to sign the browser session cookie.
+    - `app.storage.tab`：
+        存储在服务器端内存中，此字典对每个非重复的标签页会话是唯一的，可以保存任意对象。
+        重新启动服务器时数据将丢失，直到 <https://github.com/zauberzeug/nicegui/discussions/2841> 实现。
+        此存储仅在 [页面构建器函数](/documentation/page) 内可用，
+        并且需要已建立的连接，可通过 [`await client.connected()`](/documentation/page#wait_for_client_connection) 获取。
+    - `app.storage.client`：
+        同样存储在服务器端内存中，此字典对每个客户端连接是唯一的，可以保存任意对象。
+        当页面重新加载或用户导航到另一个页面时，数据将被丢弃。
+        与存储在 `app.storage.tab` 中的数据不同，后者可以在服务器上保留数天，
+        `app.storage.client` 有助于缓存资源密集型对象，例如您需要保持活动状态的流或数据库连接，
+        用于动态站点更新，但希望在用户离开页面或关闭浏览器时立即丢弃。
+        此存储仅在 [页面构建器函数](/documentation/page) 内可用。
+    - `app.storage.user`：
+        存储在服务器端，每个字典都与浏览器会话 cookie 中保存的唯一标识符相关联。
+        此存储对每个用户是唯一的，可以在其所有浏览器标签页中访问。
+        `app.storage.browser['id']` 用于标识用户。
+        此存储仅在 [页面构建器函数](/documentation/page) 内可用，
+        并且需要 `ui.run()` 中的 `storage_secret` 参数来签署浏览器会话 cookie。
+    - `app.storage.general`：
+        同样存储在服务器端，此字典提供所有用户都可以访问的共享存储空间。
+    - `app.storage.browser`：
+        与以前的类型不同，此字典直接存储为浏览器会话 cookie，在同一用户的所有浏览器标签页之间共享。
+        但是，由于其在减少数据负载、增强安全性和提供更大存储容量方面的优势，通常首选 `app.storage.user`。
+        默认情况下，NiceGUI 在 `app.storage.browser['id']` 中保存浏览器会话的唯一标识符。
+        此存储仅在 [页面构建器函数](/documentation/page) 内可用，
+        并且需要 `ui.run()` 中的 `storage_secret` 参数来签署浏览器会话 cookie。
 
-    The following table will help you to choose storage.
+    下表将帮助您选择存储。
 
-    | Storage type                | `client` | `tab`  | `browser` | `user` | `general` |
-    |-----------------------------|----------|--------|-----------|--------|-----------|
-    | Location                    | Server   | Server | Browser   | Server | Server    |
-    | Across tabs                 | No       | No     | Yes       | Yes    | Yes       |
-    | Across browsers             | No       | No     | No        | No     | Yes       |
-    | Across server restarts      | No       | Yes    | No        | Yes    | Yes       |
-    | Across page reloads         | No       | Yes    | Yes       | Yes    | Yes       |
-    | Needs page builder function | Yes      | Yes    | Yes       | Yes    | No        |
-    | Needs client connection     | No       | Yes    | No        | No     | No        |
-    | Write only before response  | No       | No     | Yes       | No     | No        |
-    | Needs serializable data     | No       | No     | Yes       | Yes    | Yes       |
-    | Needs `storage_secret`      | No       | No     | Yes       | Yes    | No        |
+    | 存储类型                   | `client` | `tab`  | `browser` | `user` | `general` |
+    |----------------------------|----------|--------|-----------|--------|-----------|
+    | 位置                       | 服务器   | 服务器 | 浏览器   | 服务器 | 服务器    |
+    | 跨标签页                   | 否       | 否     | 是       | 是    | 是       |
+    | 跨浏览器                   | 否       | 否     | 否        | 否     | 是       |
+    | 跨服务器重启               | 否       | 是     | 否        | 是    | 是       |
+    | 跨页面重新加载             | 否       | 是     | 是       | 是    | 是       |
+    | 需要页面构建器函数         | 是       | 是     | 是       | 是    | 否        |
+    | 需要客户端连接             | 否       | 是     | 否        | 否     | 否        |
+    | 仅在响应前写入             | 否       | 否     | 是       | 否     | 否        |
+    | 需要可序列化数据           | 否       | 否     | 是       | 是    | 是       |
+    | 需要 `storage_secret`      | 否       | 否     | 是       | 是    | 否        |
 ''')
 def storage_demo():
     from nicegui import app
@@ -76,8 +76,8 @@ def storage_demo():
         ui.label().bind_text_from(app.storage.user, 'count')
 
 
-@doc.demo('Counting page visits', '''
-    Here we are using the automatically available browser-stored session ID to count the number of unique page visits.
+@doc.demo('计算页面访问次数', '''
+    在这里，我们使用自动可用的浏览器存储会话 ID 来计算唯一页面访问次数。
 ''')
 def page_visits():
     from collections import Counter
@@ -99,10 +99,10 @@ def page_visits():
     ui.label(f'{len(counter)} unique views ({sum(counter.values())} overall) since {start}')
 
 
-@doc.demo('Storing UI state', '''
-    Storage can also be used in combination with [`bindings`](/documentation/section_binding_properties).
-    Here we are storing the value of a textarea between visits.
-    The note is also shared between all tabs of the same user.
+@doc.demo('存储 UI 状态', '''
+    存储也可以与 [`绑定`](/documentation/section_binding_properties) 结合使用。
+    在这里，我们在访问之间存储文本区域的值。
+    该笔记也在同一用户的所有标签页之间共享。
 ''')
 def ui_state():
     from nicegui import app
@@ -115,10 +115,10 @@ def ui_state():
     ui.textarea('This note is kept between visits').classes('w-full').bind_value(app.storage.user, 'note')
 
 
-@doc.demo('Storing data per browser tab', '''
-    When storing data in `app.storage.tab`, a single user can open multiple tabs of the same app, each with its own storage data.
-    This may be beneficial in certain scenarios like search or when performing data analysis.
-    It is also more secure to use such a volatile storage for scenarios like logging into a bank account or accessing a password manager.
+@doc.demo('按浏览器标签页存储数据', '''
+    在 `app.storage.tab` 中存储数据时，单个用户可以打开同一应用程序的多个标签页，每个标签页都有自己的存储数据。
+    这在某些场景中可能是有益的，例如搜索或执行数据分析时。
+    对于登录银行账户或访问密码管理器等场景，使用这种易失性存储也更安全。
 ''')
 def tab_storage():
     from nicegui import app
@@ -132,11 +132,11 @@ def tab_storage():
         ui.button('Reload page', on_click=ui.navigate.reload)
 
 
-@doc.demo('Maximum age of tab storage', '''
-    By default, the tab storage is kept for 30 days.
-    You can change this by setting `app.storage.max_tab_storage_age`.
+@doc.demo('标签页存储的最大年龄', '''
+    默认情况下，标签页存储保留 30 天。
+    您可以通过设置 `app.storage.max_tab_storage_age` 来更改此设置。
 
-    *Added in version 2.10.0*
+    *在版本 2.10.0 中添加*
 ''')
 def max_tab_storage_age():
     from nicegui import app
@@ -149,16 +149,16 @@ def max_tab_storage_age():
     #    ui.label(f'Tab storage age: {app.storage.max_tab_storage_age} seconds')
 
 
-@doc.demo('Short-term memory', '''
-    The goal of `app.storage.client` is to store data only for the duration of the current page visit.
-    In difference to data stored in `app.storage.tab`
-    - which is persisted between page changes and even browser restarts as long as the tab is kept open -
-    the data in `app.storage.client` will be discarded if the user closes the browser, reloads the page or navigates to another page.
-    This is beneficial for resource-hungry, intentionally short-lived or sensitive data.
-    An example is a database connection, which should be closed as soon as the user leaves the page.
-    Additionally, this storage useful if you want to return a page with default settings every time a user reloads.
-    Meanwhile, it keeps the data alive during in-page navigation.
-    This is also helpful when updating elements on the site at intervals, such as a live feed.
+@doc.demo('短期内存', '''
+    `app.storage.client` 的目标是仅在当前页面访问期间存储数据。
+    与存储在 `app.storage.tab` 中的数据不同
+    - 后者在页面更改甚至浏览器重启之间都会保留，只要标签页保持打开状态 -
+    如果用户关闭浏览器、重新加载页面或导航到另一个页面，`app.storage.client` 中的数据将被丢弃。
+    这对于资源密集型、有意短期存在或敏感的数据是有益的。
+    一个例子是数据库连接，应该在用户离开页面时立即关闭。
+    此外，如果您希望每次用户重新加载时返回具有默认设置的页面，此存储也很有用。
+    同时，它在页面内导航期间保持数据活动状态。
+    这在间隔更新站点上的元素时也很有帮助，例如实时信息流。
 ''')
 def short_term_memory():
     from nicegui import app
@@ -174,33 +174,33 @@ def short_term_memory():
         ui.button('Reload page', on_click=ui.navigate.reload)
 
 
-doc.text('Indentation', '''
-    By default, the general and user storage data is stored in JSON format without indentation.
-    You can change this to an indentation of 2 spaces by setting
-    `app.storage.general.indent = True` or `app.storage.user.indent = True`.
+doc.text('缩进', '''
+    默认情况下，通用和用户存储数据以无缩进的 JSON 格式存储。
+    您可以通过设置 `app.storage.general.indent = True` 或 `app.storage.user.indent = True` 
+    将其更改为 2 个空格的缩进。
 ''')
 
 
-doc.text('Redis storage', '''
-    You can use [Redis](https://redis.io/) for storage as an alternative to the default file storage.
-    This is useful if you have multiple NiceGUI instances and want to share data across them.
+doc.text('Redis 存储', '''
+    您可以使用 [Redis](https://redis.io/) 进行存储，作为默认文件存储的替代方案。
+    如果您有多个 NiceGUI 实例并希望在它们之间共享数据，这很有用。
 
-    To activate this feature install the `redis` package (`pip install nicegui[redis]`)
-    and provide the `NICEGUI_REDIS_URL` environment variable to point to your Redis server.
-    Our [Redis storage example](https://github.com/zauberzeug/nicegui/tree/main/examples/redis_storage) shows
-    how you can setup it up with a reverse proxy or load balancer.
-    To ensure connections are kept to the minimum, you should start the Redis server with `--timeout <seconds>` CLI option
-    or set env variable `REDIS_TIMEOUT`.
+    要激活此功能，请安装 `redis` 包（`pip install nicegui[redis]`）
+    并提供 `NICEGUI_REDIS_URL` 环境变量以指向您的 Redis 服务器。
+    我们的 [Redis 存储示例](https://github.com/zauberzeug/nicegui/tree/main/examples/redis_storage) 显示了
+    您如何使用反向代理或负载均衡器进行设置。
+    为确保连接保持在最低限度，您应该使用 `--timeout <seconds>` CLI 选项启动 Redis 服务器
+    或设置环境变量 `REDIS_TIMEOUT`。
 
-    Please note that the Redis sync always contains all the data, not only the changed values.
+    请注意，Redis 同步始终包含所有数据，而不仅仅是更改的值。
 
-    - For `app.storage.general` this is the whole dictionary.
-    - For `app.storage.user` it's all the data of the user.
-    - For `app.storage.tab` it's all the data stored for this specific tab.
+    - 对于 `app.storage.general`，这是整个字典。
+    - 对于 `app.storage.user`，这是用户的所有数据。
+    - 对于 `app.storage.tab`，这是为此特定标签页存储的所有数据。
 
-    If you have large data sets, we suggest to use a database instead.
-    See our [database example](https://github.com/zauberzeug/nicegui/blob/main/examples/sqlite_database/main.py) for a demo with SQLite.
-    But of course to sync between multiple instances you should replace SQLite with PostgreSQL or similar.
+    如果您有大型数据集，我们建议使用数据库。
+    请参阅我们的 [数据库示例](https://github.com/zauberzeug/nicegui/blob/main/examples/sqlite_database/main.py) 了解 SQLite 的演示。
+    但当然，要在多个实例之间同步，您应该用 PostgreSQL 或类似数据库替换 SQLite。
 
-    *Added in version 2.10.0*
+    *在版本 2.10.0 中添加*
 ''')

@@ -62,8 +62,8 @@ def expand_programmatically():
         ui.button('- A', on_click=lambda: t.collapse(['A']))
 
 
-@doc.demo('Select/deselect programmatically', '''
-    You can select or deselect nodes with the `select()` and `deselect()` methods.
+@doc.demo('编程方式选择/取消选择', '''
+    您可以使用 `select()` 和 `deselect()` 方法选择或取消选择节点。
 ''')
 def select_programmatically():
     t = ui.tree([
@@ -76,9 +76,9 @@ def select_programmatically():
         ui.button('Deselect A', on_click=t.deselect)
 
 
-@doc.demo('Tick/untick programmatically', '''
-    After setting a `tick_strategy`, you can tick or untick nodes with the `tick()` and `untick()` methods.
-    You can either specify a list of node keys or `None` to tick or untick all nodes.
+@doc.demo('编程方式勾选/取消勾选', '''
+    设置 `tick_strategy` 后，您可以使用 `tick()` 和 `untick()` 方法勾选或取消勾选节点。
+    您可以指定节点键列表，或者使用 `None` 来勾选或取消勾选所有节点。
 ''')
 def tick_programmatically():
     t = ui.tree([
@@ -94,9 +94,9 @@ def tick_programmatically():
         ui.button('Untick all', on_click=t.untick)
 
 
-@doc.demo('Filter nodes', '''
-    You can filter nodes by setting the `filter` property.
-    The tree will only show nodes that match the filter.
+@doc.demo('过滤节点', '''
+    您可以通过设置 `filter` 属性来过滤节点。
+    树将只显示匹配过滤器的节点。
 ''')
 def filter_nodes():
     t = ui.tree([

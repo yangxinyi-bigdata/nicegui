@@ -15,12 +15,12 @@ class Markdown(ContentElement, component='markdown.js', default_classes='nicegui
                  content: str = '', *,
                  extras: List[str] = ['fenced-code-blocks', 'tables'],  # noqa: B006
                  ) -> None:
-        """Markdown Element
+        """Markdown元素
 
-        Renders Markdown onto the page.
+        在页面上渲染Markdown。
 
-        :param content: the Markdown content to be displayed
-        :param extras: list of `markdown2 extensions <https://github.com/trentm/python-markdown2/wiki/Extras#implemented-extras>`_ (default: `['fenced-code-blocks', 'tables']`)
+        :param content: 要显示的Markdown内容
+        :param extras: `markdown2扩展 <https://github.com/trentm/python-markdown2/wiki/Extras#implemented-extras>`_列表（默认：`['fenced-code-blocks', 'tables']`）
         """
         self.extras = extras[:]
         super().__init__(content=content)
@@ -45,7 +45,7 @@ class Markdown(ContentElement, component='markdown.js', default_classes='nicegui
 
 @lru_cache(maxsize=int(os.environ.get('MARKDOWN_CONTENT_CACHE_SIZE', '1000')))
 def prepare_content(content: str, extras: str) -> str:
-    """Render Markdown content to HTML."""
+    """将Markdown内容渲染为HTML。"""
     return markdown2.markdown(remove_indentation(content), extras=extras.split())
 
 

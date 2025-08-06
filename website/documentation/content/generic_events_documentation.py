@@ -2,27 +2,27 @@ from nicegui import ui
 
 from . import doc
 
-doc.title('Generic Events')
+doc.title('通用事件')
 
 
-@doc.demo('Generic Events', '''
-    Most UI elements come with predefined events.
-    For example, a `ui.button` like "A" in the demo has an `on_click` parameter that expects a coroutine or function.
-    But you can also use the `on` method to register a generic event handler like for "B".
-    This allows you to register handlers for any event that is supported by JavaScript and Quasar.
+@doc.demo('通用事件', '''
+    大多数 UI 元素都带有预定义的事件。
+    例如，演示中的 `ui.button`（如 "A"）有一个 `on_click` 参数，它期望一个协程或函数。
+    但您也可以使用 `on` 方法来注册通用事件处理器，如 "B" 那样。
+    这允许您为 JavaScript 和 Quasar 支持的任何事件注册处理器。
 
-    For example, you can register a handler for the `mousemove` event like for "C", even though there is no `on_mousemove` parameter for `ui.button`.
-    Some events, like `mousemove`, are fired very often.
-    To avoid performance issues, you can use the `throttle` parameter to only call the handler every `throttle` seconds ("D").
+    例如，您可以为 `mousemove` 事件注册处理器，如 "C" 那样，即使 `ui.button` 没有 `on_mousemove` 参数。
+    某些事件，如 `mousemove`，触发非常频繁。
+    为避免性能问题，您可以使用 `throttle` 参数来每 `throttle` 秒只调用一次处理器（"D"）。
 
-    The generic event handler can be synchronous or asynchronous and optionally takes `GenericEventArguments` as argument ("E").
-    You can also specify which attributes of the JavaScript or Quasar event should be passed to the handler ("F").
-    This can reduce the amount of data that needs to be transferred between the server and the client.
+    通用事件处理器可以是同步或异步的，并可选择接受 `GenericEventArguments` 作为参数（"E"）。
+    您还可以指定 JavaScript 或 Quasar 事件的哪些属性应该传递给处理器（"F"）。
+    这可以减少需要在服务器和客户端之间传输的数据量。
 
-    Here you can find more information about the events that are supported:
+    您可以在此找到有关支持的事件的更多信息：
 
-    - <https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement#events> for HTML elements
-    - <https://quasar.dev/vue-components> for Quasar-based elements (see the "Events" tab on the individual component page)
+    - <https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement#events> 用于 HTML 元素
+    - <https://quasar.dev/vue-components> 用于基于 Quasar 的元素（参见各个组件页面上的 "Events" 选项卡）
 ''')
 def generic_events_demo() -> None:
     with ui.row():
@@ -36,43 +36,43 @@ def generic_events_demo() -> None:
         ui.button('F').on('mousedown', lambda e: ui.notify(e), ['ctrlKey', 'shiftKey'])
 
 
-@doc.demo('Specifying event attributes', '''
-    **A list of strings** names the attributes of the JavaScript event object:
+@doc.demo('指定事件属性', '''
+    **字符串列表** 命名 JavaScript 事件对象的属性：
     ```py
     ui.button().on('click', handle_click, ['clientX', 'clientY'])
     ```
 
-    **An empty list** requests _no_ attributes:
+    **空列表** 请求_无_属性：
     ```py
     ui.button().on('click', handle_click, [])
     ```
 
-    **The value `None`** represents _all_ attributes (the default):
+    **值 `None`** 表示_所有_属性（默认）：
     ```py
     ui.button().on('click', handle_click, None)
     ```
 
-    **If the event is called with multiple arguments** like QTable's "row-click" `(evt, row, index) => void`,
-    you can define a list of argument definitions:
+    **如果事件使用多个参数调用** 如 QTable 的 "row-click" `(evt, row, index) => void`，
+    您可以定义参数定义列表：
     ```py
     ui.table(...).on('rowClick', handle_click, [[], ['name'], None])
     ```
-    In this example the "row-click" event will omit all arguments of the first `evt` argument,
-    send only the "name" attribute of the `row` argument and send the full `index`.
+    在此示例中，"row-click" 事件将省略第一个 `evt` 参数的所有参数，
+    只发送 `row` 参数的 "name" 属性并发送完整的 `index`。
 
-    If the retrieved list of event arguments has length 1, the argument is automatically unpacked.
-    So you can write
+    如果检索到的事件参数列表长度为 1，参数将自动解包。
+    所以您可以写
     ```py
     ui.button().on('click', lambda e: print(e.args['clientX'], flush=True))
     ```
-    instead of
+    而不是
     ```py
     ui.button().on('click', lambda e: print(e.args[0]['clientX'], flush=True))
     ```
 
-    Note that by default all JSON-serializable attributes of all arguments are sent.
-    This is to simplify registering for new events and discovering their attributes.
-    If bandwidth is an issue, the arguments should be limited to what is actually needed on the server.
+    请注意，默认情况下发送所有参数的所有 JSON 可序列化属性。
+    这是为了简化注册新事件和发现其属性。
+    如果带宽是个问题，参数应该限制为服务器实际需要的。
 ''')
 def event_attributes() -> None:
     columns = [
@@ -87,10 +87,10 @@ def event_attributes() -> None:
         .on('rowClick', ui.notify, [[], ['name'], None])
 
 
-@doc.demo('Modifiers', '''
-    You can also include [key modifiers](https://vuejs.org/guide/essentials/event-handling.html#key-modifiers>) (shown in input "A"),
-    modifier combinations (shown in input "B"),
-    and [event modifiers](https://vuejs.org/guide/essentials/event-handling.html#mouse-button-modifiers>) (shown in input "C").
+@doc.demo('修饰符', '''
+    您还可以包含[按键修饰符](https://vuejs.org/guide/essentials/event-handling.html#key-modifiers>)（如输入框 "A" 所示），
+    修饰符组合（如输入框 "B" 所示），
+    和[事件修饰符](https://vuejs.org/guide/essentials/event-handling.html#mouse-button-modifiers>)（如输入框 "C" 所示）。
 ''')
 def modifiers() -> None:
     with ui.row():
@@ -99,10 +99,10 @@ def modifiers() -> None:
         ui.input('C').classes('w-12').on('keydown.once', lambda: ui.notify('You started typing.'))
 
 
-@doc.demo('Custom events', '''
-    It is fairly easy to emit custom events from JavaScript with `emitEvent(...)` which can be listened to with `ui.on(...)`.
-    This can be useful if you want to call Python code when something happens in JavaScript.
-    In this example we are listening to the `visibilitychange` event of the browser tab.
+@doc.demo('自定义事件', '''
+    使用 `emitEvent(...)` 从 JavaScript 发出自定义事件相当容易，可以使用 `ui.on(...)` 监听。
+    如果您想在 JavaScript 中发生某些事情时调用 Python 代码，这可能会很有用。
+    在此示例中，我们正在监听浏览器选项卡的 `visibilitychange` 事件。
 ''')
 async def custom_events() -> None:
     tabwatch = ui.checkbox('Watch browser tab re-entering')
@@ -127,10 +127,10 @@ async def custom_events() -> None:
     ''')
 
 
-@doc.demo('Pure JavaScript events', '''
-    You can also use the `on` method to register a pure JavaScript event handler.
-    This can be useful if you want to call JavaScript code without sending any data to the server.
-    In this example we are using the `navigator.clipboard` API to copy a string to the clipboard.
+@doc.demo('纯 JavaScript 事件', '''
+    您也可以使用 `on` 方法来注册纯 JavaScript 事件处理器。
+    如果您想调用 JavaScript 代码而不向服务器发送任何数据，这可能会很有用。
+    在此示例中，我们使用 `navigator.clipboard` API 将字符串复制到剪贴板。
 ''')
 def pure_javascript() -> None:
     ui.button('Copy to clipboard') \

@@ -13,18 +13,18 @@ class Video(SourceElement, component='video.js'):
                  muted: bool = False,
                  loop: bool = False,
                  ) -> None:
-        """Video
+        """视频
 
-        Displays a video.
+        显示视频。
 
-        :param src: URL or local file path of the video source
-        :param controls: whether to show the video controls, like play, pause, and volume (default: `True`)
-        :param autoplay: whether to start playing the video automatically (default: `False`)
-        :param muted: whether the video should be initially muted (default: `False`)
-        :param loop: whether the video should loop (default: `False`)
+        :param src: 视频源的URL或本地文件路径
+        :param controls: 是否显示视频控件，如播放、暂停和音量（默认：`True`）
+        :param autoplay: 是否自动开始播放视频（默认：`False`）
+        :param muted: 视频是否应该初始静音（默认：`False`）
+        :param loop: 视频是否应该循环播放（默认：`False`）
 
-        See `here <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#events>`_
-        for a list of events you can subscribe to using the generic event subscription `on()`.
+        请参见`此处 <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#events>`_
+        获取可以使用通用事件订阅`on()`订阅的事件列表。
         """
         super().__init__(source=src)
         self._props['controls'] = controls
@@ -36,16 +36,16 @@ class Video(SourceElement, component='video.js'):
         return super().set_source(source)
 
     def seek(self, seconds: float) -> None:
-        """Seek to a specific position in the video.
+        """跳转到视频中的特定位置。
 
-        :param seconds: the position in seconds
+        :param seconds: 位置（秒）
         """
         self.run_method('seek', seconds)
 
     def play(self) -> None:
-        """Play video."""
+        """播放视频。"""
         self.run_method('play')
 
     def pause(self) -> None:
-        """Pause video."""
+        """暂停视频。"""
         self.run_method('pause')

@@ -22,21 +22,21 @@ class Knob(ValueElement, DisableableElement, TextColorElement):
                  show_value: bool = False,
                  on_change: Optional[Handler[ValueChangeEventArguments]] = None,
                  ) -> None:
-        """Knob
+        """旋钮
 
-        This element is based on Quasar's `QKnob <https://quasar.dev/vue-components/knob>`_ component.
-        The element is used to take a number input from the user through mouse/touch panning.
+        此元素基于Quasar的`QKnob <https://quasar.dev/vue-components/knob>`_组件。
+        该元素用于通过鼠标/触摸平移从用户获取数字输入。
 
-        :param value: the initial value (default: 0.0)
-        :param min: the minimum value (default: 0.0)
-        :param max: the maximum value (default: 1.0)
-        :param step: the step size (default: 0.01)
-        :param color: knob color (either a Quasar, Tailwind, or CSS color or `None`, default: "primary")
-        :param center_color: color name for the center part of the component, examples: primary, teal-10
-        :param track_color: color name for the track of the component, examples: primary, teal-10
-        :param size: size in CSS units, including unit name or standard size name (xs|sm|md|lg|xl), examples: 16px, 2rem
-        :param show_value: whether to show the value as text
-        :param on_change: callback to execute when the value changes
+        :param value: 初始值（默认：0.0）
+        :param min: 最小值（默认：0.0）
+        :param max: 最大值（默认：1.0）
+        :param step: 步长（默认：0.01）
+        :param color: 旋钮颜色（Quasar、Tailwind或CSS颜色或`None`，默认："primary"）
+        :param center_color: 组件中心部分的颜色名称，例如：primary, teal-10
+        :param track_color: 组件轨道的颜色名称，例如：primary, teal-10
+        :param size: CSS单位的大小，包括单位名称或标准尺寸名称（xs|sm|md|lg|xl），例如：16px, 2rem
+        :param show_value: 是否以文本形式显示值
+        :param on_change: 值变化时要执行的回调函数
         """
         super().__init__(tag='q-knob', value=value, on_value_change=on_change, throttle=0.05, text_color=color)
 

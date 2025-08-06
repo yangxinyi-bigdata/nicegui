@@ -7,10 +7,19 @@ from ...element import Element
 
 
 class LabelElement(Element):
+    """标签元素混入
+
+    为元素提供标签管理功能的混入类。
+    支持标签绑定和动态更新。
+    """
     label = BindableProperty(
         on_change=lambda sender, label: cast(Self, sender)._handle_label_change(label))  # pylint: disable=protected-access
 
     def __init__(self, *, label: Optional[str], **kwargs: Any) -> None:
+        """初始化标签元素
+
+        :param label: 标签文本
+        """
         super().__init__(**kwargs)
         self.label = label
         if label is not None:
@@ -21,14 +30,14 @@ class LabelElement(Element):
                       target_name: str = 'label',
                       forward: Optional[Callable[[Any], Any]] = None,
                       ) -> Self:
-        """Bind the label of this element to the target object's target_name property.
+        """将此元素的标签绑定到目标对象的target_name属性。
 
-        The binding works one way only, from this element to the target.
-        The update happens immediately and whenever a value changes.
+        绑定是单向的，从此元素到目标。
+        更新会立即发生，并在值变化时进行。
 
-        :param target_object: The object to bind to.
-        :param target_name: The name of the property to bind to.
-        :param forward: A function to apply to the value before applying it to the target (default: identity).
+        :param target_object: 要绑定到的对象。
+        :param target_name: 要绑定到的属性名称。
+        :param forward: 在应用到目标之前应用于值的函数（默认：恒等函数）。
         """
         bind_to(self, 'label', target_object, target_name, forward)
         return self
@@ -38,14 +47,14 @@ class LabelElement(Element):
                         target_name: str = 'label',
                         backward: Optional[Callable[[Any], Any]] = None,
                         ) -> Self:
-        """Bind the label of this element from the target object's target_name property.
+        """将此元素的标签从目标对象的target_name属性绑定。
 
-        The binding works one way only, from the target to this element.
-        The update happens immediately and whenever a value changes.
+        绑定是单向的，从目标到此元素。
+        更新会立即发生，并在值变化时进行。
 
-        :param target_object: The object to bind from.
-        :param target_name: The name of the property to bind from.
-        :param backward: A function to apply to the value before applying it to this element (default: identity).
+        :param target_object: 要绑定来源的对象。
+        :param target_name: 要绑定来源的属性名称。
+        :param backward: 在应用到元素之前应用于值的函数（默认：恒等函数）。
         """
         bind_from(self, 'label', target_object, target_name, backward)
         return self
@@ -56,31 +65,31 @@ class LabelElement(Element):
                    forward: Optional[Callable[[Any], Any]] = None,
                    backward: Optional[Callable[[Any], Any]] = None,
                    ) -> Self:
-        """Bind the label of this element to the target object's target_name property.
+        """将此元素的标签绑定到目标对象的target_name属性。
 
-        The binding works both ways, from this element to the target and from the target to this element.
-        The update happens immediately and whenever a value changes.
-        The backward binding takes precedence for the initial synchronization.
+        绑定是双向的，从此元素到目标和从目标到此元素。
+        更新会立即发生，并在值变化时进行。
+        反向绑定在初始同步时具有优先权。
 
-        :param target_object: The object to bind to.
-        :param target_name: The name of the property to bind to.
-        :param forward: A function to apply to the value before applying it to the target (default: identity).
-        :param backward: A function to apply to the value before applying it to this element (default: identity).
+        :param target_object: 要绑定到的对象。
+        :param target_name: 要绑定到的属性名称。
+        :param forward: 在应用到目标之前应用于值的函数（默认：恒等函数）。
+        :param backward: 在应用到元素之前应用于值的函数（默认：恒等函数）。
         """
         bind(self, 'label', target_object, target_name, forward=forward, backward=backward)
         return self
 
     def set_label(self, label: Optional[str]) -> None:
-        """Set the label of this element.
+        """设置此元素的标签。
 
-        :param label: The new label.
+        :param label: 新标签。
         """
         self.label = label
 
     def _handle_label_change(self, label: Optional[str]) -> None:
-        """Called when the label of this element changes.
+        """当元素标签变化时调用。
 
-        :param label: The new label.
+        :param label: 新标签。
         """
         if label is None:
             del self._props['label']

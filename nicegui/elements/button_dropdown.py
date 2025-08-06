@@ -22,23 +22,23 @@ class DropdownButton(IconElement, TextElement, DisableableElement, BackgroundCol
                  auto_close: Optional[bool] = False,
                  split: Optional[bool] = False,
                  ) -> None:
-        """Dropdown Button
+        """下拉按钮
 
-        This element is based on Quasar's `QBtnDropDown <https://quasar.dev/vue-components/button-dropdown>`_ component.
+        此元素基于Quasar的`QBtnDropDown <https://quasar.dev/vue-components/button-dropdown>`_组件。
 
-        The ``color`` parameter accepts a Quasar color, a Tailwind color, or a CSS color.
-        If a Quasar color is used, the button will be styled according to the Quasar theme including the color of the text.
-        Note that there are colors like "red" being both a Quasar color and a CSS color.
-        In such cases the Quasar color will be used.
+        ``color``参数接受Quasar颜色、Tailwind颜色或CSS颜色。
+        如果使用Quasar颜色，按钮将根据Quasar主题进行样式设置，包括文本颜色。
+        请注意，像"red"这样的颜色既是Quasar颜色又是CSS颜色。
+        在这种情况下，将使用Quasar颜色。
 
-        :param text: the label of the button
-        :param value: if the dropdown is open or not (default: `False`)
-        :param on_value_change: callback which is invoked when the dropdown is opened or closed
-        :param on_click: callback which is invoked when button is pressed
-        :param color: the color of the button (either a Quasar, Tailwind, or CSS color or `None`, default: 'primary')
-        :param icon: the name of an icon to be displayed on the button (default: `None`)
-        :param auto_close: whether the dropdown should close automatically when an item is clicked (default: `False`)
-        :param split: whether to split the dropdown icon into a separate button (default: `False`)
+        :param text: 按钮的标签
+        :param value: 下拉菜单是否打开（默认：`False`）
+        :param on_value_change: 当下拉菜单打开或关闭时调用的回调函数
+        :param on_click: 当按钮被按下时调用的回调函数
+        :param color: 按钮的颜色（Quasar、Tailwind或CSS颜色，或`None`，默认：'primary'）
+        :param icon: 要在按钮上显示的图标名称（默认：`None`）
+        :param auto_close: 当点击项目时下拉菜单是否应该自动关闭（默认：`False`）
+        :param split: 是否将下拉图标分割为单独的按钮（默认：`False`）
         """
         super().__init__(tag='q-btn-dropdown',
                          icon=icon, text=text, background_color=color, value=value, on_value_change=on_value_change)
@@ -53,9 +53,9 @@ class DropdownButton(IconElement, TextElement, DisableableElement, BackgroundCol
             self.on_click(on_click)
 
     def on_click(self, callback: Handler[ClickEventArguments]) -> Self:
-        """Add a callback to be invoked when the dropdown button is clicked.
+        """添加当下拉按钮被点击时调用的回调函数。
 
-        **Added in version 2.22.0**
+        **在版本2.22.0中添加**
         """
         self.on('click', lambda _: handle_event(callback, ClickEventArguments(sender=self, client=self.client)), [])
         return self
@@ -64,13 +64,13 @@ class DropdownButton(IconElement, TextElement, DisableableElement, BackgroundCol
         self._props['label'] = text
 
     def open(self) -> None:
-        """Open the dropdown."""
+        """打开下拉菜单。"""
         self.value = True
 
     def close(self) -> None:
-        """Close the dropdown."""
+        """关闭下拉菜单。"""
         self.value = False
 
     def toggle(self) -> None:
-        """Toggle the dropdown."""
+        """切换下拉菜单。"""
         self.value = not self.value
